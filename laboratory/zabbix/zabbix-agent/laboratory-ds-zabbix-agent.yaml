@@ -21,6 +21,11 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: spec.nodeName
+            - name: ZBX_SERVER_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: zabbix
+                  key: DS_ZBX_SERVER_NAME
             - name: ZBX_SERVER_PORT
               valueFrom:
                 configMapKeyRef:
