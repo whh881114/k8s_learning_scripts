@@ -1,0 +1,13 @@
+[foreman-plugins]
+name=Foreman plugins 1.17
+baseurl=http://yum.theforeman.org/plugins/1.17/el7/$basearch
+enabled=1
+gpgcheck=0
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-foreman
+
+[foreman-plugins-source]
+name=Foreman plugins 1.17 - source
+baseurl=http://yum.theforeman.org/plugins/1.17/el7/source
+enabled=0
+gpgcheck=0
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-foreman
