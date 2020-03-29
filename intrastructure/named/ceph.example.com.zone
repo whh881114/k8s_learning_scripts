@@ -1,0 +1,13 @@
+$TTL 1D
+ceph.example.com.   IN    SOA     dns01.ceph.example.com. root.ceph.example.com. (
+                0       ; serial
+                1D      ; refresh
+                1H      ; retry
+                1W      ; expire
+                3H )    ; minimum
+
+                    IN      NS      dns01.ceph.example.com.
+dns01               IN      A       192.168.255.252
+node01              IN      A       192.168.255.201
+node02              IN      A       192.168.255.202
+node03              IN      A       192.168.255.203

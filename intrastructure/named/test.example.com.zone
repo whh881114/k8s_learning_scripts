@@ -1,0 +1,11 @@
+$TTL 1D
+test.example.com.   IN    SOA     dns01.test.example.com. root.test.example.com. (
+                0       ; serial
+                1D      ; refresh
+                1H      ; retry
+                1W      ; expire
+                3H )    ; minimum
+
+                    IN      NS      dns01.test.example.com.
+dns01               IN      A       192.168.255.252
+node01              IN      A       192.168.255.100

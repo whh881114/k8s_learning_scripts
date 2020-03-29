@@ -1,0 +1,15 @@
+$TTL 1D
+k8s.example.com.   IN    SOA     dns01.k8s.example.com. root.k8s.example.com. (
+                0       ; serial
+                1D      ; refresh
+                1H      ; retry
+                1W      ; expire
+                3H )    ; minimum
+
+                    IN      NS      dns01.k8s.example.com.
+dns01               IN      A       192.168.255.252
+registry            IN      A       192.168.255.211
+master              IN      A       192.168.255.211
+node01              IN      A       192.168.255.212
+node02              IN      A       192.168.255.213
+node03              IN      A       192.168.255.214

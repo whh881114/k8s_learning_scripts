@@ -1,0 +1,11 @@
+$TTL 1D
+lb.example.com.   IN    SOA     dns01.lb.example.com. root.lb.example.com. (
+                0       ; serial
+                1D      ; refresh
+                1H      ; retry
+                1W      ; expire
+                3H )    ; minimum
+
+                    IN      NS      dns01.lb.example.com.
+dns01               IN      A       192.168.255.252
+zabbix              IN      A       192.168.255.252
