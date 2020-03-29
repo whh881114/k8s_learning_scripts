@@ -11,3 +11,9 @@
     - { src: docker/docker, dest: /etc/sysconfig/docker }
   notify:
     - restart docker
+
+- name: restart docker
+  service:
+    name: docker
+    state: restarted
+    enabled: yes
