@@ -18,7 +18,7 @@ spec:
       serviceAccountName: nfs-client-provisioner
       containers:
         - name: nfs-client-provisioner
-          image: registry.k8s.example.com:5000/external_storage/nfs-client-provisioner:latest
+          image: registry.k8s.example.com:5000/quay.io/external_storage/nfs-client-provisioner:latest
           volumeMounts:
             - name: nfs-client-root
               mountPath: /persistentvolumes
