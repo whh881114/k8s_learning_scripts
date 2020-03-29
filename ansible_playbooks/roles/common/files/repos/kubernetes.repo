@@ -1,0 +1,6 @@
+[kubernetes]
+name=kubernetes
+baseurl=ftp://yum.example.com/pub/yum/kubernetes/
+enabled=1
+gpgcheck=1
+gpgkey=ftp://yum.example.com/pub/yum/kubernetes-rpm-package-key.gpg

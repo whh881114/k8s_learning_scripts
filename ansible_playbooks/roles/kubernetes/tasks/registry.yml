@@ -1,0 +1,14 @@
+---
+- name: install docker-distribution
+  yum:
+    name: "{{ packages }}"
+    state: present
+  vars:
+    packages:
+      - docker-distribution-2.6.2-2.git48294d9.el7.x86_64
+
+- name: restart docker-distribution
+  service:
+    name: docker-distribution
+    state: restarted
+    enabled: yes

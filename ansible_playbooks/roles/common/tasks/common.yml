@@ -1,0 +1,50 @@
+---
+- name: modify PS1
+  blockinfile:
+    path: /etc/profile
+    block: |
+      if [ $UID -eq 0 ]; then
+          export PS1="[\u@\H \[\e[34m\]\w\[\e[m\] \[\e[33m\]\A\[\e[m\]]# \#> "
+      else
+          export PS1="[\u@\H \[\e[34m\]\w\[\e[m\] \[\e[33m\]\A\[\e[m\]]$ \#> "
+      fi
+
+- name: disable iptables
+  shell: iptables -F && iptables --list -n
+  register: disable_iptables
+
+- name: show disable iptables
+  debug: var=disable_iptables.stdout_lines verbosity=0
+
+- name: disable firewalld
+  service:
+    name: firewalld
+    state: stopped
+    enabled: no
+
+- name: disable selinux
+  selinux:
+    state: disabled
+
+- name: set unlimitations in the limits.conf file
+  lineinfile:
+    path: /etc/security/limits.conf
+    state: present
+    line: "{{ item.name }}"
+  with_items:
+    - { name: '* soft nofile 65536'}
+    - { name: '* hard nofile 131072'}
+    - { name: '* soft nproc 65535'}
+    - { name: '* hard nproc 65535'}
+
+- block:
+  - name: disable swap in /etc/fstab
+    replace:
+      path: /etc/fstab
+      regexp: '(^/dev/mapper/centos-swap.*)'
+      replace: '#\1'
+
+  - name: disable swap
+    shell: swapoff -a
+
+  when: is_k8s_host

@@ -1,0 +1,6 @@
+[zabbix-non-supported]
+name=Zabbix Official Repository non-supported - $basearch
+baseurl=ftp://yum.example.com/pub/yum/zabbix-non-supported/
+enabled=1
+gpgkey=ftp://yum.example.com/pub/yum/RPM-GPG-KEY-ZABBIX
+gpgcheck=1

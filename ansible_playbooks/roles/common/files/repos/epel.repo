@@ -1,0 +1,6 @@
+[epel]
+name=Extra Packages for Enterprise Linux 7 - $basearch
+baseurl=ftp://yum.example.com/pub/yum/epel/
+enabled=1
+gpgcheck=1
+gpgkey=ftp://yum.example.com/pub/yum/RPM-GPG-KEY-EPEL-7

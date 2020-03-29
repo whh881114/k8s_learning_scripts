@@ -1,0 +1,13 @@
+---
+- name: init k8s nodes
+  hosts: k8s_nodes
+  user: root
+  roles:
+    - role: common
+      tags:
+        - common
+
+    - role: kubernetes
+      tags:
+        - kubernetes
+        - k8s

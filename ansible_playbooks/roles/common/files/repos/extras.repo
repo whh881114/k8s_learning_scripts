@@ -1,0 +1,5 @@
+[extras]
+name=CentOS-$releasever - Extras
+baseurl=ftp://yum.example.com/pub/yum/extras/
+gpgcheck=1
+gpgkey=ftp://yum.example.com/pub/yum/RPM-GPG-KEY-CentOS-7

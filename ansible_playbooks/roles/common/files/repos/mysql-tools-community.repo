@@ -1,0 +1,5 @@
+name=MySQL Tools Community
+baseurl=ftp://yum.example.com/pub/yum/mysql-tools-community/
+enabled=1
+gpgcheck=1
+gpgkey=ftp://yum.example.com/pub/yum/RPM-GPG-KEY-mysql

@@ -1,0 +1,17 @@
+---
+- name: set transparent_hugepage to enabled
+  shell: echo never > /sys/kernel/mm/transparent_hugepage/enabled
+
+- name: create rc_common.local file
+  file:
+    path: "{{ rc_local_file }}"
+    state: touch
+    owner: root
+    group: root
+    mode: 0755
+
+- name: set transparent_hugepage to enabled at the system boot
+  lineinfile:
+    path: "{{ rc_local_file }}"
+    state: present
+    line: 'echo never > /sys/kernel/mm/transparent_hugepage/enabled'

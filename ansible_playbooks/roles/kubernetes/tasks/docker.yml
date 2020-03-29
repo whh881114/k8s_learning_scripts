@@ -1,0 +1,13 @@
+---
+- name: config docker
+  copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: root
+    group: root
+    mode: "0644"
+  with_items:
+    - { src: docker/daemon.json, dest: /etc/docker/daemon.json }
+    - { src: docker/docker, dest: /etc/sysconfig/docker }
+  notify:
+    - restart docker

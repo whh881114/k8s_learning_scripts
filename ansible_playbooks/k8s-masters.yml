@@ -1,0 +1,15 @@
+---
+- name: init k8s master nodes
+  hosts: k8s_masters
+  user: root
+  roles:
+    - role: common
+      tags:
+        - common
+
+    - role: kubernetes
+      tags:
+        - kubernetes
+        - k8s
+      vars:
+        is_docker_registry: true

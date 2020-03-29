@@ -1,0 +1,6 @@
+[mysql-connectors-community]
+name=MySQL Connectors Community
+baseurl=ftp://yum.example.com/pub/yum/mysql-connectors-community/
+enabled=1
+gpgcheck=1
+gpgkey=ftp://yum.example.com/pub/yum/RPM-GPG-KEY-mysql
