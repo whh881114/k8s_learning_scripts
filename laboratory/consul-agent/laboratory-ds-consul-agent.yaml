@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: consul-agent
-        image: registry.k8s.example.com:5000/consul:1.6.2
+        image: registry.k8s.example.com:5000/docker.io/consul:1.6.2
         args:
           - "agent"
           - "-join=consul-server.laboratory.svc.cluster.local"
@@ -42,10 +42,10 @@ spec:
         resources:
           limits:
             cpu: 100m
-            memory: 300Mi
+            memory: 50Mi
           requests:
-            cpu: 100m
-            memory: 100Mi
+            cpu: 50m
+            memory: 25Mi
         volumeMounts:
           - name: data
             mountPath: /consul/data
