@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: jenkins
-          image: registry.k8s.example.com:5000/jenkins/jenkins:lts
+          image: registry.k8s.example.com:5000/docker.io/jenkins/jenkins:lts
           ports:
             - containerPort: 8080
           volumeMounts:
