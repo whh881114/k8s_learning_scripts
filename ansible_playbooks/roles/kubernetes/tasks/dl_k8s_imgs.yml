@@ -1,39 +1,14 @@
 ---
-- name: download {{ k8s_v1_16_2_pkg }}
-  get_url:
-    url: "{{ k8s_v1_16_2_pkg_url }}"
-    dest: "/tmp/{{ k8s_v1_16_2_pkg }}"
-    mode: '0600'
-
-- name: unarchive {{ k8s_v1_16_2_pkg }}
-  unarchive:
-    src: "/tmp/{{ k8s_v1_16_2_pkg }}"
-    dest: /tmp
-    keep_newer: yes
-    remote_src: yes
-
-- name: load k8s docker images
-  shell: docker load < "{{ item }}"
+- name: pull k8s docker images
+  shell: |
+    docker pull "{{ docker_registry_url }}/{{ item }}"
+    docker tag "{{ docker_registry_url }}/{{ item }}" "{{ item }}"
+    docker rmi "{{ docker_registry_url }}/{{ item }}"
   with_items: "{{ k8s_v1_16_2_imgs }}"
-  args:
-    chdir: /tmp
 
-
-- name: download quay.io.v1.16.2.tar.gz
-  get_url:
-    url: "{{ quay_v1_16_2_pkg_url }}"
-    dest: "/tmp/{{ quay_v1_16_2_pkg }}"
-    mode: '0600'
-
-- name: unarchive quay.io.v1.16.2.tar.gz
-  unarchive:
-    src: "/tmp/{{ quay_v1_16_2_pkg }}"
-    dest: /tmp
-    keep_newer: yes
-    remote_src: yes
-
-- name: load quay.io docker images
-  shell: docker load < "{{ item }}"
+- name: pull quay.io docker images
+  shell: |
+    docker pull "{{ docker_registry_url }}/{{ item }}"
+    docker tag "{{ docker_registry_url }}/{{ item }}" "{{ item }}"
+    docker rmi "{{ docker_registry_url }}/{{ item }}"
   with_items: "{{ quay_v1_16_2_imgs }}"
-  args:
-    chdir: /tmp

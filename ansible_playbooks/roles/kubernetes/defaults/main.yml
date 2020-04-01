@@ -1,57 +1,54 @@
-is_docker_registry: false
+docker_registry_url: registry.k8s.example.com:5000
 
-k8s_v1_16_2_pkg: k8s.gcr.io.v1.16.2.tar.gz
-k8s_v1_16_2_pkg_url: ftp://foreman.example.com/pub/kubernetes/{{ k8s_v1_16_2_pkg }}
 k8s_v1_16_2_imgs:
-  - k8s.gcr.io#coredns:1.6.2.tar
-  - k8s.gcr.io#etcd:3.3.15-0.tar
-  - k8s.gcr.io#kube-apiserver:v1.16.2.tar
-  - k8s.gcr.io#kube-controller-manager:v1.16.2.tar
-  - k8s.gcr.io#kube-proxy:v1.16.2.tar
-  - k8s.gcr.io#kube-scheduler:v1.16.2.tar
-  - k8s.gcr.io#pause:3.1.tar
+  - k8s.gcr.io/coredns:1.6.2
+  - k8s.gcr.io/etcd:3.3.15-0
+  - k8s.gcr.io/kube-apiserver:v1.16.2
+  - k8s.gcr.io/kube-controller-manager:v1.16.2
+  - k8s.gcr.io/kube-proxy:v1.16.2
+  - k8s.gcr.io/kube-scheduler:v1.16.2
+  - k8s.gcr.io/pause:3.1
 
-quay_v1_16_2_pkg: quay.io.v1.16.2.tar.gz
-quay_v1_16_2_pkg_url: ftp://foreman.example.com/pub/kubernetes/{{ quay_v1_16_2_pkg }}
 quay_v1_16_2_imgs:
-  - quay.io#coreos#flannel:v0.11.0-amd64.tar
-  - quay.io#external_storage#nfs-client-provisioner:latest.tar
-  - quay.io#kubernetes-ingress-controller#nginx-ingress-controller:0.28.0.tar
+  - quay.io/coreos/flannel:v0.11.0-amd64
+  - quay.io/external_storage/nfs-client-provisioner:latest
+  - quay.io/kubernetes-ingress-controller/nginx-ingress-controller:0.28.0
 
-common_pkg: docker_common_imgs.tar.gz
-common_pkg_url: ftp://foreman.example.com/pub/kubernetes/{{ common_pkg }}
-common_imgs:
-  - registry.k8s.example.com:5000#nginx:1.17.8.tar
-  - registry.k8s.example.com:5000#httpd:2.4.41.tar
-  - registry.k8s.example.com:5000#mysql:5.7.29.tar
-  - registry.k8s.example.com:5000#php:7.4.2.tar
-  - registry.k8s.example.com:5000#redis:5.0.7.tar
-  - registry.k8s.example.com:5000#tomcat:9.0.30-jdk11-openjdk.tar
-  - registry.k8s.example.com:5000#busybox:1.31.1.tar
-  - registry.k8s.example.com:5000#consul:1.6.2.tar
-  - registry.k8s.example.com:5000#jenkins#jenkins:lts.tar
-  - registry.k8s.example.com:5000#zabbix#zabbix-agent:centos-4.0.17.tar
-  - registry.k8s.example.com:5000#zabbix#zabbix-java-gateway:centos-4.0.17.tar
-  - registry.k8s.example.com:5000#zabbix#zabbix-server-mysql:centos-4.0.17.tar
-  - registry.k8s.example.com:5000#zabbix#zabbix-web-apache-mysql:centos-4.0.17.tar
-  - registry.k8s.example.com:5000#prom#alertmanager:v0.20.0.tar
-  - registry.k8s.example.com:5000#prom#bind-exporter:master.tar
-  - registry.k8s.example.com:5000#prom#blackbox-exporter:v0.16.0.tar
-  - registry.k8s.example.com:5000#prom#collectd-exporter:master.tar
-  - registry.k8s.example.com:5000#prom#consul-exporter:v0.6.0.tar
-  - registry.k8s.example.com:5000#prom#haproxy-exporter:v0.10.0.tar
-  - registry.k8s.example.com:5000#prom#mysqld-exporter:v0.12.1.tar
-  - registry.k8s.example.com:5000#prom#node-exporter:v0.18.1.tar
-  - registry.k8s.example.com:5000#prom#prometheus:v2.15.2.tar
-  - registry.k8s.example.com:5000#prom#pushgateway:v1.1.0.tar
-  - registry.k8s.example.com:5000#prom#statsd-exporter:v0.14.1.tar
-  - registry.k8s.example.com:5000#elastic#apm-server:7.5.2.tar
-  - registry.k8s.example.com:5000#elastic#auditbeat:7.5.2.tar
-  - registry.k8s.example.com:5000#elastic#elasticsearch:7.5.2.tar
-  - registry.k8s.example.com:5000#elastic#filebeat:7.5.2.tar
-  - registry.k8s.example.com:5000#elastic#heartbeat:7.5.2.tar
-  - registry.k8s.example.com:5000#elastic#journalbeat:7.5.2.tar
-  - registry.k8s.example.com:5000#elastic#kibana:7.5.2.tar
-  - registry.k8s.example.com:5000#elastic#logstash:7.5.2.tar
-  - registry.k8s.example.com:5000#elastic#metricbeat:7.5.2.tar
-  - registry.k8s.example.com:5000#elastic#packetbeat:7.5.2.tar
+official_imgs:
+  - docker.io/nginx:1.17.8
+  - docker.io/httpd:2.4.41
+  - docker.io/mysql:5.7.29
+  - docker.io/php:7.4.2
+  - docker.io/redis:5.0.7
+  - docker.io/tomcat:9.0.30-jdk11-openjdk
+  - docker.io/busybox:1.31.1
+  - docker.io/consul:1.6.2
+  - docker.io/jenkins/jenkins:lts
+
+  - docker.io/zabbix/zabbix-agent:centos-4.0.17
+  - docker.io/zabbix/zabbix-java-gateway:centos-4.0.17
+  - docker.io/zabbix/zabbix-server-mysql:centos-4.0.17
+  - docker.io/zabbix/zabbix-web-apache-mysql:centos-4.0.17
+
+  - docker.io/prom/alertmanager:v0.20.0
+  - docker.io/prom/bind-exporter:master
+  - docker.io/prom/blackbox-exporter:v0.16.0
+  - docker.io/prom/collectd-exporter:master
+  - docker.io/prom/consul-exporter:v0.6.0
+  - docker.io/prom/haproxy-exporter:v0.10.0
+  - docker.io/prom/mysqld-exporter:v0.12.1
+  - docker.io/prom/node-exporter:v0.18.1
+  - docker.io/prom/prometheus:v2.15.2
+  - docker.io/prom/pushgateway:v1.1.0
+  - docker.io/prom/statsd-exporter:v0.14.1
+
+  - docker.io/elastic/apm-server:7.5.2
+  - docker.io/elastic/auditbeat:7.5.2
+  - docker.io/elastic/elasticsearch:7.5.2
+  - docker.io/elastic/filebeat:7.5.2
+  - docker.io/elastic/heartbeat:7.5.2
+  - docker.io/elastic/journalbeat:7.5.2
+  - docker.io/elastic/kibana:7.5.2
+  - docker.io/elastic/logstash:7.5.2
+  - docker.io/elastic/metricbeat:7.5.2
+  - docker.io/elastic/packetbeat:7.5.2
