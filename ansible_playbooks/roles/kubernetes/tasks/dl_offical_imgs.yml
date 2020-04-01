@@ -1,4 +1,4 @@
 ---
 - name: pull offical docker images
-  shell: docker load < "{{ item }}"
+  shell: docker pull "{{ docker_registry_url }}/{{ item }}"
   with_items: "{{ official_imgs }}"

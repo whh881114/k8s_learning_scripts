@@ -11,5 +11,3 @@
       tags:
         - kubernetes
         - k8s
-      vars:
-        is_docker_registry: true
