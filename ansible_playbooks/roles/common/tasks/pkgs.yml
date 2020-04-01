@@ -16,3 +16,4 @@
       - kubelet-1.16.2-0.x86_64
       - kubernetes-cni-0.7.5-0.x86_64
   when: is_k8s_host
+  notify: restart kubelet
