@@ -41,17 +41,17 @@ spec:
                 configMapKeyRef:
                   name: zabbix
                   key: DS_ZBX_PASSIVESERVERS
-          image: registry.k8s.example.com:5000/zabbix/zabbix-agent:centos-4.0.17
+          image: registry.k8s.example.com:5000/docker.io/zabbix/zabbix-agent:centos-4.0.17
           imagePullPolicy: Always
           ports:
           - containerPort: 10050 #使用hostport方式暴露地址
             hostPort: 10050
           resources:
             limits:
-              cpu: 100m
-              memory: 300Mi
+              cpu: 200m
+              memory: 100Mi
             requests:
               cpu: 100m
-              memory: 100Mi
+              memory: 50Mi
       hostNetwork: true
       dnsPolicy: ClusterFirstWithHostNet

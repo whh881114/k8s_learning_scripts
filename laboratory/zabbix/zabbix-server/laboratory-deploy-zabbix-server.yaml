@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: zabbix-agent
-          image: registry.k8s.example.com:5000/zabbix/zabbix-agent:centos-4.0.17
+          image: registry.k8s.example.com:5000/docker.io/zabbix/zabbix-agent:centos-4.0.17
           ports:
             - containerPort: 10050
           env:
@@ -33,7 +33,7 @@ spec:
                   key: ZBX_SERVER_PORT
 
         - name: zabbix-server
-          image: registry.k8s.example.com:5000/zabbix/zabbix-server-mysql:centos-4.0.17
+          image: registry.k8s.example.com:5000/docker.io/zabbix/zabbix-server-mysql:centos-4.0.17
           ports:
             - containerPort: 10051
           env:

@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: zabbix-web
-          image: registry.k8s.example.com:5000/zabbix/zabbix-web-apache-mysql:centos-4.0.17
+          image: registry.k8s.example.com:5000/docker.io/zabbix/zabbix-web-apache-mysql:centos-4.0.17
           ports:
             - containerPort: 80
           env:
