@@ -1,4 +1,4 @@
-redis_version: '3.0.3'
+redis_version: '3.2.13'
 
 redis_file: "redis-{{ redis_version }}.tar.gz"
 
