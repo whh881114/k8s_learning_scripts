@@ -1,0 +1,12 @@
+dir {{ redis_data_dir }}/{{ redis_port }}
+port {{ redis_port }}
+bind 0.0.0.0
+cluster-enabled yes
+cluster-config-file nodes.conf
+logfile redis.log
+cluster-node-timeout 5000
+appendonly yes
+daemonize yes
+pidfile redis.pid
+appendfilename appendonly.aof
+dbfilename dump.rdb
