@@ -6,6 +6,8 @@
     - role: common
       tags:
         - common
+      vars:
+        is_k8s_host: true
 
     - role: kubernetes
       tags:

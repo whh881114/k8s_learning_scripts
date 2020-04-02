@@ -15,9 +15,13 @@
   tags:
     - limits
 
-- include: pkgs.yml
+- include: common-pkgs.yml
   tags:
-    - pkgs
+    - common-pkgs
+
+- include: k8s-pkgs.yml
+  tags:
+    - k8s-pkgs
 
 - include: sysctl.yml
   tags:

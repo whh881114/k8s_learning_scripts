@@ -1,4 +1,4 @@
 # 默认认为k8s主机，此时会禁止swap。
-is_k8s_host: true
+is_k8s_host: false
 
 rc_local_file: /etc/rc.d/rc_common.local

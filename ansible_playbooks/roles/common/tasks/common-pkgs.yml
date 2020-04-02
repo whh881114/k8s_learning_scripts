@@ -1,0 +1,10 @@
+---
+- name: install common packages
+  yum:
+    name: "{{ packages }}"
+    state: present
+  vars:
+    packages:
+      - tcl
+      - openssl-devel
+      - zlib-devel
