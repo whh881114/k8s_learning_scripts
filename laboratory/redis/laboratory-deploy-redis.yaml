@@ -18,14 +18,19 @@ spec:
     spec:
       initContainers:
         - name: sysctl
-          image: registry.k8s.example.com:5000/busybox:1.31.1
+          image: registry.k8s.example.com:5000/docker.io/busybox:1.31.1
           command: ["sysctl"]
           args: ["-w", "net.core.somaxconn=65535"]
           securityContext:
             privileged: true
+        - name: disable-transparent-hugepage
+          image: registry.k8s.example.com:5000/docker.io/busybox:1.31.1
+          command: ["echo", "never", ">", "/sys/kernel/mm/transparent_hugepage/enabled"]
+          securityContext:
+            privileged: true
       containers:
         - name: redis
-          image: registry.k8s.example.com:5000/redis:5.0.7
+          image: registry.k8s.example.com:5000/docker.io/redis:5.0.7
           resources:
             requests:
               cpu: 100m
