@@ -1,0 +1,57 @@
+---
+{% set redis_hosts = [] %}
+
+{% for instance in item.instances %}
+- name: redis-cluster-{{ instance.host }}
+  hosts: {{ instance.host }}
+  user: root
+  roles:
+    - role: common
+
+    - role: ruby
+      vars:
+        - is_install_ruby: {{ instance.is_install_ruby }}
+        - is_install_gem_pkgs: {{ instance.is_install_gem_pkgs }}
+
+    - role: redis
+      vars:
+        - redis_version: "{{ item.redis_version }}"
+        - redis_port: {{ instance.redis_port }}
+        - is_install_redis: {{ instance.is_install_redis }}
+
+
+{# 全局变量需要设置成list或dict形式，这样在外部才能访问，切不可设置为字符串。 #}
+{% set _ = redis_hosts.append(instance.host|string ~ ':' ~ instance.redis_port|string) %}
+{% endfor %}
+
+{# 只进行一次循环，创建redis cluster在第一台主机上执行启动命令 #}
+{% for instance in item.instances %}
+{% if loop.first %}
+- name: redis-cluster-{{ instance.host }}
+  hosts: {{ instance.host }}
+  user: root
+  tasks:
+    - name: "create startup cluster script for redis 3.x.x"
+      copy:
+        content: |
+            #!/bin/bash
+            {{ redis_bin_dir }}/redis-trib.rb create --replicas {{ item.redis_replicas }} {{ redis_hosts | join(' ') }}
+        dest: {{ redis_installation_dir }}/create_redis_cluster.sh
+        mode: "0755"
+      when: {{ item.redis_version is version('3.0', '>=') and item.redis_version is version('4.0', '<') }}
+      {# redis 3.x版本是使用redis-trib.rb创建集群。 #}
+
+    - name: "is redis cluster running"
+      shell: {{ redis_bin_dir }}/redis-cli -c -p {{ instance.redis_port }} cluster nodes
+      register: is_redis_cluster_running
+
+    - name: "start redis cluster"
+      shell: source /etc/profile && echo "yes" | sh {{ redis_installation_dir }}/create_redis_cluster.sh
+      register: start_redis_cluster_result
+      when: is_redis_cluster_running.stdout_lines | count == 1
+
+    - name: "redis cluster is running or not"
+      debug:
+        var: start_redis_cluster_result.stdout_lines
+{% endif %}
+{% endfor %}

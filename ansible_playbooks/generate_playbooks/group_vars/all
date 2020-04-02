@@ -1,0 +1,23 @@
+# 全局变量，定义由generate_playbooks角色所生成的playboooks存放的目录。
+ansible_playbooks_output_dir: /opt/ansible_playbooks
+
+# redis cluster变量信息，只能写在这个文件中，无法以文件的方式导入，我也很头疼。
+redis_version: "3.2.13"
+
+redis_file: "redis-{{ redis_version }}.tar.gz"
+
+redis_file_dir: "/usr/local/src"
+
+redis_dest_file: "{{ redis_file_dir }}/redis-{{ redis_version }}.tar.gz"
+
+redis_installation_dir: "/usr/local/redis-{{ redis_version }}"
+
+redis_bin_dir: "{{ redis_installation_dir }}/bin"
+
+redis_data_dir: "{{ redis_installation_dir }}/data"
+
+redis_conf_dir: "{{ redis_installation_dir }}/etc"
+
+redis_port: ""  # 默认为空，默认安装时redis时忽略此次的redis.conf文件生成。
+
+redis_replicas: 1   # redis cluster副本个数

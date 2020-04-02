@@ -1,0 +1,37 @@
+---
+{# 设置master最少存活数，先统计有多少个实例。elasticsearch_hosts变量为list时，不能用于cluster_hosts变量的值，因为字符串显示unicode编码。#}
+{# 将各个elasticsearch节点写入到变量elasticsearch_hosts变量中，这个用于配置文件中。#}
+{% set elasticsearch_hosts = [] %}
+{% for instance in item.instances %}
+{% set _ = elasticsearch_hosts.append(instance.host) %}
+{% endfor %}
+
+{% set elasticsearch_minimum_master_nodes = elasticsearch_hosts | length / 2 + 1 %}
+{% set elasticsearch_minimum_master_nodes = elasticsearch_minimum_master_nodes | int %}
+
+
+{# 将各个elasticsearch节点写入到变量elasticsearch_hosts变量中，这个用于配置文件中。#}
+{% set elasticsearch_hosts_str = elasticsearch_hosts | join(', ') %}
+
+
+{% if item.elasticesearch_version | list | first < '6' or item.elasticesearch_version | list | first > '8' %}
+    【ERROR】当前playbook仅支持elasticsearch版本6和7。
+{% else %}
+{% for instance in item.instances %}
+- name: elasticsearch-cluster-{{ instance.host }}
+  hosts: {{ instance.host }}
+  user: root
+  roles:
+    - role: common
+
+    - role: elasticsearch
+      vars:
+        - pkg_version: {{ item.elasticesearch_version }}
+        - cluster_name: {{ item.service_name }}
+        - node_name: {{ instance.host }}
+        - cluster_hosts: "[{{ elasticsearch_hosts_str }}]"
+        - minimum_cluster_nodes: {{ elasticsearch_minimum_master_nodes }}
+
+
+{% endfor %}
+{% endif %}

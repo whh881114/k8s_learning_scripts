@@ -1,0 +1,21 @@
+---
+- name: generate elasticsearch cluster playbook
+  hosts: localhost
+  gather_facts: True
+
+  tasks:
+    - name: generate elasticsearch cluster playbook
+      tags: generate-elasticsearch-cluster-playbook
+      template:
+        src: elasticsearch_cluster_template.yml.j2
+        dest: "{{ ansible_playbooks_output_dir }}/0-elasticsearch-cluster-{{ item.service_name }}.yml"
+      with_items:
+        - {
+            service_name: 'training',
+            elasticesearch_version: '6.5.4',
+            instances: [
+              {"host": 'elk-node1.example.com'},
+              {"host": 'elk-node2.example.com'},
+              {"host": 'elk-node3.example.com'}
+            ]
+        }
