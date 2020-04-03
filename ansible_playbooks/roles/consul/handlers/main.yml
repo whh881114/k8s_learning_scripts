@@ -1,0 +1,22 @@
+---
+- name: restart-consul-server
+  service: 
+    name: consul-server 
+    state: restarted
+    enabled: yes
+
+- name: restart-consul-agent
+  service: 
+    name: consul-agent 
+    state: restarted
+    enabled: yes
+
+- name: restart-consul-template
+  service: 
+    name: consul-template 
+    state: restarted
+    enabled: yes
+
+- name: systemctl-daemon-reload
+  systemd:
+    daemon_reload: yes

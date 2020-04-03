@@ -1,0 +1,9 @@
+---
+- include: server.yml
+  when: consul_type == "server"
+
+- include: agent.yml
+  when: consul_type == "agent"
+
+- include: template.yml
+  when: consul_type == "template"

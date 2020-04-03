@@ -1,0 +1,45 @@
+---
+# tasks file for consul-agent
+- name: create consul dir
+  file: path={{ item }} state=directory mode=0755
+  with_items:
+    - "{{ consul_agent_dir }}"
+    - "{{ consul_agent_log_dir }}"
+    - "{{ consul_agent_data_dir }}"
+    - "{{ consul_agent_config_dir }}"
+    - "{{ consul_agent_script_dir }}"
+
+- name: copy consul package
+  unarchive:
+    src: pkgs/consul.tar.gz
+    dest: /usr/local/bin/
+    mode: 0755
+    copy: yes
+  notify: restart-consul-agent
+
+- name: copy init.d/consul-agent
+  when: (ansible_distribution == "CentOS" or ansible_distribution == "RedHat") and ansible_distribution_major_version == "6"
+  copy: 
+    src: init.d/consul-agent 
+    dest: /etc/init.d/ 
+    mode: 0700
+
+- name: copy systemd conf
+  when: (ansible_distribution == "CentOS" or ansible_distribution == "RedHat") and ansible_distribution_major_version == "7"
+  template:
+    src: systemd/consul-agent.service.j2
+    dest: "{{ systemd_conf_dir }}/consul-agent.service"
+    mode: 0644
+
+- name: systemctl-daemon-reload
+  systemd:
+    daemon_reload: yes
+
+- name: generate config from consul agent
+  tags: generate-config
+  template:
+    lstrip_blocks: true
+    src: agent/consul-agent.j2
+    dest: "{{ consul_agent_config_dir }}/consul-agent.json"
+    mode: 0644
+  notify: restart-consul-agent

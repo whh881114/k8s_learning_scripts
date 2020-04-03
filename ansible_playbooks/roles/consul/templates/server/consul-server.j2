@@ -1,0 +1,20 @@
+{
+    "start_join": [
+{% for item in consul_servers %}
+    {%- if loop.last %}
+       "{{ item }}"
+    {% else %} 
+       "{{ item }}",
+    {% endif %}
+{% endfor %}
+    ],
+    "data_dir": "{{ consul_server_data_dir }}",
+    "bind_addr": "{{ ansible_default_ipv4.address }}",
+    "client_addr": "0.0.0.0",
+    "leave_on_terminate": true,
+    "rejoin_after_leave": true,
+    "bootstrap_expect": 3,
+    "domain": "consul_server",
+    "datacenter": "dc1",
+    "ui": true
+}

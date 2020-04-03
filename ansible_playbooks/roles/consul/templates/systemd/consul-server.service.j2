@@ -1,0 +1,21 @@
+[Unit]
+Description=consul server service
+After=network.target
+Documentation=https://github.com/hashicorp/consul
+
+[Service]
+LimitNOFILE=100000
+User=root
+Group=root
+Type=simple
+ExecStart=/usr/local/bin/consul agent -server -config-dir={{ consul_server_config_dir }} \
+-data-dir={{ consul_server_data_dir }} -log-file={{ consul_server_log_file }}  -pid-file={{ consul_server_pid_file }} \
+-log-level=info -log-rotate-duration=86400s -log-rotate-max-files=7
+ExecReload=/usr/local/bin/consul reload
+KillMode=process
+TimeoutSec=10s
+Restart=on-failure
+RestartSec=1s
+
+[Install]
+WantedBy=multi-user.target

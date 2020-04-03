@@ -1,0 +1,84 @@
+global
+    log         127.0.0.1 local2 info
+    chroot      /var/lib/haproxy
+    pidfile     /var/run/haproxy.pid
+    maxconn     10000
+    user        haproxy
+    group       haproxy
+    daemon
+    stats socket /var/lib/haproxy/stats
+
+defaults
+    mode                    http
+    log                     global
+    option                  httplog
+    option                  dontlognull
+    option http-server-close
+    option forwardfor       except 127.0.0.0/8
+    option                  redispatch
+    retries                 3
+    timeout http-request    10s
+    timeout queue           1m
+    timeout connect         10s
+    timeout client          1m
+    timeout server          1m
+    timeout http-keep-alive 10s
+    timeout check           3s
+    maxconn                 3000
+    compression algo gzip
+    compression type text/html text/plain text/css application/javascript application/json application/xml
+
+listen status
+    bind 0.0.0.0:5001
+    mode http
+    log global
+    stats refresh 30s
+    stats uri /stats
+    stats realm Private lands
+    stats auth pagoda:pagoda2015
+    stats hide-version
+
+frontend  main *:80
+{% for item in ci_job_versions %}
+{% if item.default_backend is not defined or not item.default_backend %}
+{% set acl_list = [] %}
+{% for i in item.frontend %}
+    {% set _ = acl_list.append(i.acl_name) %}
+    acl [[ i.acl_name ]] [[ i.acl_reg ]] -i [[ i.acl_reg_value ]]
+{% endfor %}
+{% for i in item.backend %}
+        use_backend [[ i.backend_name ]] if [[ acl_list | join(' and ') ]]
+
+{% endfor %}
+{% endif %}
+{% endfor %}
+
+
+{% for item in ci_job_versions %}
+{% if item.default_backend is defined and item.default_backend %}
+    {% for i in  item.backend %}
+    default_backend [[ i.backend_name ]]
+    {% endfor %}
+{% endif %}
+{% endfor %}
+
+
+
+{% for item in ci_job_versions %}
+{% for i in item.backend %}
+backend [[ i.backend_name ]]
+        balance   leastconn
+{% if i.httpchk_method is defined %}
+        option    httpchk [[ i.httpchk_method ]] [[ i.httpchk ]]
+{% endif %}
+{% if item.ci_job_version is defined and item.ci_job_version != "" %}
+        reqirep ^([^\ :]*)\ /[[ item.ci_job_version ]]/(.*)        \1\ /\2
+        {{range service "[[ item.service_name ]]-[[ item.ci_job_version | replace('.', '-') ]]" }}
+        server {{.Node}} {{.Address}}:{{.Port}} check cookie {{.Node}} weight 1 check inter 1000 rise 2 fall 3{{end}}
+{% else %}
+        {{range service "[[ item.service_name ]]" }}
+        server {{.Node}} {{.Address}}:{{.Port}} check cookie {{.Node}} weight 1 check inter 1000 rise 2 fall 3{{end}}
+{% endif %}
+
+{% endfor %}
+{% endfor %}

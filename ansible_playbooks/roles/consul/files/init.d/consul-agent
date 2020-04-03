@@ -1,0 +1,79 @@
+#!/bin/sh
+
+. /etc/rc.d/init.d/functions
+
+if [ -x /usr/local/bin/consul ]; then
+    exec="/usr/local/bin/consul"
+else
+    exit 5
+fi
+
+prog=$(basename $exec)
+
+[ -e /etc/sysconfig/$prog ] && . /etc/sysconfig/$prog
+
+pid_file="/var/run/${prog}.pid"
+lock_file="/var/lock/subsys/${prog}"
+config_dir="/etc/${prog}.d"
+log_file="/tmp/${prog}.log"
+timeout=30
+
+touch $pid_file; chown work.work $pid_file
+
+# application checking status
+if [ -f $pid_file  ] && [ -s $pid_file ]; then
+    pid=`cat $pid_file`
+
+    if [ "x$pid" != "x" ] && kill -0 $pid 2>/dev/null && [ $prog == `ps -e | grep $pid | awk '{print $4}'` ]; then
+        status="$prog (pid `pidof $prog`) running.."
+        running=1
+    else
+        rm -f $pid_file
+        status="$prog (pid file existed ($pid) and now removed) not running.."
+        running=0
+    fi
+else
+    if [ `ps -e | grep $prog | head -1 | awk '{ print $1 }'` ]; then
+        status="$prog (pid `pidof $prog`, but no pid file) running.."
+    else
+        status="$prog (no pid file) not running"
+    fi
+    running=0
+fi
+
+start()
+{
+    if [ $running -eq 1 ]; then
+        echo "$0 $*: $prog (pid $pid) already running"
+    else
+        action $"Starting $prog: " $(su work -l -c "$exec agent -config-dir=$config_dir -pid-file=$pid_file > $log_file 2>&1 &")
+        touch ${lock_file}
+    fi
+}
+
+stop()
+{
+    echo -n $"Shutting down $prog: "
+    killproc -d ${timeout} ${prog}
+    retval=$?
+    echo
+    [ $retval -eq 0 ] && rm -f ${lock_file}
+    running=0
+}
+
+restart()
+{
+    stop
+    sleep 1
+    start
+}
+
+case "$1" in
+    start|stop|restart)
+        $1
+    ;;
+    *)
+        echo $"Usage: $0 {start|stop|restart}"
+        exit 2
+    ;;
+esac

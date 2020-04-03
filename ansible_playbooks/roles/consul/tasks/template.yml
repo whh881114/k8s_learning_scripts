@@ -1,0 +1,48 @@
+---
+# tasks file for consul-template
+
+- name: init consul-template dir 
+  file: 
+    path: "{{ item }}"
+    state: directory 
+    owner: root
+    group: root
+    mode: 0755
+  with_items:
+    - "{{ consul_template_dir }}"
+    - "{{ consul_template_data_dir }}"
+    - "{{ consul_template_config_dir }}"
+
+- name: copy consul-template package
+  unarchive:
+    src: pkgs/consul-template.tar.gz
+    dest: /usr/local/bin/
+    mode: 0755
+    copy: yes
+  notify: restart-consul-template
+
+- name: copy init.d/consul-template
+  when: (ansible_distribution == "CentOS" or ansible_distribution == "RedHat") and ansible_distribution_major_version == "6"
+  copy: 
+    src: init.d/consul-template 
+    dest: /etc/init.d/
+    mode: 0700
+
+- name: copy systemd conf
+  when: (ansible_distribution == "CentOS" or ansible_distribution == "RedHat") and ansible_distribution_major_version == "7"
+  template:
+    src: systemd/consul-template.service.j2
+    dest: "{{ systemd_conf_dir }}/consul-template.service"
+    mode: 0644
+
+- name: systemctl-daemon-reload
+  systemd:
+    daemon_reload: yes
+
+- name: generate consul template hcl
+  tags: generate-config
+  template:
+    src: template/consul-template-hcl.j2
+    dest: "{{ consul_template_config_dir }}/consul-template.hcl"
+    mode: 0644
+  notify: restart-consul-template

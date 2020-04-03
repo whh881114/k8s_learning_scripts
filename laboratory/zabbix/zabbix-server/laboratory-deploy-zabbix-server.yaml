@@ -36,6 +36,7 @@ spec:
           image: registry.k8s.example.com:5000/docker.io/zabbix/zabbix-server-mysql:centos-4.0.17
           ports:
             - containerPort: 10051
+              hostPort: 10051       # zabbix-server时采用hostPort暴露端口，可以使k8s集群外部主机接入监控。
           env:
             - name: DB_SERVER_HOST
               valueFrom:
@@ -67,3 +68,5 @@ spec:
                 configMapKeyRef:
                   name: zabbix
                   key: ZBX_MYSQL_PASSWORD
+      nodeSelector:
+        kubernetes.io/hostname: node01.k8s.example.com
