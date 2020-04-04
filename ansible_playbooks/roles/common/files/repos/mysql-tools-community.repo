@@ -1,3 +1,4 @@
+[mysql-tools-community]
 name=MySQL Tools Community
 baseurl=ftp://yum.example.com/pub/yum/mysql-tools-community/
 enabled=1

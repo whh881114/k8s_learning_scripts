@@ -12,27 +12,14 @@
       with_items:
         - {
             service_name: '192.168.255.106',
-            redis_version: '3.0.3',
+            redis_version: '3.2.13',
             redis_replicas: 1,
             instances: [
-              {"host": '192.168.255.106', is_install_ruby: true,  is_install_gem_pkgs: true , is_install_redis: true,  "redis_port": 7001 },
-              {"host": '192.168.255.106', is_install_ruby: false, is_install_gem_pkgs: false, is_install_redis: false, "redis_port": 7002 },
-              {"host": '192.168.255.106', is_install_ruby: false, is_install_gem_pkgs: false, is_install_redis: false, "redis_port": 7003 },
-              {"host": '192.168.255.106', is_install_ruby: false, is_install_gem_pkgs: false, is_install_redis: false, "redis_port": 7004 },
-              {"host": '192.168.255.106', is_install_ruby: false, is_install_gem_pkgs: false, is_install_redis: false, "redis_port": 7005 },
-              {"host": '192.168.255.106', is_install_ruby: false, is_install_gem_pkgs: false, is_install_redis: false, "redis_port": 7006 }
+              {"host": '192.168.255.100', is_install_ruby: true,  is_install_gem_pkgs: true , is_install_redis: true,  "redis_port": 7001 },
+              {"host": '192.168.255.100', is_install_ruby: false, is_install_gem_pkgs: false, is_install_redis: false, "redis_port": 7002 },
+              {"host": '192.168.255.100', is_install_ruby: false, is_install_gem_pkgs: false, is_install_redis: false, "redis_port": 7003 },
+              {"host": '192.168.255.100', is_install_ruby: false, is_install_gem_pkgs: false, is_install_redis: false, "redis_port": 7004 },
+              {"host": '192.168.255.100', is_install_ruby: false, is_install_gem_pkgs: false, is_install_redis: false, "redis_port": 7005 },
+              {"host": '192.168.255.100', is_install_ruby: false, is_install_gem_pkgs: false, is_install_redis: false, "redis_port": 7006 }
             ]
-        }
-        - {
-          service_name: '192.168.255.107',
-          redis_version: '3.0.3',
-          redis_replicas: 1,
-          instances: [
-          {"host": '192.168.255.107', is_install_ruby: true,  is_install_gem_pkgs: true , is_install_redis: true,  "redis_port": 7001 },
-          {"host": '192.168.255.107', is_install_ruby: false, is_install_gem_pkgs: false, is_install_redis: false, "redis_port": 7002 },
-          {"host": '192.168.255.107', is_install_ruby: false, is_install_gem_pkgs: false, is_install_redis: false, "redis_port": 7003 },
-          {"host": '192.168.255.107', is_install_ruby: false, is_install_gem_pkgs: false, is_install_redis: false, "redis_port": 7004 },
-          {"host": '192.168.255.107', is_install_ruby: false, is_install_gem_pkgs: false, is_install_redis: false, "redis_port": 7005 },
-          {"host": '192.168.255.107', is_install_ruby: false, is_install_gem_pkgs: false, is_install_redis: false, "redis_port": 7006 }
-          ]
         }
