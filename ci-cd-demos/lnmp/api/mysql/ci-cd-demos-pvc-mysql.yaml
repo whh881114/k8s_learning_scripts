@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: lnmp-api-mysql-data
+  namespace: ci-cd-demos
+  labels:
+    name: mysql-data
+  annotations:
+    volume.beta.kubernetes.io/storage-class: "laboratory-nfs-storage"
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: lnmp-api-mysql-logs
+  namespace: ci-cd-demos
+  labels:
+    name: mysql-logs
+  annotations:
+    volume.beta.kubernetes.io/storage-class: "laboratory-nfs-storage"
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi

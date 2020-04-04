@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: lnmp-api-mysql
+  namespace: ci-cd-demos
+  labels:
+    name: lnmp-api-mysql
+spec:
+  type: ClusterIP
+  clusterIP: 10.106.0.79
+  ports:
+    - port: 3306        # 服务访问端口
+      targetPort: 3306  # 容器端口
+  selector:
+    name: lnmp-api-mysql

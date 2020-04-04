@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lnmp-api-mysql
+  namespace: ci-cd-demos
+  labels:
+    name: lnmp-api-mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: lnmp-api-mysql
+  template:
+    metadata:
+      labels:
+        name: lnmp-api-mysql
+    spec:
+      containers:
+        - name: lnmp-api-mysql
+          image: registry.k8s.example.com:5000/docker.io/mysql:5.7.29
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: lnmp-api-mysql
+                  key: MYSQL_ROOT_PASSWORD
+            - name: MYSQL_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: lnmp-api-mysql
+                  key: MYSQL_DATABASE
+            - name: MYSQL_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: lnmp-api-mysql
+                  key: MYSQL_USER
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: lnmp-api-mysql
+                  key: MYSQL_PASSWORD
+          ports:
+            - containerPort: 3306
+          volumeMounts:
+            - name: data
+              mountPath: /var/lib/mysql
+            - name: logs
+              mountPath: /data
+            - name: conf
+              mountPath: /etc/mysql/conf.d
+              readOnly: true
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: lnmp-api-mysql-data
+        - name: logs
+          persistentVolumeClaim:
+            claimName: lnmp-api-mysql-logs
+        - name: conf
+          configMap:
+            name: lnmp-api-my.cnf
