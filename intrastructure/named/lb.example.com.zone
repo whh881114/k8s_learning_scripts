@@ -8,4 +8,7 @@ lb.example.com.   IN    SOA     dns01.lb.example.com. root.lb.example.com. (
 
                     IN      NS      dns01.lb.example.com.
 dns01               IN      A       192.168.255.252
-zabbix              IN      A       192.168.255.252
+zabbix              IN      A       192.168.255.211
+jenkins             IN      A       192.168.255.211
+rancher             IN      A       192.168.255.211
+consul              IN      A       192.168.255.211
