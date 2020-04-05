@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lamp-frd
+  namespace: ci-cd-demos
+  labels:
+    name: lamp-frd
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: lamp-frd
+  template:
+    metadata:
+      labels:
+        name: lamp-frd
+    spec:
+      containers:
+        - name: lamp-frd
+          image: registry.k8s.example.com:5000/roy/lamp-frd:v1.0.0
+          ports:
+            - containerPort: 80
+          command:
+            [ "/usr/sbin/nginx", "-g", "daemon off;" ]
+          volumeMounts:
+            - name: logs
+              mountPath: /var/log/nginx
+      volumes:
+        - name: logs
+          persistentVolumeClaim:
+            claimName: lamp-frd-logs
