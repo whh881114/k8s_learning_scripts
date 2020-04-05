@@ -1,43 +1,43 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: lnmp-api-mysql
+  name: lamp-mysql
   namespace: ci-cd-demos
   labels:
-    name: lnmp-api-mysql
+    name: lamp-mysql
 spec:
   replicas: 1
   selector:
     matchLabels:
-      name: lnmp-api-mysql
+      name: lamp-mysql
   template:
     metadata:
       labels:
-        name: lnmp-api-mysql
+        name: lamp-mysql
     spec:
       containers:
-        - name: lnmp-api-mysql
+        - name: lamp-mysql
           image: registry.k8s.example.com:5000/docker.io/mysql:5.7.29
           env:
             - name: MYSQL_ROOT_PASSWORD
               valueFrom:
                 configMapKeyRef:
-                  name: lnmp-api-mysql
+                  name: lamp-mysql-vars
                   key: MYSQL_ROOT_PASSWORD
             - name: MYSQL_DATABASE
               valueFrom:
                 configMapKeyRef:
-                  name: lnmp-api-mysql
+                  name: lamp-mysql-vars
                   key: MYSQL_DATABASE
             - name: MYSQL_USER
               valueFrom:
                 configMapKeyRef:
-                  name: lnmp-api-mysql
+                  name: lamp-mysql-vars
                   key: MYSQL_USER
             - name: MYSQL_PASSWORD
               valueFrom:
                 configMapKeyRef:
-                  name: lnmp-api-mysql
+                  name: lamp-mysql-vars
                   key: MYSQL_PASSWORD
           ports:
             - containerPort: 3306
@@ -52,10 +52,10 @@ spec:
       volumes:
         - name: data
           persistentVolumeClaim:
-            claimName: lnmp-api-mysql-data
+            claimName: lamp-mysql-data
         - name: logs
           persistentVolumeClaim:
-            claimName: lnmp-api-mysql-logs
+            claimName: lamp-mysql-logs
         - name: conf
           configMap:
-            name: lnmp-api-my.cnf
+            name: lamp-mysql-conf

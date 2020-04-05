@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: lnmp-api-mysql
+  name: lamp-mysql-vars
   namespace: ci-cd-demos
   labels:
-    name: lnmp-api-mysql
+    name: lamp-mysql-vars
 data:
   MYSQL_ROOT_PASSWORD: "Iam007..."
   MYSQL_DATABASE: "lnmp"
