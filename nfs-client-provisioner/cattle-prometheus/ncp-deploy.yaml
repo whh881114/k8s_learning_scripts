@@ -15,7 +15,7 @@ spec:
       labels:
         app: cattle-prometheus
     spec:
-      serviceAccountName: nfs-client-provisioner
+      serviceAccountName: nfs-client-provisioner-cattle-prometheus
       containers:
         - name: cattle-prometheus-ncp
           image: registry.k8s.example.com:5000/quay.io/external_storage/nfs-client-provisioner:latest

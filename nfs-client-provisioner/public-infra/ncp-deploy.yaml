@@ -15,7 +15,7 @@ spec:
       labels:
         app: public-infra
     spec:
-      serviceAccountName: nfs-client-provisioner
+      serviceAccountName: nfs-client-provisioner-public-infra
       containers:
         - name: public-infra-ncp
           image: registry.k8s.example.com:5000/quay.io/external_storage/nfs-client-provisioner:latest

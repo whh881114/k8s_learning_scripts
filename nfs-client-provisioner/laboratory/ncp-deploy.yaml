@@ -15,7 +15,7 @@ spec:
       labels:
         app: laboratory
     spec:
-      serviceAccountName: nfs-client-provisioner
+      serviceAccountName: nfs-client-provisioner-laboratory
       containers:
         - name: laboratory-ncp
           image: registry.k8s.example.com:5000/quay.io/external_storage/nfs-client-provisioner:latest
