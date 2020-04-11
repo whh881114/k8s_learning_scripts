@@ -6,16 +6,19 @@
 
 - /etc/exports配置文件
     ```shell
-    /data/k8s_nfs_data/laboratory          192.168.255.0/24(insecure,rw,sync,no_root_squash)
+    /data/k8s_nfs_pvc          192.168.255.0/24(insecure,rw,sync,no_root_squash)
     ```
     
 ##2.安装
-- 创建所需名字空间：`kubectl create namespace laboratory`
+- 创建所需名字空间：`kubectl create namespace nfs-client-provisioner`
 - 安装命令：
     ```
-    cd laboratory/nfs-client-provisioner
-    kubectl apply -f ncp-deploy.yaml 
+    cd nfs-client-provisioner
+    
     kubectl apply -f ncp-sa.yaml 
-    kubectl apply -f ncp-storageclass.yaml 
+    
+    kubectl apply -f cattle-prometheus/
+    kubectl apply -f laboratory/
+    kubectl apply -f public-infra/
     ```
 - 查看pod状态：`kubectl get pods -o wide --all-namespaces`
