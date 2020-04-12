@@ -1,0 +1,89 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zabbix-server
+  namespace: public-infra
+  labels:
+    name: zabbix-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: zabbix-server
+  template:
+    metadata:
+      labels:
+        name: zabbix-server
+    spec:
+      containers:
+        - name: zabbix-agent
+          image: registry.k8s.example.com:5000/docker.io/zabbix/zabbix-agent:centos-4.0.17
+          ports:
+            - containerPort: 10050
+          env:
+            - name: ZBX_SERVER_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: vars-zabbix-server
+                  key: ZBX_SERVER_HOST
+            - name: ZBX_SERVER_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: vars-zabbix-server
+                  key: ZBX_SERVER_PORT
+          volumeMounts:
+            - name: include
+              mountPath: /etc/zabbix/zabbix_agentd.d
+        - name: zabbix-server
+          image: registry.k8s.example.com:5000/docker.io/zabbix/zabbix-server-mysql:centos-4.0.17
+          ports:
+            - containerPort: 10051
+              hostPort: 10051       # zabbix-server时采用hostPort暴露端口，可以使k8s集群外部主机接入监控。
+          env:
+            - name: DB_SERVER_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: vars-zabbix-server
+                  key: ZBX_DB_SERVER_HOST
+            - name: DB_SERVER_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: vars-zabbix-server
+                  key: ZBX_DB_SERVER_PORT
+            - name: ZBX_LISTENIP
+              valueFrom:
+                configMapKeyRef:
+                  name: vars-zabbix-server
+                  key: ZBX_SERVER_LISTENIP
+            - name: MYSQL_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: vars-zabbix-server
+                  key: ZBX_MYSQL_DATABASE
+            - name: MYSQL_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: vars-zabbix-server
+                  key: ZBX_MYSQL_USER
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: vars-zabbix-server
+                  key: ZBX_MYSQL_PASSWORD
+          volumeMounts:
+            - name: alertscripts
+              mountPath: /usr/lib/zabbix/alertscripts
+            - name: externalscripts
+              mountPath: /usr/lib/zabbix/externalscripts
+      volumes:
+        - name: include
+          persistentVolumeClaim:
+            claimName: include-zabbix-server-agent
+        - name: alertscripts
+          persistentVolumeClaim:
+            claimName: alertscripts-zabbix-server
+        - name: externalscripts
+          persistentVolumeClaim:
+            claimName: externalscripts-zabbix-server
+      nodeSelector:
+        kubernetes.io/hostname: node03.k8s.example.com
