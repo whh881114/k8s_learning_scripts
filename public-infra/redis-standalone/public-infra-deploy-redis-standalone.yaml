@@ -48,7 +48,7 @@ spec:
       volumes:
         - name: data
           persistentVolumeClaim:
-            claimName: redis-standalone
+            claimName: data-redis-standalone
         - name: conf
           configMap:
             name: redis-standalone
