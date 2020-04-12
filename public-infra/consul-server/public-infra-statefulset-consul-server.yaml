@@ -17,7 +17,7 @@ spec:
       terminationGracePeriodSeconds: 10
       containers:
         - name: consul-server
-          image: registry.k8s.example.com:5000/docker.io/consul:1.6.2
+          image: registry.k8s.example.com:5000/docker.io/consul:1.7.2
           args:
                - "agent"
                - "-server"
@@ -68,10 +68,10 @@ spec:
           resources:
             limits:
               cpu: 100m
-              memory: 50Mi
+              memory: 128Mi
             requests:
               cpu: 50m
-              memory: 25Mi
+              memory: 64Mi
   volumeClaimTemplates:
     - metadata:
         name: data
