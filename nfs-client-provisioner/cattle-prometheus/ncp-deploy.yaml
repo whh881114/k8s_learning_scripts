@@ -26,11 +26,11 @@ spec:
             - name: PROVISIONER_NAME
               value: fuseim.pri/ifs-cattle-prometheus
             - name: NFS_SERVER
-              value: 192.168.255.252
+              value: nfs.freedom.org
             - name: NFS_PATH
-              value: /data/k8s_nfs_pvc/cattle-prometheus
+              value: /data01/k8s_nfs_pvc/cattle-prometheus
       volumes:
         - name: nfs-client-root
           nfs:
-            server: 192.168.255.252
-            path: /data/k8s_nfs_pvc/cattle-prometheus
+            server: nfs.freedom.org
+            path: /data01/k8s_nfs_pvc/cattle-prometheus

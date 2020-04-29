@@ -26,11 +26,11 @@ spec:
             - name: PROVISIONER_NAME
               value: fuseim.pri/ifs-public-infra
             - name: NFS_SERVER
-              value: 192.168.255.252
+              value: nfs.freedom.org
             - name: NFS_PATH
-              value: /data/k8s_nfs_pvc/public-infra
+              value: /data01/k8s_nfs_pvc/public-infra
       volumes:
         - name: nfs-client-root
           nfs:
-            server: 192.168.255.252
-            path: /data/k8s_nfs_pvc/public-infra
+            server: nfs.freedom.org
+            path: /data01/k8s_nfs_pvc/public-infra
