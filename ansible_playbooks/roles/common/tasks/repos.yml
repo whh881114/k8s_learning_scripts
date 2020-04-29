@@ -1,7 +1,7 @@
 ---
 - name: delete internel repo file
   file:
-    path: /etc/yum.repos.d/internal.repo
+    path: /etc/yum.repos.d/*.repo
     state: absent
   ignore_errors: yes
 
@@ -16,9 +16,6 @@
     - { src: repos/base.repo, dest: /etc/yum.repos.d/base.repo }
     - { src: repos/epel.repo, dest: /etc/yum.repos.d/epel.repo }
     - { src: repos/extras.repo, dest: /etc/yum.repos.d/extras.repo }
-    - { src: repos/kubernetes.repo, dest: /etc/yum.repos.d/kubernetes.repo }
-    - { src: repos/puppet5.repo, dest: /etc/yum.repos.d/puppet5.repo }
-    - { src: repos/salt-2019.2.repo, dest: /etc/yum.repos.d/salt-2019.2.repo }
     - { src: repos/updates.repo, dest: /etc/yum.repos.d/updates.repo }
 
 - name: copy other repo files
@@ -29,9 +26,5 @@
     group: root
     mode: "0644"
   with_items:
-    - { src: repos/mysql57-community.repo, dest: /etc/yum.repos.d/mysql57-community.repo }
-    - { src: repos/mysql-connectors-community.repo, dest: /etc/yum.repos.d/mysql-connectors-community.repo }
-    - { src: repos/mysql-tools-community.repo, dest: /etc/yum.repos.d/mysql-tools-community.repo }
-    - { src: repos/zabbix.repo, dest: /etc/yum.repos.d/zabbix.repo }
-    - { src: repos/zabbix-non-supported.repo, dest: /etc/yum.repos.d/zabbix-non-supported.repo }
-  when: not is_k8s_host
+    - { src: repos/kubernetes.repo, dest: /etc/yum.repos.d/kubernetes.repo }
+  when: is_k8s_host

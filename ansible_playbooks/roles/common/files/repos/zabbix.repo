@@ -1,6 +1,0 @@
-[zabbix]
-name=Zabbix Official Repository - $basearch
-baseurl=ftp://yum.example.com/pub/yum/zabbix/
-enabled=1
-gpgcheck=1
-gpgkey=ftp://yum.example.com/pub/yum/RPM-GPG-KEY-ZABBIX
