@@ -1,6 +1,6 @@
 ---
-- name: init k8s nodes
-  hosts: k8s_nodes
+- name: init k8s workers
+  hosts: k8s_workers
   user: root
   roles:
     - role: common
