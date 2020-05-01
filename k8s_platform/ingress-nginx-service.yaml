@@ -6,7 +6,7 @@ metadata:
   labels:
     name: nginx-ingress-controller
 spec:
-  type: ClusterIP
+  type: NodePort
   clusterIP: 10.106.0.1
   ports:
     - name: http
