@@ -1,0 +1,36 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: efk
+  namespace: nfs-client-provisioner
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: efk
+  template:
+    metadata:
+      labels:
+        app: efk
+    spec:
+      serviceAccountName: nfs-client-provisioner-efk
+      containers:
+        - name: efk-ncp
+          image: registry.k8s.example.com:5000/quay.io/external_storage/nfs-client-provisioner:latest
+          volumeMounts:
+            - name: nfs-client-root
+              mountPath: /persistentvolumes
+          env:
+            - name: PROVISIONER_NAME
+              value: fuseim.pri/ifs-efk
+            - name: NFS_SERVER
+              value: nfs.freedom.org
+            - name: NFS_PATH
+              value: /data02/k8s_nfs_pvc/efk
+      volumes:
+        - name: nfs-client-root
+          nfs:
+            server: nfs.freedom.org
+            path: /data02/k8s_nfs_pvc/efk
