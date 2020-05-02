@@ -3,7 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: redis-standalone
-  namespace: public-infra
+  namespace: redis
   labels:
     name: redis-standalone
 spec:
