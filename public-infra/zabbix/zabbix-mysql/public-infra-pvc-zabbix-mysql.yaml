@@ -2,7 +2,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: data-zabbix-mysql
-  namespace: public-infra
+  namespace: zabbix
   labels:
     name: data-zabbix-mysql
   annotations:
@@ -19,7 +19,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: logs-zabbix-mysql
-  namespace: public-infra
+  namespace: zabbix
   labels:
     name: logs-zabbix-mysql
   annotations:

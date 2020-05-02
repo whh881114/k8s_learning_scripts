@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: zabbix-server
-  namespace: public-infra
+  namespace: zabbix
   labels:
     name: zabbix-server
 spec:
@@ -86,4 +86,4 @@ spec:
           persistentVolumeClaim:
             claimName: externalscripts-zabbix-server
       nodeSelector:
-        kubernetes.io/hostname: node03.k8s.example.com
+        kubernetes.io/hostname: worker03.k8s.freedom.org
