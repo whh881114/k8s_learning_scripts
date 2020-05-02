@@ -19,9 +19,10 @@
 - 创建所需名字空间：`kubectl create namespace nfs-client-provisioner`
 - 安装命令：
     ```
-    cd nfs-client-provisioner
+    cd public-infra/nfs-client-provisioner
     
     kubectl apply -f cattle-prometheus/
+    kubectl apply -f efk/
     kubectl apply -f laboratory/
     kubectl apply -f public-infra/
     ```
