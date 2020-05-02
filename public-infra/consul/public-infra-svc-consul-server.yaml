@@ -8,7 +8,7 @@ metadata:
 spec:
   selector:
     app: consul-server
-  type: ClusterIP
+  type: NodePort
   clusterIP: 10.103.200.68
   ports:
     - name: http
