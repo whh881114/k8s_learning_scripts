@@ -52,3 +52,22 @@ official_imgs:
   - docker.io/elastic/logstash:7.5.2
   - docker.io/elastic/metricbeat:7.5.2
   - docker.io/elastic/packetbeat:7.5.2
+
+rancher_2_4_2_imgs:
+  - docker.io/ranchercharts/beats-filebeat:7.3.0
+  - docker.io/ranchercharts/beats-metricbeat:7.3.0
+  - docker.io/ranchercharts/coreos-etcd-operator:v0.9.4
+  - docker.io/rancher/configmap-reload:v0.3.0-rancher2
+  - docker.io/rancher/fluentd:v0.1.19
+  - docker.io/rancher/log-aggregator:v0.1.6
+  - docker.io/rancher/prom-node-exporter:v0.17.0
+  - quay.io/jetstack/cert-manager-cainjector:v0.12.0
+  - quay.io/jetstack/cert-manager-controller:v0.12.0
+  - quay.io/jetstack/cert-manager-webhook:v0.12.0
+  - rancher/coreos-kube-state-metrics:v1.8.0
+  - rancher/grafana-grafana:6.3.6
+  - rancher/metrics-server-amd64:v0.3.1
+  - rancher/prometheus-auth:v0.2.0
+  - rancher/prom-prometheus:v2.11.1
+  - rancher/rancher-agent:v2.4.2
+  - rancher/rancher:v2.4.2
