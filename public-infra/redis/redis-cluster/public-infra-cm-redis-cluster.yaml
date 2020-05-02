@@ -3,7 +3,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: redis-cluster
-  namespace: public-infra
+  namespace: redis
 data:
   update_node.sh: |
     #!/bin/bash
