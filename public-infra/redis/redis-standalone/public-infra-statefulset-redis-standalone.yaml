@@ -1,12 +1,13 @@
 ---
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: redis-standalone
   namespace: redis
   labels:
     name: redis-standalone
 spec:
+  serviceName: redis-standalone
   replicas: 1
   selector:
     matchLabels:
@@ -46,9 +47,16 @@ spec:
               mountPath: /usr/local/etc/redis/
               readOnly: true
       volumes:
-        - name: data
-          persistentVolumeClaim:
-            claimName: data-redis-standalone
         - name: conf
           configMap:
             name: redis-standalone
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+        annotations:
+          volume.beta.kubernetes.io/storage-class: nfs-storage-public-infra
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 1Gi
