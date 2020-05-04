@@ -1,0 +1,4 @@
+---
+# defaults file for zabbix agent
+zabbix_server: "192.168.1.0/24,192.168.2.0/24"
+zabbix_active_server: ""

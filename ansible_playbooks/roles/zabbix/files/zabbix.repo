@@ -1,0 +1,13 @@
+[zabbix]
+name=Zabbix Official Repository - $basearch
+baseurl=ftp://foreman.example.com/pub/yum/zabbix/
+enabled=1
+gpgcheck=1
+gpgkey=ftp://foreman.example.com/pub/yum/RPM-GPG-KEY-ZABBIX-A14FE591
+
+[zabbix-non-supported]
+name=Zabbix Official Repository non-supported - $basearch
+baseurl=ftp://foreman.example.com/pub/yum/zabbix-non-supported/
+enabled=1
+gpgkey=ftp://foreman.example.com/pub/yum/RPM-GPG-KEY-ZABBIX-A14FE591
+gpgcheck=1
