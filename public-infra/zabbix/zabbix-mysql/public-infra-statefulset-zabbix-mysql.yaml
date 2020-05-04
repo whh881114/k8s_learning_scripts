@@ -1,11 +1,12 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: zabbix-mysql
   namespace: zabbix
   labels:
     name: zabbix-mysql
 spec:
+  serviceName: zabbix-mysql
   replicas: 1
   selector:
     matchLabels:
@@ -57,12 +58,25 @@ spec:
               mountPath: /etc/mysql/conf.d
               readOnly: true
       volumes:
-        - name: data
-          persistentVolumeClaim:
-            claimName: data-zabbix-mysql
-        - name: logs
-          persistentVolumeClaim:
-            claimName: logs-zabbix-mysql
         - name: conf
           configMap:
             name: files-zabbix-mysql
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+        annotations:
+          volume.beta.kubernetes.io/storage-class: nfs-storage-public-infra
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 50Gi
+    - metadata:
+        name: logs
+        annotations:
+          volume.beta.kubernetes.io/storage-class: nfs-storage-public-infra
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 10Gi
