@@ -15,15 +15,10 @@
     ```shell
     cd public-infra/redis/redis-standalone
     kubectl create namespace redis
-    kubectl apply -f public-infra-cm-redis-standalone.yaml
-    kubectl apply -f public-infra-pvc-redis-standalone.yaml
-    kubectl apply -f public-infra-deploy-redis-standalone.yaml
-    kubectl apply -f public-infra-svc-redis-standalone.yaml
+    kubectl apply -f .
     
     cd redis-cluster
-    kubectl apply -f public-infra-cm-redis-cluster.yaml
-    kubectl apply -f public-infra-statefulset-redis-cluster.yaml
-    kubectl apply -f public-infra-svc-redis-cluster.yaml
+    kubectl apply -f .
     ```
     
 ## 2. 导流（映射服务）
