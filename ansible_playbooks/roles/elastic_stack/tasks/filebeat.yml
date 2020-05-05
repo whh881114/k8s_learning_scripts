@@ -1,0 +1,14 @@
+- name: install filebeat {{ version }}
+  yum:
+    name: "{{ packages }}"
+    state: present
+  vars:
+    packages:
+      - "{{ pkg_url }}/{{ filebeat_pkg }}"
+
+
+- name: config filebeat {{ version }}
+  template:
+    src: filebeat/filebeat.yml.j2
+    dest: /etc/filebeat/filebeat.yml
+  notify: restart-filebeat

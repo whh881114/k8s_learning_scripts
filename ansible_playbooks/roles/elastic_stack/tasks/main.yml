@@ -1,0 +1,11 @@
+# Setup/install tasks.
+- include: common.yml
+
+- include: elasticsearch.yml
+  when: elasticsearch
+
+- include: kibana.yml
+  when: kibana
+
+- include: logstash.yml
+  when: logstash

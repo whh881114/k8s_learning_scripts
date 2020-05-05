@@ -1,0 +1,14 @@
+- name: install kibana {{ version }}
+  yum:
+    name: "{{ packages }}"
+    state: present
+  vars:
+    packages:
+      - "{{ pkg_url }}/{{ kibana_pkg }}"
+
+
+- name: config kibana {{ version }}
+  template:
+    src: kibana/kibana.yml.j2
+    dest: /etc/kibana/kibana.yml
+  notify: restart-kibana

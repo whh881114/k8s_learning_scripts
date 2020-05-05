@@ -1,8 +1,16 @@
 ---
 - name: delete internel repo file
   file:
-    path: /etc/yum.repos.d/*.repo
+    path: "/etc/yum.repos.d/{{ item }}"
     state: absent
+  with_items:
+    - CentOS-Base.repo
+    - CentOS-CR.repo
+    - CentOS-Debuginfo.repo
+    - CentOS-fasttrack.repo
+    - CentOS-Media.repo
+    - CentOS-Sources.repo
+    - CentOS-Vault.repo
   ignore_errors: yes
 
 - name: copy common repo files

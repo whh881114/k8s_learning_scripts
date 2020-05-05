@@ -1,0 +1,67 @@
+---
+- name: install-elastic-stack
+  hosts: node01.es.freedom.org
+  user: root
+  roles:
+    - role: common
+      tags:
+        - common
+
+    - role: elastic_stack
+      tags:
+        - elastic_stack
+      vars:
+        elasticsearch: true
+        cluster_nodes:
+          - "node01.es.freedom.org"
+          - "node02.es.freedom.org"
+          - "node03.es.freedom.org"
+        kibana: true
+        elasticsearch_hosts:
+          - "http://node01.es.freedom.org:9200"
+          - "http://node02.es.freedom.org:9200"
+          - "http://node03.es.freedom.org:9200"
+        logstash: true
+        filebeat: true
+
+
+- name: install-elastic-stack
+  hosts: node02.es.freedom.org
+  user: root
+  roles:
+    - role: common
+      tags:
+        - common
+
+    - role: elastic_stack
+      tags:
+        - elastic_stack
+      vars:
+        elasticsearch: true
+        cluster_nodes:
+          - "node01.es.freedom.org"
+          - "node02.es.freedom.org"
+          - "node03.es.freedom.org"
+        logstash: true
+        filebeat: true
+
+
+- name: install-elastic-stack
+  hosts: node03.es.freedom.org
+  user: root
+  roles:
+    - role: common
+      tags:
+        - common
+
+    - role: elastic_stack
+      tags:
+        - elastic_stack
+      vars:
+        elasticsearch: true
+        cluster_nodes:
+          - "node01.es.freedom.org"
+          - "node02.es.freedom.org"
+          - "node03.es.freedom.org"
+        logstash: true
+        filebeat: true
