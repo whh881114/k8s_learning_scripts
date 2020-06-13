@@ -14,3 +14,6 @@
 目录laboratory/proxy/haproxy则为代理tcp/udp服务。
 
 - 代理jenkins服务，nginx主配置文件为laboratory/proxy/nginx/nginx.conf，子配置文件为laboratory/proxy/nginx/conf.d/jenkins.lb.example.com.conf。
+
+## 3. 后续
+- 之后要在rancher里搭jenkins实现做CI/CD功能。
