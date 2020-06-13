@@ -1,7 +1,7 @@
 # k8s学习之旅
 
 ## 目录说明
-- `ansible_playbooks`，用于自动化部署，不仅仅短用于k8s环境，还有适用于其他环境部署。
+- `ansible_playbooks`，用于自动化部署，不仅仅用于k8s环境，还有适用于其他环境部署。
 - `docs`，文档目录，用于记录各种安装记录及实验细节。
 - `k8s_platform`，用于安装k8s平台相关的软件。
     - `base`，使用ansible-playbook安装完k8s集群后，需要安装另外的ingress及flannel组件。
