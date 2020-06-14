@@ -1,19 +1,20 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
-  name: zabbix-mysql
-  namespace: laboratory
+  name: mysql-public-infra
+  namespace: mysql
   labels:
-    name: zabbix-mysql
+    name: mysql-public-infra
 spec:
+  serviceName: mysql-public-infra
   replicas: 1
   selector:
     matchLabels:
-      name: zabbix-mysql
+      name: mysql-public-infra
   template:
     metadata:
       labels:
-        name: zabbix-mysql
+        name: mysql-public-infra
     spec:
       containers:
         - name: mysql
@@ -22,25 +23,32 @@ spec:
             - name: MYSQL_ROOT_PASSWORD
               valueFrom:
                 configMapKeyRef:
-                  name: zabbix
+                  name: mysql-public-infra-vars
                   key: MYSQL_ROOT_PASSWORD
             - name: MYSQL_DATABASE
               valueFrom:
                 configMapKeyRef:
-                  name: zabbix
+                  name: mysql-public-infra-vars
                   key: MYSQL_DATABASE
             - name: MYSQL_USER
               valueFrom:
                 configMapKeyRef:
-                  name: zabbix
+                  name: mysql-public-infra-vars
                   key: MYSQL_USER
             - name: MYSQL_PASSWORD
               valueFrom:
                 configMapKeyRef:
-                  name: zabbix
+                  name: mysql-public-infra-vars
                   key: MYSQL_PASSWORD
           ports:
             - containerPort: 3306
+          resources:
+            limits:
+              cpu: 400m
+              memory: 512Mi
+            requests:
+              cpu: 100m
+              memory: 256Mi
           volumeMounts:
             - name: data
               mountPath: /var/lib/mysql
@@ -50,12 +58,25 @@ spec:
               mountPath: /etc/mysql/conf.d
               readOnly: true
       volumes:
-        - name: data
-          persistentVolumeClaim:
-            claimName: zabbix-mysql-data
-        - name: logs
-          persistentVolumeClaim:
-            claimName: zabbix-mysql-logs
         - name: conf
           configMap:
-            name: zabbix-mysql-conf
+            name: mysql-public-infra-files
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+        annotations:
+          volume.beta.kubernetes.io/storage-class: storage-ceph-rbd-public-infra
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 50Gi
+    - metadata:
+        name: logs
+        annotations:
+          volume.beta.kubernetes.io/storage-class: storage-ceph-rbd-public-infra
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 10Gi
