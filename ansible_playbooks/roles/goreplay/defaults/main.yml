@@ -1,0 +1,23 @@
+---
+gor_record_ver: 1.1.0
+gor_replay_ver: 0.16.1
+
+gor_record_role: False
+gor_replay_role: False
+
+gor_traffic_dir: /data/goreplay
+
+
+# 录制流量时可以监听多个端口
+gor_record_ports:
+  - 80
+  - 443
+  - 8080
+
+# 分布式录制流量转发到目标回放主机
+gor_replay_hosts:
+  - "replay.local"
+gor_replay_host_port: 28020
+
+# 录制应用名称
+app_name: replay

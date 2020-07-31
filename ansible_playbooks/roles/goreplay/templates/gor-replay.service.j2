@@ -1,0 +1,15 @@
+[Unit]
+Description=gor replay service
+After=network.target
+Documentation=https://github.com/buger/goreplay
+
+[Service]
+User=root
+Group=root
+Type=simple
+WorkingDirectory={{ gor_traffic_dir }}
+ExecStart=/usr/local/bin/gor --input-tcp {{ ansible_default_ipv4.address }}:{{ gor_replay_host_port }} --output-file {{ gor_traffic_dir }}/{{ app_name }}-%Y-%m-%d_%H.log --output-file-queue-limit 0 --output-file-append
+ExecStop=/bin/sh -c "ps -ef | grep -w '/usr/local/bin/gor' | grep -vw 'grep' | awk '{print $2}' | xargs -n 1 kill -9"
+
+[Install]
+WantedBy=multi-user.target

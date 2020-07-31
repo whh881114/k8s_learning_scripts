@@ -1,0 +1,26 @@
+[Unit]
+Description=gor record service
+After=network.target
+Documentation=https://github.com/buger/goreplay
+
+[Service]
+User=root
+Group=root
+Type=simple
+{% set input_raw_list = [] %}
+{% for i in gor_record_ports %}
+    {% set my_string = "--input-raw :" %}
+    {% set _= input_raw_list.append(my_string ~ i)  %}
+{% endfor %}
+
+{% set replay_hosts = [] %}
+{% for i in gor_replay_hosts %}
+    {% set my_string = i ~ ":" ~ gor_replay_host_port %}
+    {% set _ = replay_hosts.append(my_string) %}
+{% endfor %}
+
+ExecStart=/usr/local/bin/gor {{ input_raw_list | join(' ') }} --output-tcp {{ replay_hosts | join(' ') }}
+ExecStop=/bin/sh -c "ps -ef | grep -w '/usr/local/bin/gor' | grep -vw 'grep' | awk '{print $2}' | xargs -n 1 kill -9"
+
+[Install]
+WantedBy=multi-user.target
