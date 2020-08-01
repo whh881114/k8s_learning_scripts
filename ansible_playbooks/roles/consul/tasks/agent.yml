@@ -9,12 +9,11 @@
     - "{{ consul_agent_config_dir }}"
     - "{{ consul_agent_script_dir }}"
 
-- name: copy consul package
+- name: install consul package
   unarchive:
-    src: pkgs/consul.tar.gz
+    src: pkgs/consul_{{ consul_ver }}_linux_amd64.zip
     dest: /usr/local/bin/
     mode: 0755
-    copy: yes
   notify: restart-consul-agent
 
 - name: copy init.d/consul-agent

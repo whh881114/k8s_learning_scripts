@@ -13,12 +13,11 @@
     - "{{ consul_template_data_dir }}"
     - "{{ consul_template_config_dir }}"
 
-- name: copy consul-template package
+- name: install consul-template package
   unarchive:
-    src: pkgs/consul-template.tar.gz
+    src: pkgs/consul-template_{{ consul_template_ver }}_linux_amd64.tgz
     dest: /usr/local/bin/
     mode: 0755
-    copy: yes
   notify: restart-consul-template
 
 - name: copy init.d/consul-template

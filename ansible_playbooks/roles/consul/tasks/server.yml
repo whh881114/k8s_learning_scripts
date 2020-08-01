@@ -14,13 +14,12 @@
     - "{{ consul_server_data_dir }}"
     - "{{ consul_server_config_dir }}"
 
-- name: copy consul package
+- name: install consul package
   unarchive:
-    src: pkgs/consul.tar.gz
+    src: pkgs/consul_{{ consul_ver }}_linux_amd64.zip
     dest: /usr/local/bin/
     mode: 0755
-    copy: yes
-  notify: restart-consul-agent
+  notify: restart-consul-server
 
 - name: copy init.d/consul-server
   when: (ansible_distribution == "CentOS" or ansible_distribution == "RedHat") and ansible_distribution_major_version == "6"
