@@ -1,0 +1,3 @@
+---
+- include: agent.yml
+  when: zabbix_type == "agent"

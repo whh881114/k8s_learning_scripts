@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-public-infra
+  namespace: mysql
+  labels:
+    name: mysql-public-infra
+spec:
+  type: NodePort
+  clusterIP: 10.106.220.79
+  ports:
+    - port: 3306        # 服务访问端口
+      targetPort: 3306  # 容器端口
+  selector:
+    name: mysql-public-infra

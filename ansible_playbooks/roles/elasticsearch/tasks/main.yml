@@ -1,4 +1,0 @@
-# Setup/install tasks.
-- include_tasks: "install-elasticsearch.yml"
-
-- include_tasks: "configure-elasticsearch.yml"

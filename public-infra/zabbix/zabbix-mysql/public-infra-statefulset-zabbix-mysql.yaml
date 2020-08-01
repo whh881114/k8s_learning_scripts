@@ -1,0 +1,82 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: zabbix-mysql
+  namespace: zabbix
+  labels:
+    name: zabbix-mysql
+spec:
+  serviceName: zabbix-mysql
+  replicas: 1
+  selector:
+    matchLabels:
+      name: zabbix-mysql
+  template:
+    metadata:
+      labels:
+        name: zabbix-mysql
+    spec:
+      containers:
+        - name: mysql
+          image: registry.k8s.example.com:5000/docker.io/mysql:5.7.29
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: vars-zabbix-mysql
+                  key: MYSQL_ROOT_PASSWORD
+            - name: MYSQL_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: vars-zabbix-mysql
+                  key: MYSQL_DATABASE
+            - name: MYSQL_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: vars-zabbix-mysql
+                  key: MYSQL_USER
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: vars-zabbix-mysql
+                  key: MYSQL_PASSWORD
+          ports:
+            - containerPort: 3306
+          resources:
+            limits:
+              cpu: 400m
+              memory: 512Mi
+            requests:
+              cpu: 100m
+              memory: 256Mi
+          volumeMounts:
+            - name: data
+              mountPath: /var/lib/mysql
+            - name: logs
+              mountPath: /data
+            - name: conf
+              mountPath: /etc/mysql/conf.d
+              readOnly: true
+      volumes:
+        - name: conf
+          configMap:
+            name: files-zabbix-mysql
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+        annotations:
+          volume.beta.kubernetes.io/storage-class: nfs-storage-public-infra
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 50Gi
+    - metadata:
+        name: logs
+        annotations:
+          volume.beta.kubernetes.io/storage-class: nfs-storage-public-infra
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 10Gi

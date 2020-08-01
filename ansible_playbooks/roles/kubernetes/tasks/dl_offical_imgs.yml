@@ -2,3 +2,7 @@
 - name: pull offical docker images
   shell: docker pull "{{ docker_registry_url }}/{{ item }}"
   with_items: "{{ official_imgs }}"
+
+- name: pull rancher 2.4.2 offical docker images
+  shell: docker pull "{{ docker_registry_url }}/{{ item }}"
+  with_items: "{{ rancher_2_4_2_imgs }}"

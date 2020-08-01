@@ -1,0 +1,15 @@
+---
+- name: init k8s workers
+  hosts: k8s_workers
+  user: root
+  roles:
+    - role: common
+      tags:
+        - common
+      vars:
+        is_k8s_host: true
+
+    - role: kubernetes
+      tags:
+        - kubernetes
+        - k8s

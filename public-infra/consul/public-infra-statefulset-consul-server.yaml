@@ -1,0 +1,93 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: consul-server
+  namespace: consul
+spec:
+  serviceName: consul-server
+  selector:
+    matchLabels:
+      app: consul-server
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: consul-server
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+        - name: consul-server
+          image: registry.k8s.example.com:5000/docker.io/consul:1.7.2
+          args:
+               - "agent"
+               - "-server"
+               - "-bootstrap-expect=3"
+               - "-ui"
+               - "-data-dir=/consul/data"     # 就算是在虚拟机中使用consul-server集群，也没有使用-data-dir及-config-dir目录，先在yaml中保留。
+               - "-config-dir=/consul/config"
+               - "-log-level=info"
+               - "-log-rotate-duration=86400s"
+               - "-log-rotate-max-files=7"
+               - "-bind=0.0.0.0"
+               - "-client=0.0.0.0"
+               - "-advertise=$(PODIP)"
+               - "-retry-join=consul-server-0.consul-server.$(NAMESPACE).svc.cluster.local"
+               - "-retry-join=consul-server-1.consul-server.$(NAMESPACE).svc.cluster.local"
+               - "-retry-join=consul-server-2.consul-server.$(NAMESPACE).svc.cluster.local"
+               - "-domain=cluster.local"
+               - "-disable-host-node-id"
+          env:
+            - name: PODIP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+            - name: NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+          ports:
+              - containerPort: 8500
+                name: ui-port
+              - containerPort: 8443
+                name: https-port
+              - containerPort: 8400
+                name: rpc-port
+              - containerPort: 8301
+                name: serflan
+              - containerPort: 8302
+                name: serfwan
+              - containerPort: 8600
+                name: consuldns
+              - containerPort: 8300
+                name: server
+          volumeMounts:
+              - name: data
+                mountPath: /consul/data
+              - name: config
+                mountPath: /consul/config
+          resources:
+            limits:
+              cpu: 100m
+              memory: 128Mi
+            requests:
+              cpu: 50m
+              memory: 64Mi
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+        annotations:
+          volume.beta.kubernetes.io/storage-class: nfs-storage-public-infra
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 1Gi
+    - metadata:
+        name: config
+        annotations:
+          volume.beta.kubernetes.io/storage-class: nfs-storage-public-infra
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 1Gi

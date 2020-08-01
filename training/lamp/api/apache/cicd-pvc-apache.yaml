@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: lamp-api-logs
+  namespace: cicd
+  labels:
+    name: lamp-api-logs
+  annotations:
+    volume.beta.kubernetes.io/storage-class: "cicd-nfs-storage"
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi

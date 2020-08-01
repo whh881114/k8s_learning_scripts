@@ -1,0 +1,14 @@
+- name: install logstash {{ version }}
+  yum:
+    name: "{{ packages }}"
+    state: present
+  vars:
+    packages:
+      - "{{ pkg_url }}/{{ logstash_pkg }}"
+
+
+- name: config logstash {{ version }}
+  template:
+    src: logstash/logstash.conf.j2
+    dest: /etc/logstash/logstash.conf
+  notify: restart-logstash

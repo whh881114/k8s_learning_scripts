@@ -1,0 +1,98 @@
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: storage-ceph-rbd-public-infra
+rules:
+  - apiGroups: [""]
+    resources: ["persistentvolumes"]
+    verbs: ["get", "list", "watch", "create", "delete"]
+  - apiGroups: [""]
+    resources: ["persistentvolumeclaims"]
+    verbs: ["get", "list", "watch", "update"]
+  - apiGroups: ["storage.k8s.io"]
+    resources: ["storageclasses"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: [""]
+    resources: ["events"]
+    verbs: ["create", "update", "patch"]
+  - apiGroups: [""]
+    resources: ["services"]
+    resourceNames: ["kube-dns","coredns"]
+    verbs: ["list", "get"]
+
+
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: storage-ceph-rbd-public-infra
+subjects:
+  - kind: ServiceAccount
+    name: storage-ceph-rbd-public-infra
+    namespace: storage-class-ceph
+roleRef:
+  kind: ClusterRole
+  name: storage-ceph-rbd-public-infra
+  apiGroup: rbac.authorization.k8s.io
+
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: storage-ceph-rbd-public-infra
+rules:
+- apiGroups: [""]
+  resources: ["secrets"]
+  verbs: ["get"]
+- apiGroups: [""]
+  resources: ["endpoints"]
+  verbs: ["get", "list", "watch", "create", "update", "patch"]
+
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: storage-ceph-rbd-public-infra
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: storage-ceph-rbd-public-infra
+subjects:
+  - kind: ServiceAccount
+    name: storage-ceph-rbd-public-infra
+    namespace: storage-class-ceph
+
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: storage-ceph-rbd-public-infra
+spec:
+  selector:
+    matchLabels:
+      app: storage-ceph-rbd-public-infra
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: storage-ceph-rbd-public-infra
+    spec:
+      containers:
+      - name: storage-ceph-rbd-public-infra
+        image: quay.io/external_storage/rbd-provisioner:v0.1.0
+        env:
+        - name: PROVISIONER_NAME
+          value: ceph.com/rbd-public-infra
+      serviceAccount: storage-ceph-rbd-public-infra
+
+
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: storage-ceph-rbd-public-infra

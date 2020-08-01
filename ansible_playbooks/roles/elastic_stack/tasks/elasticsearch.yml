@@ -1,0 +1,38 @@
+---
+- name: Create sysctl file
+  file:
+    path: "{{ sysctl_file }}"
+    state: touch
+
+
+- name: Configure the kernel parameters
+  blockinfile:
+    path: "{{ sysctl_file }}"
+    block: |
+      {{ item.key }} = {{ item.value }}
+  with_items:
+  - { key: vm.max_map_count, value: 655360 }
+
+
+# 使用root账号调整系统参数
+- name: Apply the limits and kernel settings.
+  shell: |
+    source /etc/profile
+    /sbin/sysctl -p "{{ sysctl_file }}"
+    ulimit -n 65535
+
+
+- name: install elasticsearch {{ version }}
+  yum:
+    name: "{{ packages }}"
+    state: present
+  vars:
+    packages:
+      - "{{ pkg_url }}/{{ elasticsearch_pkg }}"
+
+
+- name: config elasticsearch {{ version }}
+  template:
+    src: elasticsearch/elasticsearch.yml.j2
+    dest: /etc/elasticsearch/elasticsearch.yml
+  notify: restart-elasticsearch

@@ -1,0 +1,12 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: storage-ceph-rbd-public-infra
+  namespace: storage-class-ceph
+spec:
+  storageClassName: storage-ceph-rbd-public-infra
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi

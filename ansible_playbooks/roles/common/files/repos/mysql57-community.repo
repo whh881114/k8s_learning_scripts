@@ -1,6 +1,0 @@
-[mysql57-community]
-name=MySQL 5.7 Community Server
-baseurl=ftp://yum.example.com/pub/yum/mysql57-community/
-enabled=1
-gpgcheck=1
-gpgkey=ftp://yum.example.com/pub/yum/RPM-GPG-KEY-mysql

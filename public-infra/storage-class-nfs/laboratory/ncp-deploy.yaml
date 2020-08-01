@@ -1,0 +1,36 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: laboratory
+  namespace: nfs-client-provisioner
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: laboratory
+  template:
+    metadata:
+      labels:
+        app: laboratory
+    spec:
+      serviceAccountName: nfs-client-provisioner-laboratory
+      containers:
+        - name: laboratory-ncp
+          image: registry.k8s.example.com:5000/quay.io/external_storage/nfs-client-provisioner:latest
+          volumeMounts:
+            - name: nfs-client-root
+              mountPath: /persistentvolumes
+          env:
+            - name: PROVISIONER_NAME
+              value: fuseim.pri/ifs-laboratory
+            - name: NFS_SERVER
+              value: nfs.freedom.org
+            - name: NFS_PATH
+              value: /data01/k8s_nfs_pvc/laboratory
+      volumes:
+        - name: nfs-client-root
+          nfs:
+            server: nfs.freedom.org
+            path: /data01/k8s_nfs_pvc/laboratory

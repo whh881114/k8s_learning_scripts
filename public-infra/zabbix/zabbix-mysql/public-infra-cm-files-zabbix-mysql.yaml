@@ -3,7 +3,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: files-zabbix-mysql
-  namespace: public-infra
+  namespace: zabbix
 data:
   my.cnf: |
     # For advice on how to change settings please see

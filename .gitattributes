@@ -1,3 +1,0 @@
-ansible_playbooks/roles/consul/files/pkgs/consul.tar.gz filter=lfs diff=lfs merge=lfs -text
-ansible_playbooks/roles/consul/files/pkgs/consul-template.tar.gz filter=lfs diff=lfs merge=lfs -text
-ansible_playbooks/roles/ruby/files/ruby-2.6.5.tar.gz filter=lfs diff=lfs merge=lfs -text

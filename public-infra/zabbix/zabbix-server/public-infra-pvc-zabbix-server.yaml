@@ -2,7 +2,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: alertscripts-zabbix-server
-  namespace: public-infra
+  namespace: zabbix
   labels:
     name: alertscripts-zabbix-server
   annotations:
@@ -19,7 +19,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: externalscripts-zabbix-server
-  namespace: public-infra
+  namespace: zabbix
   labels:
     name: externalscripts-zabbix-server
   annotations:
@@ -36,7 +36,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: include-zabbix-server-agent
-  namespace: public-infra
+  namespace: zabbix
   labels:
     name: include-zabbix-server-agent
   annotations:

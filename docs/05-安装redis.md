@@ -6,25 +6,40 @@
 
 - 此实验中使用到了initContainers，初始化修改内核参数。
 
+- 站在巨人肩膀上完成，https://segmentfault.com/a/1190000018405750。
+
+- 在这里搭一个单机版及一个集群版。
+
 ## 1. 安装步骤
 - 安装
     ```shell
-    cd laboratory/config_map_files/redis
-    kubectl -n laboratory create configmap redis.conf --from-file=redis.conf 
+    cd public-infra/redis/redis-standalone
+    kubectl create namespace redis
+    kubectl apply -f .
     
-    cd laboratory/redis
-    kubectl apply -f laboratory-pvc-redis.yaml
-    kubectl apply -f laboratory-deploy-redis.yaml
-    kubectl apply -f laboratory-svc-redis.yaml
+    cd redis-cluster
+    kubectl apply -f .
     ```
     
 ## 2. 导流（映射服务）
-- 在master.k8s.example.com安装haproxy进行TCP代理，配置文件在此目录中laboratory/proxy/haproxy/haproxy.cfg。
+- 在lb.freedom.org安装haproxy进行TCP代理，配置文件片断在此目录中laboratory/proxy/haproxy/redis.cfg。
 
     ```shell
-    listen laboratory-redis
-    bind        *:40000
-    mode        tcp
-    balance     source
-    server      redis.k8s.example.com 10.97.72.56:6379 weight 1 maxconn 10000 check inter 10s
+    listen redis-standalone
+        bind        *:32651
+        mode        tcp
+        balance     source
+        server      master.k8s.freedom.org master.k8s.freedom.org:32651 weight 1 maxconn 10000 check inter 10s
+        server      worker01.k8s.freedom.org worker01.k8s.freedom.org:32651 weight 1 maxconn 10000 check inter 10s
+        server      worker02.k8s.freedom.org worker02.k8s.freedom.org:32651 weight 1 maxconn 10000 check inter 10s
+        server      worker03.k8s.freedom.org worker03.k8s.freedom.org:32651 weight 1 maxconn 10000 check inter 10s
+    
+    listen redis-cluster
+        bind        *:31896
+        mode        tcp
+        balance     source
+        server      master.k8s.freedom.org master.k8s.freedom.org:31896 weight 1 maxconn 10000 check inter 10s
+        server      worker01.k8s.freedom.org worker01.k8s.freedom.org:31896 weight 1 maxconn 10000 check inter 10s
+        server      worker02.k8s.freedom.org worker02.k8s.freedom.org:31896 weight 1 maxconn 10000 check inter 10s
+        server      worker03.k8s.freedom.org worker03.k8s.freedom.org:31896 weight 1 maxconn 10000 check inter 10s
     ```

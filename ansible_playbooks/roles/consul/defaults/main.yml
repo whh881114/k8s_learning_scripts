@@ -1,8 +1,8 @@
 ---
 # defaults file for webserver
 consul_servers:
-  - consul.lb.example.com
-consul_port: 8500
+  - consul.k8s.freedom.org
+consul_port: 8301
 
 consul_agent_dir: /etc/consul-agent
 consul_agent_log_dir: "{{ consul_agent_dir }}/log"
