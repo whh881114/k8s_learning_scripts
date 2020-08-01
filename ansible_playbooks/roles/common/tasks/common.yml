@@ -26,17 +26,6 @@
   selinux:
     state: disabled
 
-- name: set unlimitations in the limits.conf file
-  lineinfile:
-    path: /etc/security/limits.conf
-    state: present
-    line: "{{ item.name }}"
-  with_items:
-    - { name: '* soft nofile 65536'}
-    - { name: '* hard nofile 131072'}
-    - { name: '* soft nproc 65535'}
-    - { name: '* hard nproc 65535'}
-
 - block:
   - name: disable swap in /etc/fstab
     replace:

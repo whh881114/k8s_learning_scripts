@@ -1,28 +1,14 @@
 ---
 - include: common.yml
-  tags:
-    - common
 
 - include: repos.yml
-  tags:
-    - repos
 
 - include: rc_local.yml
-  tags:
-    - rc_local
 
 - include: limits.yml
-  tags:
-    - limits
 
 - include: common-pkgs.yml
-  tags:
-    - common-pkgs
 
 - include: k8s-pkgs.yml
-  tags:
-    - k8s-pkgs
 
 - include: sysctl.yml
-  tags:
-    - sysctl

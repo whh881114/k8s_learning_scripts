@@ -1,5 +1,0 @@
-[base]
-name=CentOS-$releasever - Base
-baseurl=ftp://yum.example.com/pub/yum/base/
-gpgcheck=1
-gpgkey=ftp://yum.example.com/pub/yum/RPM-GPG-KEY-CentOS-7

@@ -8,3 +8,7 @@
       - tcl
       - openssl-devel
       - zlib-devel
+      - lrzsz
+      - tree
+      - nc
+      - telnet

@@ -1,0 +1,6 @@
+[zabbix]
+name=Zabbix Official Repository - $basearch
+baseurl=https://mirrors.aliyun.com/zabbix/zabbix/4.0/rhel/7/x86_64/
+enabled=1
+gpgcheck=1
+gpgkey=https://mirrors.aliyun.com/zabbix/RPM-GPG-KEY-ZABBIX
