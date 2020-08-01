@@ -1,5 +1,6 @@
 consul {
-    address = "{{ consul_servers | first }}:{{ consul_port }}"
+    # 官方推荐使用本地接口。
+    address = "127.0.0.1:8500"
     retry {
         enabled = true
         attempts = 12
