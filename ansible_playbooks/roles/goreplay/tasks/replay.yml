@@ -5,6 +5,11 @@
     state: directory
     mode: '0755'
 
+- name: install gor {{ gor_record_ver }} bin
+  unarchive:
+    src: gor_{{ gor_record_ver }}_x64.tar.gz
+    dest: /usr/local/bin
+
 - name: install gor {{ gor_replay_ver }} bin
   unarchive:
     src: gor_{{ gor_replay_ver }}_x64.tar.gz
@@ -17,7 +22,7 @@
     mode: "0755"
   with_items:
     - { src: start_gor_replay.sh.j2, dest: start_gor_replay.sh }
-    - { src: stop_gor_replay.sh.j2, dest: stop_gor_replay.sh.j2 }
+    - { src: stop_gor_replay.sh.j2, dest: stop_gor_replay.sh }
 
 # 因systemd服务不支持%特殊字符，所以弃用。
 #- name: generate gor replay service

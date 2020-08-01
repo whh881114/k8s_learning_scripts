@@ -1,12 +1,20 @@
 ---
-- name: install goreplay
+- name: install goreplay record
   hosts:
-    - 192.168.255.254
+    - 10.8.4.7
   user: root
   roles:
     - role: goreplay
       vars:
         gor_record_role: true
-        gor_replay_role: true
         gor_replay_hosts:
-          - 192.168.255.254
+          - 10.8.4.48
+
+- name: install goreplay replay
+  hosts:
+    - 10.8.4.48
+  user: root
+  roles:
+    - role: goreplay
+      vars:
+        gor_replay_role: true
