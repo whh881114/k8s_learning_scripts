@@ -6,13 +6,10 @@
   roles:
     - role: consul
       vars:
-        consul_type: agent
+        consul_agent_role: True
+        consul_template_role: True
         consul_agent_items:
           services:
             - { name: http, port: 80 }
             - { name: https, port: 443 }
             - { name: consul-agent, port: 8500 }
-
-    - role: consul
-      vars:
-        consul_type: template

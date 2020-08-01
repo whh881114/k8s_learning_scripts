@@ -3,8 +3,14 @@
 consul_ver: 1.8.0
 consul_template_ver: 0.25.1
 
+consul_agent_role: False
+consul_server_role: False
+consul_template_role: False
+
 consul_servers:
-  - consul.k8s.freedom.org
+  - worker01.k8s.freedom.org:32486
+  - worker02.k8s.freedom.org:32486
+  - worker03.k8s.freedom.org:32486
 consul_port: 8301
 
 consul_agent_dir: /etc/consul-agent
