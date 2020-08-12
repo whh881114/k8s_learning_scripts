@@ -1,0 +1,9 @@
+---
+- name: install bind and bind-utils packages
+  hosts:
+    - 192.168.255.254
+  user: root
+  roles:
+    - role: bind
+      vars:
+        bind_master_role: True

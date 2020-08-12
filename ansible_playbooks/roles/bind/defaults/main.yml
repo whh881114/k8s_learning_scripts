@@ -1,0 +1,30 @@
+---
+bind_master_role: False
+bind_slave_role: False
+
+bind_packages:
+  - bind
+  - bind-*
+
+bind_service: named
+
+# Directory with run-time stuff
+bind_dir: /var/named
+bind_conf_dir: "/etc/named"
+auth_file: "auth_transfer.conf"
+bind_auth_file: "{{ bind_conf_dir }}/{{ auth_file }}"
+
+bind_owner: root
+bind_group: named
+
+bind_bindkeys_file: "/etc/named.iscdlv.key"
+bind_pid_file: "/run/named/named.pid"
+bind_session_keyfile: "/run/named/session.key"
+
+# Custom location for master zone files
+bind_zone_dir: "{{ bind_dir }}"
+bind_slave_dir: "{{ bind_dir }}/slaves"
+
+
+bind_zones:
+  - pagoda.com.cn

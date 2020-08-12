@@ -1,0 +1,8 @@
+---
+- include: common.yml
+
+- include: master.yml
+  when: bind_master_role
+
+- include: slave.yml
+  when: bind_slave_role

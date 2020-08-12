@@ -1,0 +1,10 @@
+$TTL 600
+@       IN  SOA dns01.{{ domain_name }}. feedback.{{ domain_name }}. (
+        2020012901  ; serial
+        1D          ; refresh
+        1H          ; retry
+        1W          ; expire
+        3H )        ; minimum
+
+        NS  dns01.{{ domain_name }}.
+dns01   A   {{ ansible_default_ipv4.address }}
