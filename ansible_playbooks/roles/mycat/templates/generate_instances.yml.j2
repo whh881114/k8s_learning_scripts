@@ -32,8 +32,8 @@
 
 - name: generate mycat configuration
   template:
-    src: "[[ instance.instance ]]/{{ item.src }}'"
-    dest: "[[ instance.instance ]]_mycat/conf/'{{ item.dest }}'"
+    src: "[[ instance.instance ]]/{{ item.src }}"
+    dest: "{{ common_home_path }}/[[ instance.instance ]]_mycat/conf/{{ item.dest }}"
     owner: "{{ common_user }}"
     group: "{{ common_group }}"
   with_items:
@@ -45,7 +45,8 @@
 {% endif %}
 
 - name: restart mycat instance
-  shell: cd [[ instance.instance ]]_mycat/bin && ./mycat restart
+  shell: cd {{ common_home_path }}/[[ instance.instance ]]_mycat/bin && ./mycat restart
+  become_user: "{{ common_user }}"
 
 
 

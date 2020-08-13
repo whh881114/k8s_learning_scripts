@@ -6,5 +6,4 @@
     variable_start_string: "[["
     variable_end_string: "]]"
 
-
-#- include: "{{ instance_yml_file }}"
+- include: "{{ instance_yml_file }}"
