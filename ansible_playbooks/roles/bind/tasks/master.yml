@@ -3,6 +3,7 @@
   template:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
+    group: "{{ bind_group }}"
     mode: "0644"
   with_items:
     - { src: master/named.conf.j2, dest: /etc/named.conf }
@@ -13,6 +14,7 @@
   template:
     src:  "master/{{ item }}.zone.j2"
     dest: "{{ bind_zone_dir}}/{{ item }}.zone"
+    group: "{{ bind_group }}"
     mode: "0644"
   with_items: "{{ bind_zones }}"
   notify: restart bind
