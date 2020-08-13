@@ -1,0 +1,67 @@
+{% set domain_name = item %}
+$TTL 600
+@       IN  SOA dns01.{{ domain_name }}. feedback.{{ domain_name }}. (
+        2020012901  ; serial
+        1D          ; refresh
+        1H          ; retry
+        1W          ; expire
+        3H )        ; minimum
+
+        NS  ns01.{{ domain_name }}.
+ns01    A   {{ ansible_default_ipv4.address }}
+
+; drill-gor环境下，记录云各应用的云数据库地址。
+ro-global-eshop-db-s1               A   10.8.60.135
+ro-global-eshop-db-s2               A   10.8.60.135
+global-eshop-db-m                   A   10.8.60.123
+ro-eshop-db7-s1                     A   10.8.60.144
+ro-eshop-db7-s2                     A   10.8.60.144
+ro-eshop-db6-s1                     A   10.8.60.130
+ro-eshop-db6-s2                     A   10.8.60.130
+ro-eshop-db5-s1                     A   10.8.60.46
+ro-eshop-db5-s2                     A   10.8.60.46
+ro-eshop-db4-s1                     A   10.8.60.116
+ro-eshop-db4-s2                     A   10.8.60.116
+ro-eshop-db3-s1                     A   10.8.60.114
+ro-eshop-db3-s2                     A   10.8.60.114
+ro-eshop-db2-s1                     A   10.8.60.75
+ro-eshop-db2-s2                     A   10.8.60.75
+ro-eshop-db1-s1                     A   10.8.60.4
+ro-eshop-db1-s2                     A   10.8.60.4
+ro-eshop-db0-s1                     A   10.8.60.62
+ro-eshop-db0-s2                     A   10.8.60.62
+eshop-db7m                          A   10.8.60.22
+eshop-db6m                          A   10.8.60.96
+eshop-db5m                          A   10.8.60.13
+eshop-db4m                          A   10.8.60.60
+eshop-db3m                          A   10.8.60.76
+eshop-db2m                          A   10.8.60.40
+eshop-db1m                          A   10.8.60.2
+eshop-db0m                          A   10.8.60.82
+
+account-dbs6-8-s                    A   10.8.60.132
+account-dbs6-8-M                    A   10.8.60.10
+account-dbs3-5-M                    A   10.8.60.12
+account-dbs-1-12-M                  A   10.8.60.93
+
+trade-account-dbs1-2-M              A   10.8.60.20
+mk-activity-db-m1                   A   10.8.60.32
+marketing-db-m1                     A   10.8.60.95
+
+eoms-offline-db1-s                  A   10.8.60.43
+eoms-offline-db1                    A   10.8.60.28
+ro-eoms-db1-s1                      A   10.8.60.6
+ro-eoms-db1-s2                      A   10.8.60.6
+ro-eoms-db1-s3                      A   10.8.60.6
+ro-eoms-db1-s4                      A   10.8.60.6
+ro-eoms-db1-s5                      A   10.8.60.6
+eoms-db1-m                          A   10.8.60.16
+
+ro-member7-12                       A   10.8.60.89
+ro-member-1-6                       A   10.8.60.34
+member7-12                          A   10.8.60.141
+member-1-6                          A   10.8.60.61
+
+tc-mix2-db-m1                       A   10.8.60.49
+tc-mix2-db-s1                       A   10.8.60.112
+tc-mix2-db-s2                       A   10.8.60.112

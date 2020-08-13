@@ -11,11 +11,8 @@
 
 - name: generate rfc1912 zone files
   template:
-    src: "{{ item.src }}"
-    dest: "{{ item.dest }}"
+    src:  "master/{{ item }}.zone.j2"
+    dest: "{{ bind_zone_dir}}/{{ item }}.zone"
     mode: "0644"
-  with_items:
-    - { src: master/pagoda.com.cn.zone.j2, dest: "{{ bind_zone_dir}}/pagoda.com.cn.zone" }
-  vars:
-    domain_name: pagoda.com.cn
+  with_items: "{{ bind_zones }}"
   notify: restart bind

@@ -1,0 +1,14 @@
+{% set domain_name = item %}
+$TTL 600
+@       IN  SOA dns01.{{ domain_name }}. feedback.{{ domain_name }}. (
+        2020012901  ; serial
+        1D          ; refresh
+        1H          ; retry
+        1W          ; expire
+        3H )        ; minimum
+
+        NS  ns01.{{ domain_name }}.
+ns01    A   {{ ansible_default_ipv4.address }}
+
+; drill-gor环境下，记录云各应用的主机地址。
+transaction         A   10.8.61.20

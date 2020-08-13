@@ -1,0 +1,27 @@
+{% set domain_name = item %}
+$TTL 600
+@       IN  SOA dns01.{{ domain_name }}. feedback.{{ domain_name }}. (
+        2020012901  ; serial
+        1D          ; refresh
+        1H          ; retry
+        1W          ; expire
+        3H )        ; minimum
+
+        NS  ns01.{{ domain_name }}.
+ns01    A   {{ ansible_default_ipv4.address }}
+
+; drill-gor环境下，记录云各应用的主机地址。
+ems-content     A   10.8.61.11
+ems-customer    A   10.8.61.12
+ems-goods       A   10.8.61.13
+ems-order       A   10.8.61.14
+ems-pay         A   10.8.61.15
+ems-message     A   10.8.61.16
+ms-content      A   10.8.61.17
+ms-customer     A   10.8.61.18
+ms-goods        A   10.8.61.19
+ms-order        A   10.8.61.20
+ms-pay          A   10.8.61.21
+ms-quartz       A   10.8.61.22
+server-buy      A   10.8.61.23
+ems-pay-api     A   10.8.61.24

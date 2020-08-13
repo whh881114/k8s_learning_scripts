@@ -1,3 +1,4 @@
+{% set domain_name = item %}
 $TTL 600
 @       IN  SOA dns01.{{ domain_name }}. feedback.{{ domain_name }}. (
         2020012901  ; serial
@@ -6,5 +7,38 @@ $TTL 600
         1W          ; expire
         3H )        ; minimum
 
-        NS  dns01.{{ domain_name }}.
-dns01   A   {{ ansible_default_ipv4.address }}
+        NS  ns01.{{ domain_name }}.
+ns01    A   {{ ansible_default_ipv4.address }}
+
+customer           NS  ns01.customer.{{ domain_name }}.
+ns01.customer      A   {{ ansible_default_ipv4.address }}
+
+db          NS  ns01.db.{{ domain_name }}.
+ns01.db     A   {{ ansible_default_ipv4.address }}
+
+eshop           NS  ns01.eshop.{{ domain_name }}.
+ns01.eshop      A   {{ ansible_default_ipv4.address }}
+
+member           NS  ns01.member.{{ domain_name }}.
+ns01.member      A   {{ ansible_default_ipv4.address }}
+
+mycat           NS  ns01.mycat.{{ domain_name }}.
+ns01.mycat      A   {{ ansible_default_ipv4.address }}
+
+
+; drill-gor环境下，记录生产域名指向腾讯云的SLB地址。
+; 电商入口
+pagoda-buy-acc      A   10.8.4.39
+api.sale            A   10.8.4.39
+wx-mini             A   10.8.4.39
+app-customer        A   10.8.4.39
+wx-mini-ems         A   10.8.4.39
+wx-bgxx-ems         A   10.8.4.39
+sale-api-ems        A   10.8.4.39
+h5-web              A   10.8.4.39
+
+; EOMS入口
+api.oms             A   10.8.4.25
+oms-api             A   10.8.4.25
+intf.oms            A   10.8.4.25
+int.oms             A   10.8.4.25
