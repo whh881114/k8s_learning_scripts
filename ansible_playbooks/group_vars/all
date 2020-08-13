@@ -7,4 +7,9 @@ common_group: root
 # systemd
 systemd_conf_dir: /usr/lib/systemd/system
 
-
+# 线上普通用户
+common_user: work
+common_group: work
+common_home_path: /home/work
+common_log_path: "{{ common_home_path }}/logs"
+common_data_path: "{{ common_home_path }}/data"

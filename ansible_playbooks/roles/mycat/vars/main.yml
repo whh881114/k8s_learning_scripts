@@ -1,0 +1,13 @@
+---
+drill_customer_trade_user: trade.ms
+drill_customer_trade_password: IYfCJ8XUbEJ2oUdOp2o2tVtJsBwrJBLV
+
+drill_customer_trade_write_host_url: 10.8.60.12
+drill_customer_trade_write_host_user: trade_w
+drill_customer_trade_write_host_password: fSABdBSNEpzEASIh57d8OI2ExuT7wqKg
+
+drill_customer_trade_read_host_url: 10.8.60.12
+drill_customer_trade_read_host_user: trade_r
+drill_customer_trade_read_host_password: fSABdBSNEpzEASIh57d8OI2ExuT7wqKg
+
+

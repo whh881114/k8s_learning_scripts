@@ -1,0 +1,10 @@
+---
+- name: generate mycat instances yaml file
+  template:
+    src: generate_instances.yml.j2
+    dest: "{{ instance_yml_file }}"
+    variable_start_string: "[["
+    variable_end_string: "]]"
+
+
+#- include: "{{ instance_yml_file }}"
