@@ -19,8 +19,8 @@
 	<dataNode name="dn$1-12" dataHost="trade1" database="trade_db$1-12" />
 	<dataHost name="trade1" maxCon="1000" minCon="10" balance="0" writeType="0" dbType="mysql" dbDriver="native" switchType="1"  slaveThreshold="100">
 		<heartbeat>select user()</heartbeat>
-		<writeHost host="hostM1" url="{{ drill_customer_trade_write_host_url }}:{{ mysql_port }}" user="{{ drill_customer_trade_write_host_user }}" password="{{ drill_customer_trade_write_host_password }}">
-			<readHost host="hostS2" url="{{ drill_customer_trade_read_host_url }}:{{ mysql_port }}" user="{{ drill_customer_trade_read_host_user }}" password="{{ drill_customer_trade_read_host_password }}" />
+		<writeHost host="hostM1" url="{{ drill_customer_trade_write_host_url }}" user="{{ drill_customer_trade_write_host_user }}" password="{{ drill_customer_trade_write_host_password }}">
+			<readHost host="hostS2" url="{{ drill_customer_trade_read_host_url }}" user="{{ drill_customer_trade_read_host_user }}" password="{{ drill_customer_trade_read_host_password }}" />
 		</writeHost>
 	</dataHost>
 </mycat:schema>
