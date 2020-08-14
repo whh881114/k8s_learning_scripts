@@ -292,10 +292,10 @@
 
         <dataHost name="member_dh1" maxCon="3000" minCon="10" balance="0" writeType="0" dbType="mysql" dbDriver="native">
                 <heartbeat>select user()</heartbeat>
-                 <writeHost host="member_host1" url="{{ drill_member_master_write_host_url }}" user="{{ drill_member_master_write_host_user }}"  password="{{ drill_member_master_write_host_password }}"/>
+                 <writeHost host="member_host1" url="{{ drill_member_master_write_host_url1 }}" user="{{ drill_member_master_write_host_user }}"  password="{{ drill_member_master_write_host_password }}"/>
         </dataHost>
         <dataHost name="member_dh2" maxCon="3000" minCon="10" balance="0" writeType="0" dbType="mysql" dbDriver="native">
                 <heartbeat>select user()</heartbeat>
-                 <writeHost host="member_host2" url="{{ drill_member_master_write_host_url }}" user="{{ drill_member_master_write_host_user }}"  password="{{ drill_member_master_write_host_password }}"/>
+                 <writeHost host="member_host2" url="{{ drill_member_master_write_host_url2 }}" user="{{ drill_member_master_write_host_user }}"  password="{{ drill_member_master_write_host_password }}"/>
         </dataHost>
     </mycat:schema>
