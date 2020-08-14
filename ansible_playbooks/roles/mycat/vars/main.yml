@@ -26,7 +26,6 @@ drill_customer_member_read_host_url: "10.8.60.132:{{ mysql_port }}"
 drill_customer_member_read_host_user: member_r
 drill_customer_member_read_host_password: KwgOrJguszqRcJ1Ar1XmdfitEW6NKc7n
 
-# done
 drill_customer_trade_user: trade.ms
 drill_customer_trade_password: IYfCJ8XUbEJ2oUdOp2o2tVtJsBwrJBLV
 drill_customer_trade_write_host_url: "10.8.60.12:{{ mysql_port }}"
@@ -38,15 +37,15 @@ drill_customer_trade_read_host_password: fSABdBSNEpzEASIh57d8OI2ExuT7wqKg
 
 drill_member_master_user: mycat
 drill_member_master_password: mycat
-drill_member_master_write_host_url: "10.8.60.61:{{ mysql_port }}"
+drill_member_master_write_host_url1: "10.8.60.61:{{ mysql_port }}"
+drill_member_master_write_host_url2: "10.8.60.141:{{ mysql_port }}"
 drill_member_master_write_host_user: drill_member_w
 drill_member_master_write_host_password: 3VjgD4hSFAAKCJow3DpGdBXQQvsYK6lV
 
-drill_member_slave_user: trade.ms
-drill_member_slave_password: IYfCJ8XUbEJ2oUdOp2o2tVtJsBwrJBLV
-drill_member_slave_write_host_url: 10.8.60.12
-drill_member_slave_write_host_user: trade_w
-drill_member_slave_write_host_password: fSABdBSNEpzEASIh57d8OI2ExuT7wqKg
+
+
+drill_member_slave_user: mycat
+drill_member_slave_password: mycat
 drill_member_slave_read_host_url: 10.8.60.12
 drill_member_slave_read_host_user: trade_r
 drill_member_slave_read_host_password: fSABdBSNEpzEASIh57d8OI2ExuT7wqKg
