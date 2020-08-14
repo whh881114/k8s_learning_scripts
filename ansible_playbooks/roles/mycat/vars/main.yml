@@ -50,11 +50,12 @@ drill_member_slave_read_host_user: drill_member_r
 drill_member_slave_read_host_password: yjGToiK3QYqHcKmJusuH6uFlEqCp0BsN
 
 
-drill_platform_mkt_user: trade.ms
-drill_platform_mkt_password: IYfCJ8XUbEJ2oUdOp2o2tVtJsBwrJBLV
-drill_platform_mkt_write_host_url: 10.8.60.12
-drill_platform_mkt_write_host_user: trade_w
-drill_platform_mkt_write_host_password: fSABdBSNEpzEASIh57d8OI2ExuT7wqKg
-drill_platform_mkt_read_host_url: 10.8.60.12
-drill_platform_mkt_read_host_user: trade_r
-drill_platform_mkt_read_host_password: fSABdBSNEpzEASIh57d8OI2ExuT7wqKg
+drill_platform_mkt_user: marquery
+drill_platform_mkt_password: query#act9102
+drill_platform_mkt_write_host_url1: "10.8.60.95:{{ mysql_port }}"
+drill_platform_mkt_write_host_user1: marketing_w
+drill_platform_mkt_write_host_password1: OfKMarKeting8RcPMA195f
+drill_platform_mkt_write_host_url2: "10.8.60.32:{{ mysql_port }}"
+drill_platform_mkt_read_host_user2: mkactivity_w
+drill_platform_mkt_read_host_password2: OfKMarkeTINGRcPMA132f
+drill_member_slave_host: 10.8.60.85:18066

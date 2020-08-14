@@ -1,26 +1,70 @@
 <?xml version="1.0"?>
 <!DOCTYPE mycat:schema SYSTEM "schema.dtd">
 <mycat:schema xmlns:mycat="http://io.mycat/">
-	<schema name="trade" checkSQLschema="false" sqlMaxLimit="100">
-		<table name="trade_order" primaryKey="trade_id" dataNode="dn$1-12" rule="mod-by-trade_id" />
-		<table name="trade_order_detail" primaryKey="detail_id" dataNode="dn$1-12" rule="mod-by-trade_id"/>
-		<table name="payment_order" primaryKey="payment_id" dataNode="dn$1-12" rule="mod-by-trade_id"/>
-		<table name="trade_charge_order" primaryKey="order_id" dataNode="dn$1-12" rule="mod-by-trade_id"/>
-		<table name="activity" primaryKey="activity_id" dataNode="dn$1-12" rule="mod-by-trade_id"/>
-        <table name="activity_detail" primaryKey="detail_id" dataNode="dn$1-12" rule="mod-by-trade_id"/>
 
-		<table name="cost_order" primaryKey="cost_id" dataNode="dn$1-12" rule="mod-by-trade_id"/>
-        <table name="body_apportion_detail" primaryKey="apportion_id" dataNode="dn$1-12" rule="mod-by-trade_id"/>
-        <table name="goods_apportion_detail" primaryKey="goods_cost_detail_id" dataNode="dn$1-12" rule="mod-by-trade_id"/>
-        <table name="refund_order" primaryKey="refund_id"  dataNode="dn$1-12" rule="mod-by-trade_id"/>
-        <table name="refund_detail" primaryKey="detail_id"  dataNode="dn$1-12" rule="mod-by-trade_id"/>
-        <table name="refund_goods_detail" primaryKey="detail_id" dataNode="dn$1-12" rule="mod-by-trade_id"/>
-	</schema>
-	<dataNode name="dn$1-12" dataHost="trade1" database="trade_db$1-12" />
-	<dataHost name="trade1" maxCon="1000" minCon="10" balance="0" writeType="0" dbType="mysql" dbDriver="native" switchType="1"  slaveThreshold="100">
-		<heartbeat>select user()</heartbeat>
-		<writeHost host="hostM1" url="{{ drill_customer_trade_write_host_url }}:{{ mysql_port }}" user="{{ drill_customer_trade_write_host_user }}" password="{{ drill_customer_trade_write_host_password }}">
-			<readHost host="hostS2" url="{{ drill_customer_trade_read_host_url }}:{{ mysql_port }}" user="{{ drill_customer_trade_read_host_user }}" password="{{ drill_customer_trade_read_host_password }}" />
-		</writeHost>
-	</dataHost>
+    <schema name="marketing_drill_mycat" checkSQLschema="true">
+        <table name="mk_activity" dataNode="dn0"/>
+        <table name="mk_activity_date" dataNode="dn0"/>
+        <table name="mk_activity_discounts" dataNode="dn0"/>
+        <table name="mk_activity_discounts_detail" dataNode="dn0"/>
+        <table name="mk_activity_limit_channel" dataNode="dn0"/>
+        <table name="mk_activity_limit_channel_store" dataNode="dn0"/>
+        <table name="mk_activity_limit_channel_stores" dataNode="dn0"/>
+        <table name="mk_activity_limit_cost" dataNode="dn0"/>
+        <table name="mk_activity_limit_goods" dataNode="dn0"/>
+        <table name="mk_activity_limit_goods_detail" dataNode="dn0"/>
+        <table name="mk_activity_member_info" dataNode="dn0"/>
+        <table name="mk_activity_oa_check" dataNode="dn0"/>
+        <table name="mk_relative_coupon" dataNode="dn0"/>
+        <table name="mk_relative_fruit" dataNode="dn0"/>
+        <table name="mk_relative_goods" dataNode="dn0"/>
+        <table name="mk_tactics" dataNode="dn0"/>
+        <table name="mk_tactics_log" dataNode="dn0"/>
+        <table name="mk_tactics_scene" dataNode="dn0"/>
+        <table name="mk_activity_join_record" primaryKey="id" autoIncrement="true" dataNode="dn$1-12" rule="mod-long" />
+        <table name="employee" dataNode="member"/>
+        <table name="member_fruitcoin_record" dataNode="member"/>
+        <table name="member_deposit_record" dataNode="member"/>
+        <table name="stores_group_members" dataNode="member"/>
+        <table name="mk_activity_trigger_rule" dataNode="dn0"/>
+        <table name="mk_wechat_image" dataNode="dn13"/>
+        <table name="mk_wechat_keyword" dataNode="dn13"/>
+        <table name="mk_wechat_keyword_content" dataNode="dn13"/>
+        <table name="mk_wechat_poster" dataNode="dn13"/>
+        <table name="mk_wechat_poster_fans" dataNode="dn13"/>
+        <table name="mk_wechat_poster_grant" dataNode="dn13"/>
+        <table name="mk_wechat_poster_reply" dataNode="dn13"/>
+        <table name="mk_wechat_qrcode_log" dataNode="dn13"/>
+        <table name="mk_wechat_qrcode_action" dataNode="dn13"/>
+        <table name="mk_wechat_user" dataNode="dn13"/>
+    </schema>
+
+
+        <dataNode name="dn0" dataHost="act" database="marketing_activity"/>
+        <dataNode name="dn$1-12" dataHost="actjoin" database="mk_activity$1-12"/>
+    <dataNode name="member" dataHost="member" database="member"/>
+    <dataNode name="dn13" dataHost="rev" database="marketing_revision"/>
+
+        <dataHost name="member" maxCon="1000" minCon="10" balance="0" writeType="0" dbType="mysql" dbDriver="native" switchType="1"  slaveThreshold="100">
+        <heartbeat>select user()</heartbeat>
+        <writeHost host="host3" url="{{ drill_member_slave_host }}" user="{{ drill_member_slave_user }}" password="{{ drill_member_slave_password }}"></writeHost>
+        <!--<writeHost host="host3" url="10.8.49.72:28066" user="mycat" password="marketing@djJH354Hjirthnvao*234h4"></writeHost>-->
+    </dataHost>
+
+    <dataHost name="act" maxCon="1000" minCon="50" balance="0" writeType="0" dbType="mysql" dbDriver="native" switchType="1"  slaveThreshold="100">
+                <heartbeat>select user()</heartbeat>
+                <writeHost host="host1" url="{{ drill_platform_mkt_write_host_url1 }}" user="{{ drill_platform_mkt_write_host_user1 }}" password="{{ drill_platform_mkt_write_host_password1 }}"></writeHost>
+        </dataHost>
+
+    <dataHost name="rev" maxCon="1000" minCon="50" balance="0" writeType="0" dbType="mysql" dbDriver="native" switchType="1"  slaveThreshold="100">
+        <heartbeat>select user()</heartbeat>
+        <writeHost host="host4" url="{{ drill_platform_mkt_write_host_url1 }}" user="{{ drill_platform_mkt_write_host_user1 }}" password="{{ drill_platform_mkt_write_host_password1 }}"></writeHost>
+    </dataHost>
+
+    <dataHost name="actjoin" maxCon="1000" minCon="50" balance="0" writeType="0" dbType="mysql" dbDriver="native" switchType="1"  slaveThreshold="100">
+        <heartbeat>select user()</heartbeat>
+        <writeHost host="host2" url="{{ drill_platform_mkt_write_host_url2 }}" user="{{ drill_platform_mkt_read_host_user2 }}" password="{{ drill_platform_mkt_read_host_password2 }}"></writeHost>
+    </dataHost>
+
+
 </mycat:schema>
