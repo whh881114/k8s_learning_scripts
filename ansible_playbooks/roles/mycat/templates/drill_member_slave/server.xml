@@ -30,8 +30,8 @@
         <property name="systemReserveMemorySize">384m</property>
         <property name="useZKSwitch">true</property>
         </system>
-        <user name="mycat">
-                <property name="password">mycat</property>
+        <user name="{{ drill_member_slave_user }}">
+                <property name="password">{{ drill_member_slave_password }}</property>
                 <property name="schemas">member</property>
         </user>
 </mycat:server>
