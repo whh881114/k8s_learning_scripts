@@ -42,13 +42,12 @@ drill_member_master_write_host_url2: "10.8.60.141:{{ mysql_port }}"
 drill_member_master_write_host_user: drill_member_w
 drill_member_master_write_host_password: 3VjgD4hSFAAKCJow3DpGdBXQQvsYK6lV
 
-
-
 drill_member_slave_user: mycat
 drill_member_slave_password: mycat
-drill_member_slave_read_host_url: 10.8.60.12
-drill_member_slave_read_host_user: trade_r
-drill_member_slave_read_host_password: fSABdBSNEpzEASIh57d8OI2ExuT7wqKg
+drill_member_slave_read_host_url1: "10.8.60.34:{{ mysql_port }}"
+drill_member_slave_read_host_url2: "10.8.60.89:{{ mysql_port }}"
+drill_member_slave_read_host_user: drill_member_r
+drill_member_slave_read_host_password: yjGToiK3QYqHcKmJusuH6uFlEqCp0BsN
 
 
 drill_platform_mkt_user: trade.ms
