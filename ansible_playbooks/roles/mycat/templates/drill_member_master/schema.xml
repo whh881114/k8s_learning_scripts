@@ -2,268 +2,268 @@
 <!DOCTYPE mycat:schema SYSTEM "schema.dtd">
 <mycat:schema xmlns:mycat="http://io.mycat/">
 
-	<schema name="member" checkSQLschema="false" sqlMaxLimit="1000000">
-			<!--会员等级表-->
-		<table name="member_level" primaryKey="levelId" type="global" dataNode="member_dbs$1-12" autoIncrement="true" />
-		<!--会员短信上行日志 -->
-		<table name="member_sms_record" primaryKey="recordId" type="global" dataNode="member_dbs$1-12" autoIncrement="true" />
-		
-		<!-- 活动模块-->
-		<table name="activity" primaryKey="activityId" type="global" dataNode="member_dbs$1-12" autoIncrement="true" />
-		<table name="activity_goods_limit" type="global" dataNode="member_dbs$1-12" />
-		<table name="activity_goods_limit_detail" type="global" dataNode="member_dbs$1-12"/>
-		<table name="activity_store_limit" type="global" dataNode="member_dbs$1-12" />
-		<table name="activity_store_limit_detail" type="global" dataNode="member_dbs$1-12"/>
-		<table name="activity_coupon" primaryKey="couponId" type="global" dataNode="member_dbs$1-12" autoIncrement="true" />
-		<table name="activity_gift_goods_coupon" type="global" dataNode="member_dbs$1-12" />
-		<table name="activity_store_control" primaryKey="controlId" type="global" dataNode="member_dbs$1-12" autoIncrement="true" />
-		<table name="coupon_type" primaryKey="id" type="global" dataNode="member_dbs$1-12" autoIncrement="true" />
-		<table name="coupon_goods_limit" type="global" dataNode="member_dbs$1-12" />
-		<table name="coupon_goods_limit_detail"  type="global" dataNode="member_dbs$1-12" />
-		<table name="coupon_store_limit" type="global" dataNode="member_dbs$1-12" />
-		<table name="coupon_store_limit_detail" type="global" dataNode="member_dbs$1-12" />
-		<table name="coupon_batch"  type="global" dataNode="member_dbs$1-12"/>
-		<table name="coupon" type="global" dataNode="member_dbs$1-12"/>
-		<table name="fruit_coin"  type="global" dataNode="member_dbs$1-12"/>
-		<table name="fruitcoin_goods_limit" primaryKey="limitId" type="global" dataNode="member_dbs$1-12" autoIncrement="true" />
-		<table name="fruitCoin_goods_limit_detail"  type="global" dataNode="member_dbs$1-12"/>
-		<table name="fruitCoin_store_limit" primaryKey="limitId" type="global" dataNode="member_dbs$1-12" autoIncrement="true" />
-		<table name="fruitCoin_store_limit_detail" type="global" dataNode="member_dbs$1-12"/>
-		<table name="push_coupon_task" primaryKey="taskId" dataNode="member_dbs1" autoIncrement="true" />
-		<table name="push_coupon_record" primaryKey="recordId" dataNode="member_dbs1" autoIncrement="true" />		
-		<table name="activity_stair_coupon" type="global" dataNode="member_dbs$1-12" />		
-		<table name="fee_joint" primaryKey="feeId" type="global" dataNode="member_dbs$1-12" autoIncrement="true" />
-		<table name="activity_verify_way" type="global" dataNode="member_dbs$1-12"/>
-		<table name="activity_store_group_limit" type="global" dataNode="member_dbs$1-12" />
-		<table name="coupon_store_group_limit" primaryKey="limitId" type="global" dataNode="member_dbs$1-12" autoIncrement="true" />
-		<table name="fruitcoin_store_group_limit" primaryKey="limitId" type="global" dataNode="member_dbs$1-12" autoIncrement="true" />
-		<table name="stores_new_synchronize" primaryKey="id" type="global" dataNode="member_dbs$1-12" autoIncrement="true" />
-		
-		<!-- 元数据 -->
-		<table name="system_configuration" type="global" dataNode="member_dbs$1-12"/>
-		<table name="server_info" type="global" dataNode="member_dbs$1-12"/>
-		<table name="error_code" type="global" dataNode="member_dbs$1-12"/>
-		<table name="disable_password" type="global" dataNode="member_dbs$1-12"/>
-		<table name="sms_template"  primaryKey="templateId" type="global" dataNode="member_dbs$1-12" autoIncrement="true"/>
-	    	<table name="sms_template_param" primaryKey="paramId" type="global" dataNode="member_dbs$1-12" autoIncrement="true"/>
-		<table name="mysequence" dataNode="member_dbs7"/>
-		<table name="member_session" type="global" dataNode="member_dbs$1-12"/>
-		<table name="member_task_record" primaryKey="recordId" type="global" dataNode="member_dbs$1-12" autoIncrement="true"/>
-		<table name="client_log_upload_task" primaryKey="taskId" type="global" dataNode="member_dbs$1-12" autoIncrement="true"/>
-		<table name="data_dictionary" primaryKey="id" type="global" dataNode="member_dbs$1-12" autoIncrement="true" />	
-		<table name="data_dictionary_type" primaryKey="id" type="global" dataNode="member_dbs$1-12" autoIncrement="true" />
-	              
-		<!-- 商品门店模块 -->
-		<table name="goods_category" type="global" dataNode="member_dbs$1-12"/>
-		<table name="goods" type="global" dataNode="member_dbs$1-12"/>
-		<table name="employee" type="global" dataNode="member_dbs$1-12" primaryKey="employeeId" autoIncrement="true"/>
-		<table name="organization" type="global" dataNode="member_dbs$1-12"  primaryKey="orgId" autoIncrement="true"/>
-		<table name="stores"  type="global" dataNode="member_dbs$1-12" />
-	    	<table name="stores_group"  type="global" dataNode="member_dbs$1-12" />
-		<table name="stores_group_members" type="global" dataNode="member_dbs$1-12"/>
-		<table name="weixin_template" type="global" dataNode="member_dbs$1-12"/>
-		<table name="weixin_template_modify" type="global" dataNode="member_dbs$1-12" primaryKey="Id" autoIncrement="true"/>
-	        <table name="member_card_type"  type="global" dataNode="member_dbs$1-12" />
-		
-		<!--第三方辅助模块-->
-		<table name="wanding_sync_record"  type="global" dataNode="member_dbs$1-12"/>
-		<!-- 会员信息模块 -->
-		<table name="member" dataNode="member_dbs$1-12" primaryKey="memberId" rule="mod-long" />
-		<table name="member_address" dataNode="member_dbs$1-12" primaryKey="addressId"  rule="mod-long"  autoIncrement="true" />
-		<table name="member_wechat" dataNode="member_dbs$1-12" rule="mod-long"/>
-		<table name="member_bankcard" primaryKey="bankcardId" dataNode="member_dbs$1-12" rule="mod-long"/>
-		<table name="member_config" primaryKey="configId" dataNode="member_dbs$1-12" rule="mod-long"/>
-		<table name="member_account" primaryKey="memberAccountId"  dataNode="member_dbs$1-12" rule="mod-long"/>
-		<table name="member_integral" primaryKey="memberIntegralId" dataNode="member_dbs$1-12" rule="mod-long"/>
-		<table name="member_fruitcoin" primaryKey="memberFruitcoinId" dataNode="member_dbs$1-12" rule="mod-long"/>
-		<table name="member_coupon" primaryKey="memberCouponId" dataNode="member_dbs$1-12" rule="mod-long"/>
-		<table name="member_transfer" primaryKey="id" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true"/>
-		<table name="dynamic_verification_code" primaryKey="verificationCodeId" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true"/>
-		<table name="dynamic_member_code" primaryKey="memberCodeId" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true"/>
-		<table name="member_label" primaryKey="labelId" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true" />
+        <schema name="member" checkSQLschema="false" sqlMaxLimit="1000000">
+                        <!--会员等级表-->
+                <table name="member_level" primaryKey="levelId" type="global" dataNode="member_dbs$1-12" autoIncrement="true" />
+                <!--会员短信上行日志 -->
+                <table name="member_sms_record" primaryKey="recordId" type="global" dataNode="member_dbs$1-12" autoIncrement="true" />
 
-		<!-- 审核单据 -->
-		<table name="member_modify_form" primaryKey="formId"  dataNode="member_dbs$1-12" rule="mod-long" />
-		<table name="member_batchcharge" primaryKey="id"  dataNode="member_dbs$1-12" rule="mod-long" />
-		<table name="member_integral_oper" primaryKey="id"  dataNode="member_dbs$1-12" rule="mod-long" />
-		<table name="member_fruitcoin_oper" primaryKey="id"  dataNode="member_dbs$1-12" rule="mod-long" />
-		<table name="member_account_oper" primaryKey="id"  dataNode="member_dbs$1-12" rule="mod-long" />
+                <!-- 活动模块-->
+                <table name="activity" primaryKey="activityId" type="global" dataNode="member_dbs$1-12" autoIncrement="true" />
+                <table name="activity_goods_limit" type="global" dataNode="member_dbs$1-12" />
+                <table name="activity_goods_limit_detail" type="global" dataNode="member_dbs$1-12"/>
+                <table name="activity_store_limit" type="global" dataNode="member_dbs$1-12" />
+                <table name="activity_store_limit_detail" type="global" dataNode="member_dbs$1-12"/>
+                <table name="activity_coupon" primaryKey="couponId" type="global" dataNode="member_dbs$1-12" autoIncrement="true" />
+                <table name="activity_gift_goods_coupon" type="global" dataNode="member_dbs$1-12" />
+                <table name="activity_store_control" primaryKey="controlId" type="global" dataNode="member_dbs$1-12" autoIncrement="true" />
+                <table name="coupon_type" primaryKey="id" type="global" dataNode="member_dbs$1-12" autoIncrement="true" />
+                <table name="coupon_goods_limit" type="global" dataNode="member_dbs$1-12" />
+                <table name="coupon_goods_limit_detail"  type="global" dataNode="member_dbs$1-12" />
+                <table name="coupon_store_limit" type="global" dataNode="member_dbs$1-12" />
+                <table name="coupon_store_limit_detail" type="global" dataNode="member_dbs$1-12" />
+                <table name="coupon_batch"  type="global" dataNode="member_dbs$1-12"/>
+                <table name="coupon" type="global" dataNode="member_dbs$1-12"/>
+                <table name="fruit_coin"  type="global" dataNode="member_dbs$1-12"/>
+                <table name="fruitcoin_goods_limit" primaryKey="limitId" type="global" dataNode="member_dbs$1-12" autoIncrement="true" />
+                <table name="fruitCoin_goods_limit_detail"  type="global" dataNode="member_dbs$1-12"/>
+                <table name="fruitCoin_store_limit" primaryKey="limitId" type="global" dataNode="member_dbs$1-12" autoIncrement="true" />
+                <table name="fruitCoin_store_limit_detail" type="global" dataNode="member_dbs$1-12"/>
+                <table name="push_coupon_task" primaryKey="taskId" dataNode="member_dbs1" autoIncrement="true" />
+                <table name="push_coupon_record" primaryKey="recordId" dataNode="member_dbs1" autoIncrement="true" />
+                <table name="activity_stair_coupon" type="global" dataNode="member_dbs$1-12" />
+                <table name="fee_joint" primaryKey="feeId" type="global" dataNode="member_dbs$1-12" autoIncrement="true" />
+                <table name="activity_verify_way" type="global" dataNode="member_dbs$1-12"/>
+                <table name="activity_store_group_limit" type="global" dataNode="member_dbs$1-12" />
+                <table name="coupon_store_group_limit" primaryKey="limitId" type="global" dataNode="member_dbs$1-12" autoIncrement="true" />
+                <table name="fruitcoin_store_group_limit" primaryKey="limitId" type="global" dataNode="member_dbs$1-12" autoIncrement="true" />
+                <table name="stores_new_synchronize" primaryKey="id" type="global" dataNode="member_dbs$1-12" autoIncrement="true" />
 
-		<!-- 会员消费 -->
-		<table name="member_consume" primaryKey="consumeId" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true"/>
-		<table name="consume_detail" primaryKey="detailId" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true"/>
-		<table name="member_consume_joinactivity" primaryKey="id" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true"/>
-		<table name="member_pay_info" primaryKey="payId" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true"/>
-		<table name="member_consume_refund" primaryKey="refundId" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true"/>
-		<table name="member_refund_detail" primaryKey="detailId" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true"/>
-	
+                <!-- 元数据 -->
+                <table name="system_configuration" type="global" dataNode="member_dbs$1-12"/>
+                <table name="server_info" type="global" dataNode="member_dbs$1-12"/>
+                <table name="error_code" type="global" dataNode="member_dbs$1-12"/>
+                <table name="disable_password" type="global" dataNode="member_dbs$1-12"/>
+                <table name="sms_template"  primaryKey="templateId" type="global" dataNode="member_dbs$1-12" autoIncrement="true"/>
+                <table name="sms_template_param" primaryKey="paramId" type="global" dataNode="member_dbs$1-12" autoIncrement="true"/>
+                <table name="mysequence" dataNode="member_dbs7"/>
+                <table name="member_session" type="global" dataNode="member_dbs$1-12"/>
+                <table name="member_task_record" primaryKey="recordId" type="global" dataNode="member_dbs$1-12" autoIncrement="true"/>
+                <table name="client_log_upload_task" primaryKey="taskId" type="global" dataNode="member_dbs$1-12" autoIncrement="true"/>
+                <table name="data_dictionary" primaryKey="id" type="global" dataNode="member_dbs$1-12" autoIncrement="true" />
+                <table name="data_dictionary_type" primaryKey="id" type="global" dataNode="member_dbs$1-12" autoIncrement="true" />
+
+                <!-- 商品门店模块 -->
+                <table name="goods_category" type="global" dataNode="member_dbs$1-12"/>
+                <table name="goods" type="global" dataNode="member_dbs$1-12"/>
+                <table name="employee" type="global" dataNode="member_dbs$1-12" primaryKey="employeeId" autoIncrement="true"/>
+                <table name="organization" type="global" dataNode="member_dbs$1-12"  primaryKey="orgId" autoIncrement="true"/>
+                <table name="stores"  type="global" dataNode="member_dbs$1-12" />
+                <table name="stores_group"  type="global" dataNode="member_dbs$1-12" />
+                <table name="stores_group_members" type="global" dataNode="member_dbs$1-12"/>
+                <table name="weixin_template" type="global" dataNode="member_dbs$1-12"/>
+                <table name="weixin_template_modify" type="global" dataNode="member_dbs$1-12" primaryKey="Id" autoIncrement="true"/>
+                <table name="member_card_type"  type="global" dataNode="member_dbs$1-12" />
+
+                <!--第三方辅助模块-->
+                <table name="wanding_sync_record"  type="global" dataNode="member_dbs$1-12"/>
+                <!-- 会员信息模块 -->
+                <table name="member" dataNode="member_dbs$1-12" primaryKey="memberId" rule="mod-long" />
+                <table name="member_address" dataNode="member_dbs$1-12" primaryKey="addressId"  rule="mod-long"  autoIncrement="true" />
+                <table name="member_wechat" dataNode="member_dbs$1-12" rule="mod-long"/>
+                <table name="member_bankcard" primaryKey="bankcardId" dataNode="member_dbs$1-12" rule="mod-long"/>
+                <table name="member_config" primaryKey="configId" dataNode="member_dbs$1-12" rule="mod-long"/>
+                <table name="member_account" primaryKey="memberAccountId"  dataNode="member_dbs$1-12" rule="mod-long"/>
+                <table name="member_integral" primaryKey="memberIntegralId" dataNode="member_dbs$1-12" rule="mod-long"/>
+                <table name="member_fruitcoin" primaryKey="memberFruitcoinId" dataNode="member_dbs$1-12" rule="mod-long"/>
+                <table name="member_coupon" primaryKey="memberCouponId" dataNode="member_dbs$1-12" rule="mod-long"/>
+                <table name="member_transfer" primaryKey="id" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true"/>
+                <table name="dynamic_verification_code" primaryKey="verificationCodeId" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true"/>
+                <table name="dynamic_member_code" primaryKey="memberCodeId" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true"/>
+                <table name="member_label" primaryKey="labelId" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true" />
+
+                <!-- 审核单据 -->
+                <table name="member_modify_form" primaryKey="formId"  dataNode="member_dbs$1-12" rule="mod-long" />
+                <table name="member_batchcharge" primaryKey="id"  dataNode="member_dbs$1-12" rule="mod-long" />
+                <table name="member_integral_oper" primaryKey="id"  dataNode="member_dbs$1-12" rule="mod-long" />
+                <table name="member_fruitcoin_oper" primaryKey="id"  dataNode="member_dbs$1-12" rule="mod-long" />
+                <table name="member_account_oper" primaryKey="id"  dataNode="member_dbs$1-12" rule="mod-long" />
+
+                <!-- 会员消费 -->
+                <table name="member_consume" primaryKey="consumeId" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true"/>
+                <table name="consume_detail" primaryKey="detailId" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true"/>
+                <table name="member_consume_joinactivity" primaryKey="id" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true"/>
+                <table name="member_pay_info" primaryKey="payId" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true"/>
+                <table name="member_consume_refund" primaryKey="refundId" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true"/>
+                <table name="member_refund_detail" primaryKey="detailId" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true"/>
+
                 <!--新增记录用户绑定优惠券次数表 -->
-               <table name="member_binding_coupon_record" dataNode="member_dbs$1-12"  primaryKey="recordId" autoIncrement="true" type="global"/>	
-               
+               <table name="member_binding_coupon_record" dataNode="member_dbs$1-12"  primaryKey="recordId" autoIncrement="true" type="global"/>
 
 
-		<!-- 新增添加当天优惠券是否推送完成的记录表 -->
-		<table name="task_flag_record" dataNode="member_dbs$1-12"  primaryKey="recordId" autoIncrement="true" />
-			
-	
-		<!-- 历史数据模块 -->
-		<table name="member_modify_record" primaryKey="recordId" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true"/>
-		<table name="member_wallet_record" primaryKey="recordId" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true"/>
-		<table name="member_fruitcoin_record" primaryKey="recordId" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true"/>
-		<table name="member_coupon_record" primaryKey="recordId" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true"/>
-		<table name="member_integral_record" primaryKey="recordId" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true"/>
-		<table name="member_invoice_record" primaryKey="recordId" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true"/>
-		<table name="member_deposit_record" primaryKey="recordId" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true"/>
-		<table name="member_deduction_record" primaryKey="recordId" dataNode="member_dbs$1-12" rule="mod-long" />
-		<table name="member_deduction_detail" primaryKey="recordId" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true"/>
-		<table name="account_present_record" primaryKey="recordId" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true"/>
-		<table name="activity_join_record" primaryKey="recordId" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true"/>
-		<table name="member_sendmsg_record" primaryKey="recordId" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true"/>
-		<table name="member_consume_count" primaryKey="memberId" dataNode="member_dbs$1-12" rule="mod-long"/>
-	        <table name="dynamic_member_code_record" dataNode="member_dbs$1-12" primaryKey="recordId" rule="mod-long" autoIncrement="true"  />
-	        <table name="MYCAT_SEQUENCE"  primaryKey="name" dataNode="member_dbs1" />
+
+                <!-- 新增添加当天优惠券是否推送完成的记录表 -->
+                <table name="task_flag_record" dataNode="member_dbs$1-12"  primaryKey="recordId" autoIncrement="true" />
 
 
-	        <!-- update-v1.2.1.0 -->
-	        <table name="member_integral_level" dataNode="member_dbs$1-12" rule="mod-long" />
-	        <table name="member_integral_level_detail" dataNode="member_dbs$1-12" primaryKey="id" rule="mod-long" autoIncrement="true"  />
-	        <table name="member_level_msg_record" dataNode="member_dbs$1-12" rule="mod-long" />
-	        <table name="member_level_alter_record" dataNode="member_dbs$1-12" primaryKey="id" rule="mod-long" autoIncrement="true"  />
-	        <table name="member_upgrade_equity_record" dataNode="member_dbs$1-12" primaryKey="id" rule="mod-long" autoIncrement="true"  />
-	        <table name="member_season_equity_record" dataNode="member_dbs$1-12" rule="mod-long" />
-	        <table name="member_equity" dataNode="member_dbs$1-12" type="global" primaryKey="equityId" autoIncrement="true"  />
-	        <table name="member_equity_level" dataNode="member_dbs$1-12" type="global" primaryKey="equityLevelId" autoIncrement="true"  />
-	        <table name="member_level_limit" dataNode="member_dbs$1-12" type="global" primaryKey="levelLimitId" autoIncrement="true"  />
-	        <table name="member_birthday_equity_record" dataNode="member_dbs$1-12" rule="mod-long" primaryKey="birthdayEquityRecordId" autoIncrement="true"  />
-	       <table name="member_level_msg_rule" dataNode="member_dbs$1-12" type="global" primaryKey="levelMsgRuleId" autoIncrement="true"  />
-	  	
-		<!-- update-v1.3.0.0 -->
-	        <table name="member_black_white" dataNode="member_dbs$1-12" type="global" primaryKey="Id" autoIncrement="true"  />
-		<table name="member_function_limit" dataNode="member_dbs$1-12" type="global" primaryKey="Id" autoIncrement="true"  />        
-		<table name="member_transation_times" dataNode="member_dbs$1-12"   rule="mod-long" />
-		<table name="member_transation_stores" dataNode="member_dbs$1-12"   rule="mod-long" />
-		<table name="member_transation_isUpload" dataNode="member_dbs$1-12"  rule="mod-long"  />
-		<table name="common_push_coupon_task" primaryKey="taskId" dataNode="member_dbs1" autoIncrement="true" />
-		<table name="common_push_coupon_record" primaryKey="recordId" dataNode="member_dbs1" autoIncrement="true" />
+                <!-- 历史数据模块 -->
+                <table name="member_modify_record" primaryKey="recordId" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true"/>
+                <table name="member_wallet_record" primaryKey="recordId" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true"/>
+                <table name="member_fruitcoin_record" primaryKey="recordId" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true"/>
+                <table name="member_coupon_record" primaryKey="recordId" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true"/>
+                <table name="member_integral_record" primaryKey="recordId" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true"/>
+                <table name="member_invoice_record" primaryKey="recordId" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true"/>
+                <table name="member_deposit_record" primaryKey="recordId" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true"/>
+                <table name="member_deduction_record" primaryKey="recordId" dataNode="member_dbs$1-12" rule="mod-long" />
+                <table name="member_deduction_detail" primaryKey="recordId" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true"/>
+                <table name="account_present_record" primaryKey="recordId" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true"/>
+                <table name="activity_join_record" primaryKey="recordId" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true"/>
+                <table name="member_sendmsg_record" primaryKey="recordId" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true"/>
+                <table name="member_consume_count" primaryKey="memberId" dataNode="member_dbs$1-12" rule="mod-long"/>
+                <table name="dynamic_member_code_record" dataNode="member_dbs$1-12" primaryKey="recordId" rule="mod-long" autoIncrement="true"  />
+                <table name="MYCAT_SEQUENCE"  primaryKey="name" dataNode="member_dbs1" />
 
-		<!-- sms-gateway -->
-		<table name="sms_channel" dataNode="member_dbs$1-12" type="global" primaryKey="channelNum"  /> 
-		<table name="service_users" dataNode="member_dbs$1-12" type="global" primaryKey="userID" autoIncrement="true"  />
-		<table name="send_task" dataNode="member_dbs$1-12" type="global" primaryKey="taskID" autoIncrement="true"  />
-		<table name="send_task_detail" dataNode="member_dbs$1-12" type="global" primaryKey="detailID" autoIncrement="true"  />
-		<table name="send_record" dataNode="member_dbs$1-12" type="global" primaryKey="recordID" autoIncrement="true"  />
-		<table name="upload_register" dataNode="member_dbs$1-12" type="global" primaryKey="ID" autoIncrement="true"  />
-		<table name="upload_sms_record" dataNode="member_dbs$1-12" type="global" primaryKey="recordID" autoIncrement="true"  />
-		<table name="ip_white_list" dataNode="member_dbs$1-12" type="global" primaryKey="id" autoIncrement="true"  />
 
-		<!-- update-v1.3.1.0 -->
-	        <table name="member_growth_value" dataNode="member_dbs$1-12" rule="mod-long" />
-	        <table name="member_growth_value_detail" dataNode="member_dbs$1-12" rule="mod-long"  />
+                <!-- update-v1.2.1.0 -->
+                <table name="member_integral_level" dataNode="member_dbs$1-12" rule="mod-long" />
+                <table name="member_integral_level_detail" dataNode="member_dbs$1-12" primaryKey="id" rule="mod-long" autoIncrement="true"  />
+                <table name="member_level_msg_record" dataNode="member_dbs$1-12" rule="mod-long" />
+                <table name="member_level_alter_record" dataNode="member_dbs$1-12" primaryKey="id" rule="mod-long" autoIncrement="true"  />
+                <table name="member_upgrade_equity_record" dataNode="member_dbs$1-12" primaryKey="id" rule="mod-long" autoIncrement="true"  />
+                <table name="member_season_equity_record" dataNode="member_dbs$1-12" rule="mod-long" />
+                <table name="member_equity" dataNode="member_dbs$1-12" type="global" primaryKey="equityId" autoIncrement="true"  />
+                <table name="member_equity_level" dataNode="member_dbs$1-12" type="global" primaryKey="equityLevelId" autoIncrement="true"  />
+                <table name="member_level_limit" dataNode="member_dbs$1-12" type="global" primaryKey="levelLimitId" autoIncrement="true"  />
+                <table name="member_birthday_equity_record" dataNode="member_dbs$1-12" rule="mod-long" primaryKey="birthdayEquityRecordId" autoIncrement="true"  />
+               <table name="member_level_msg_rule" dataNode="member_dbs$1-12" type="global" primaryKey="levelMsgRuleId" autoIncrement="true"  />
 
-		<!-- update-v1.3.2.0 -->
-		<table name="activity_member_level" dataNode="member_dbs$1-12" type="global" />
+                <!-- update-v1.3.0.0 -->
+                <table name="member_black_white" dataNode="member_dbs$1-12" type="global" primaryKey="Id" autoIncrement="true"  />
+                <table name="member_function_limit" dataNode="member_dbs$1-12" type="global" primaryKey="Id" autoIncrement="true"  />
+                <table name="member_transation_times" dataNode="member_dbs$1-12"   rule="mod-long" />
+                <table name="member_transation_stores" dataNode="member_dbs$1-12"   rule="mod-long" />
+                <table name="member_transation_isUpload" dataNode="member_dbs$1-12"  rule="mod-long"  />
+                <table name="common_push_coupon_task" primaryKey="taskId" dataNode="member_dbs1" autoIncrement="true" />
+                <table name="common_push_coupon_record" primaryKey="recordId" dataNode="member_dbs1" autoIncrement="true" />
+
+                <!-- sms-gateway -->
+                <table name="sms_channel" dataNode="member_dbs$1-12" type="global" primaryKey="channelNum"  />
+                <table name="service_users" dataNode="member_dbs$1-12" type="global" primaryKey="userID" autoIncrement="true"  />
+                <table name="send_task" dataNode="member_dbs$1-12" type="global" primaryKey="taskID" autoIncrement="true"  />
+                <table name="send_task_detail" dataNode="member_dbs$1-12" type="global" primaryKey="detailID" autoIncrement="true"  />
+                <table name="send_record" dataNode="member_dbs$1-12" type="global" primaryKey="recordID" autoIncrement="true"  />
+                <table name="upload_register" dataNode="member_dbs$1-12" type="global" primaryKey="ID" autoIncrement="true"  />
+                <table name="upload_sms_record" dataNode="member_dbs$1-12" type="global" primaryKey="recordID" autoIncrement="true"  />
+                <table name="ip_white_list" dataNode="member_dbs$1-12" type="global" primaryKey="id" autoIncrement="true"  />
+
+                <!-- update-v1.3.1.0 -->
+                <table name="member_growth_value" dataNode="member_dbs$1-12" rule="mod-long" />
+                <table name="member_growth_value_detail" dataNode="member_dbs$1-12" rule="mod-long"  />
+
+                <!-- update-v1.3.2.0 -->
+                <table name="activity_member_level" dataNode="member_dbs$1-12" type="global" />
                 <table name="third_party_lock" dataNode="member_dbs$1-12" type="global" />
 
-		<!-- alipay -->
-		<table name="member_alipay_template" primaryKey="id" type="global" dataNode="member_dbs$1-12" autoIncrement="true" />
-		<table name="member_alipay" dataNode="member_dbs$1-12" rule="mod-long"/>		
-		<table name="member_alipay_send_mess_record" dataNode="member_dbs$1-12" rule="mod-long"/>
+                <!-- alipay -->
+                <table name="member_alipay_template" primaryKey="id" type="global" dataNode="member_dbs$1-12" autoIncrement="true" />
+                <table name="member_alipay" dataNode="member_dbs$1-12" rule="mod-long"/>
+                <table name="member_alipay_send_mess_record" dataNode="member_dbs$1-12" rule="mod-long"/>
 
-		 <!-- update-v2.0.0 -->
+                 <!-- update-v2.0.0 -->
                 <table name="member_month_equity_record" dataNode="member_dbs$1-12" rule="mod-long" />
-		<table name="month_gift_push_record" primaryKey="id" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true" />
-		<table name="refund_config" type="global" dataNode="member_dbs$1-12" />
-		
-		<table name="member_level_change" primaryKey="Id" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true" />
-		<table name="birthday_message_send_record" dataNode="member_dbs$1-12" rule="mod-long"/>	
-	        <table name="member_integral_order" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true" primaryKey="orderId"/>
-	
-	        <!--update-v.2.1.0-->
-	       <table name="member_change_number_record" dataNode="member_dbs$1-12" rule="mod-long"/>
-	       <table name="member_level_adjust" dataNode="member_dbs$1-12"  primaryKey="id" autoIncrement="true" rule="mod-long"/>	
+                <table name="month_gift_push_record" primaryKey="id" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true" />
+                <table name="refund_config" type="global" dataNode="member_dbs$1-12" />
+
+                <table name="member_level_change" primaryKey="Id" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true" />
+                <table name="birthday_message_send_record" dataNode="member_dbs$1-12" rule="mod-long"/>
+                <table name="member_integral_order" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true" primaryKey="orderId"/>
+
+                <!--update-v.2.1.0-->
+               <table name="member_change_number_record" dataNode="member_dbs$1-12" rule="mod-long"/>
+               <table name="member_level_adjust" dataNode="member_dbs$1-12"  primaryKey="id" autoIncrement="true" rule="mod-long"/>
                <!--update-v2.2.0-->
                <table name="store_black_white" dataNode="member_dbs$1-12" type="global" primaryKey="id" autoIncrement="true"  />
                <table name="hundred_enjoy_modify_record" dataNode="member_dbs$1-12" rule="mod-long"/>
 
                <table name="activity_hundred_enjoy_level" dataNode="member_dbs$1-12" type="global" />
-	       <table name="member_account_balacnce" dataNode="member_dbs$1-12"  primaryKey="id"  rule="mod-long"/>
-	       <table name="member_account_balacnce_OLD" dataNode="member_dbs$1-12"  primaryKey="id" rule="mod-long"/>
+               <table name="member_account_balacnce" dataNode="member_dbs$1-12"  primaryKey="id"  rule="mod-long"/>
+               <table name="member_account_balacnce_OLD" dataNode="member_dbs$1-12"  primaryKey="id" rule="mod-long"/>
 
                <table name="member_account_check" dataNode="member_dbs$1-12"  primaryKey="id" type="global" autoIncrement="true"/>
                <table name="member_account_check_detail" dataNode="member_dbs$1-12"  primaryKey="id" autoIncrement="true" rule="mod-long"/>
 
-		<!--update-v.3.0.0-->
-		<table name="member_equity_hundredvip_level" dataNode="member_dbs$1-12" type="global" />
-		<table name="hundredVip_gift_push_record" dataNode="member_dbs$1-12"  rule="mod-long"/>
-		<table name="weixin_template_object_config" dataNode="member_dbs$1-12" type="global"/>
-		<table name="weixin_template_object_store_limit" type="global" dataNode="member_dbs$1-12" />
-		<table name="weixin_template_object_store_limit_detail" type="global" dataNode="member_dbs$1-12" />
-		<table name="weixin_template_object_store_group_limit" type="global" dataNode="member_dbs$1-12" />
-		<table name="consume_activity" dataNode="member_dbs$1-12" primaryKey="recordID"  rule="mod-long" autoIncrement="true" />
-		<table name="consume_activity_special_offer_detail" dataNode="member_dbs$1-12" primaryKey="detailId" type="global" autoIncrement="true" />
-		<table name="hundredvip_expire_push_record" dataNode="member_dbs$1-12"  rule="mod-long"/>
-		<table name="business_invite_record" dataNode="member_dbs$1-12" rule="mod-long"/>
-		<table name="electricity_invite_record" dataNode="member_dbs$1-12" rule="mod-long"/>
-		<table name="real_name_certified_record" dataNode="member_dbs$1-12" rule="mod-long"/>
-		<table name="member_test" dataNode="member_dbs$1-12" rule="mod-long"/>
+                <!--update-v.3.0.0-->
+                <table name="member_equity_hundredvip_level" dataNode="member_dbs$1-12" type="global" />
+                <table name="hundredVip_gift_push_record" dataNode="member_dbs$1-12"  rule="mod-long"/>
+                <table name="weixin_template_object_config" dataNode="member_dbs$1-12" type="global"/>
+                <table name="weixin_template_object_store_limit" type="global" dataNode="member_dbs$1-12" />
+                <table name="weixin_template_object_store_limit_detail" type="global" dataNode="member_dbs$1-12" />
+                <table name="weixin_template_object_store_group_limit" type="global" dataNode="member_dbs$1-12" />
+                <table name="consume_activity" dataNode="member_dbs$1-12" primaryKey="recordID"  rule="mod-long" autoIncrement="true" />
+                <table name="consume_activity_special_offer_detail" dataNode="member_dbs$1-12" primaryKey="detailId" type="global" autoIncrement="true" />
+                <table name="hundredvip_expire_push_record" dataNode="member_dbs$1-12"  rule="mod-long"/>
+                <table name="business_invite_record" dataNode="member_dbs$1-12" rule="mod-long"/>
+                <table name="electricity_invite_record" dataNode="member_dbs$1-12" rule="mod-long"/>
+                <table name="real_name_certified_record" dataNode="member_dbs$1-12" rule="mod-long"/>
+                <table name="member_test" dataNode="member_dbs$1-12" rule="mod-long"/>
 
 
-		<!--update-v.3.1.0-->
-		<table name="activity_distinguish_way" dataNode="member_dbs$1-12" type="global" />
+                <!--update-v.3.1.0-->
+                <table name="activity_distinguish_way" dataNode="member_dbs$1-12" type="global" />
 
-		<!--update-v.3.2.0-->
+                <!--update-v.3.2.0-->
                 <table name="receiver_address" primaryKey="addressId" autoIncrement="true" dataNode="member_dbs$1-12" rule="mod-long" />
-                <table name="jd_card_member" dataNode="member_dbs$1-12" type="global" /> 
-		<!--update-v.3.3.0-->
-		<table name="hundredvip_save_money_detail" dataNode="member_dbs$1-12" primaryKey="id"  rule="mod-long" autoIncrement="true" />
-		<table name="hundredvip_save_money_month" dataNode="member_dbs$1-12" primaryKey="id"  rule="mod-long" autoIncrement="true" />
-		<table name="refund_hundred_vip_record" dataNode="member_dbs$1-12" primaryKey="recordId" autoIncrement="true" rule="mod-long" />
-		<table name="official_account" dataNode="member_dbs$1-12" rule="hash20190111" />
-		<table name="member_meituan" dataNode="member_dbs$1-12" primaryKey="id" autoIncrement="true" rule="mod-long" />
-		<table name="consume_relation_detail" dataNode="member_dbs$1-12" primaryKey="id" autoIncrement="true" rule="mod-long" />
+                <table name="jd_card_member" dataNode="member_dbs$1-12" type="global" />
+                <!--update-v.3.3.0-->
+                <table name="hundredvip_save_money_detail" dataNode="member_dbs$1-12" primaryKey="id"  rule="mod-long" autoIncrement="true" />
+                <table name="hundredvip_save_money_month" dataNode="member_dbs$1-12" primaryKey="id"  rule="mod-long" autoIncrement="true" />
+                <table name="refund_hundred_vip_record" dataNode="member_dbs$1-12" primaryKey="recordId" autoIncrement="true" rule="mod-long" />
+                <table name="official_account" dataNode="member_dbs$1-12" rule="hash20190111" />
+                <table name="member_meituan" dataNode="member_dbs$1-12" primaryKey="id" autoIncrement="true" rule="mod-long" />
+                <table name="consume_relation_detail" dataNode="member_dbs$1-12" primaryKey="id" autoIncrement="true" rule="mod-long" />
 
-		<!--update-v.3.4.0-->
+                <!--update-v.3.4.0-->
                 <table name="redeem_code"  dataNode="member_dbs$1-12" primaryKey="batchNum" type="global"/>
                 <table name="redeem_code_detail"  dataNode="member_dbs$1-12" primaryKey="redeemCode" rule="hash20190221"/>
 
-		<!--update-v.4.0.0-->
-		<table name="temp_activity_join_record" primaryKey="recordId" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true"/>
-		<table name="elecdeposit_fruitcoin_gift_config" primaryKey="id" type="global" dataNode="member_dbs$1-12" autoIncrement="true"/>
+                <!--update-v.4.0.0-->
+                <table name="temp_activity_join_record" primaryKey="recordId" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true"/>
+                <table name="elecdeposit_fruitcoin_gift_config" primaryKey="id" type="global" dataNode="member_dbs$1-12" autoIncrement="true"/>
 
-		<!--update-v.4.1.0-->
-		<table name="member_dianping_template" dataNode="member_dbs$1-12" primaryKey="id" autoIncrement="true" type="global"/>
-		<table name="member_dianping" dataNode="member_dbs$1-12" primaryKey="id" autoIncrement="true" rule="mod-long"/>
-		<table name="deposit_relation_detail" dataNode="member_dbs$1-12" primaryKey="id" autoIncrement="true" rule="mod-long"/>
-		<table name="hundred_modify_relation_detail" dataNode="member_dbs$1-12" primaryKey="id" autoIncrement="true" rule="mod-long"/>
-		<table name="hundredvip_expired_refund_record" primaryKey="recordId" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true"/>
-		<table name="hundredvip_save_money" primaryKey="recordId" dataNode="member_dbs$1-12" rule="mod-long"/>
-		<table name="member_consume_receive" primaryKey="id"  dataNode="member_dbs$1-12" rule="mod-long"  autoIncrement="true"/>
-		<table name="member_dianping_error_record" dataNode="member_dbs$1-12" primaryKey="id" autoIncrement="true" type="global"/>
-		<table name="hundredvip_save_money_bigData" primaryKey="recordId" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true"/>
-		<!--update-v4.2.0-->
-		<table name="wx_template_label" dataNode="member_dbs$1-12" type="global"/>
-		<table name="mutex_batch" dataNode="member_dbs$1-12" type="global"/>
-		<table name="mutex_coupon_use_record" dataNode="member_dbs$1-12" rule="mod-long"/>
+                <!--update-v.4.1.0-->
+                <table name="member_dianping_template" dataNode="member_dbs$1-12" primaryKey="id" autoIncrement="true" type="global"/>
+                <table name="member_dianping" dataNode="member_dbs$1-12" primaryKey="id" autoIncrement="true" rule="mod-long"/>
+                <table name="deposit_relation_detail" dataNode="member_dbs$1-12" primaryKey="id" autoIncrement="true" rule="mod-long"/>
+                <table name="hundred_modify_relation_detail" dataNode="member_dbs$1-12" primaryKey="id" autoIncrement="true" rule="mod-long"/>
+                <table name="hundredvip_expired_refund_record" primaryKey="recordId" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true"/>
+                <table name="hundredvip_save_money" primaryKey="recordId" dataNode="member_dbs$1-12" rule="mod-long"/>
+                <table name="member_consume_receive" primaryKey="id"  dataNode="member_dbs$1-12" rule="mod-long"  autoIncrement="true"/>
+                <table name="member_dianping_error_record" dataNode="member_dbs$1-12" primaryKey="id" autoIncrement="true" type="global"/>
+                <table name="hundredvip_save_money_bigData" primaryKey="recordId" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true"/>
+                <!--update-v4.2.0-->
+                <table name="wx_template_label" dataNode="member_dbs$1-12" type="global"/>
+                <table name="mutex_batch" dataNode="member_dbs$1-12" type="global"/>
+                <table name="mutex_coupon_use_record" dataNode="member_dbs$1-12" rule="mod-long"/>
 
-		 <!--消费信息上传临时表-->
+                 <!--消费信息上传临时表-->
                 <table name="member_consume_bak" primaryKey="consumeId" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true"/>
                 <table name="consume_detail_bak" primaryKey="detailId" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true"/>
                 <table name="member_pay_info_bak" primaryKey="payId" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true"/>
 
-		<!--update-v4.2.2-->
-		<table name="member_code_key" primaryKey="id" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true"/>
-		<table name="blacklist" primaryKey="id" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true"/>
-		<table name="suspected_blacklist" primaryKey="id" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true"/>
-		<table name="whitelist" primaryKey="id" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true"/>
-		<table name="return_visit" primaryKey="id" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true"/>
-		<table name="blacklist_history_record" primaryKey="id" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true"/>
-		<table name="suspected_blacklist_history_record" primaryKey="id" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true"/>
-		<table name="whitelist_history_record" primaryKey="id" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true"/>
-		<table name="official_account_user" dataNode="member_dbs$1-12" rule="hash20190111" />
-		<table name="open_account_binding" primaryKey="id" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true"/>
+                <!--update-v4.2.2-->
+                <table name="member_code_key" primaryKey="id" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true"/>
+                <table name="blacklist" primaryKey="id" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true"/>
+                <table name="suspected_blacklist" primaryKey="id" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true"/>
+                <table name="whitelist" primaryKey="id" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true"/>
+                <table name="return_visit" primaryKey="id" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true"/>
+                <table name="blacklist_history_record" primaryKey="id" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true"/>
+                <table name="suspected_blacklist_history_record" primaryKey="id" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true"/>
+                <table name="whitelist_history_record" primaryKey="id" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true"/>
+                <table name="official_account_user" dataNode="member_dbs$1-12" rule="hash20190111" />
+                <table name="open_account_binding" primaryKey="id" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true"/>
 
-		<!--update-v4.3.0-->
-       		<table name="third_order" primaryKey="id" dataNode="member_dbs$1-12" rule="sharding-by-murmur-orderid" autoIncrement="true" />
+                <!--update-v4.3.0-->
+                <table name="third_order" primaryKey="id" dataNode="member_dbs$1-12" rule="sharding-by-murmur-orderid" autoIncrement="true" />
                 <table name="oa_audit_coupon_batch" primaryKey="oaAuditId" dataNode="member_dbs1"/>
                 <table name="member_union_card_order" primaryKey="id" dataNode="member_dbs$1-12" rule="mod-long" autoIncrement="true"/>
 
@@ -276,23 +276,26 @@
 
 </schema>
 
-	<!-- dataNode  dataHost -->
+        <!-- dataNode  dataHost -->
         <dataNode name="member_dbs1" dataHost="member_dh1" database="member_dbs1" />
         <dataNode name="member_dbs2" dataHost="member_dh1" database="member_dbs2" />
         <dataNode name="member_dbs3" dataHost="member_dh1" database="member_dbs3" />
         <dataNode name="member_dbs4" dataHost="member_dh1" database="member_dbs4" />
         <dataNode name="member_dbs5" dataHost="member_dh1" database="member_dbs5" />
         <dataNode name="member_dbs6" dataHost="member_dh1" database="member_dbs6" />
-        <dataNode name="member_dbs7" dataHost="member_dh1" database="member_dbs7" />
-        <dataNode name="member_dbs8" dataHost="member_dh1" database="member_dbs8" />
-        <dataNode name="member_dbs9" dataHost="member_dh1" database="member_dbs9" />
-        <dataNode name="member_dbs10" dataHost="member_dh1" database="member_dbs10" />
-        <dataNode name="member_dbs11" dataHost="member_dh1" database="member_dbs11" />
-        <dataNode name="member_dbs12" dataHost="member_dh1" database="member_dbs12" />
+        <dataNode name="member_dbs7" dataHost="member_dh2" database="member_dbs7" />
+        <dataNode name="member_dbs8" dataHost="member_dh2" database="member_dbs8" />
+        <dataNode name="member_dbs9" dataHost="member_dh2" database="member_dbs9" />
+        <dataNode name="member_dbs10" dataHost="member_dh2" database="member_dbs10" />
+        <dataNode name="member_dbs11" dataHost="member_dh2" database="member_dbs11" />
+        <dataNode name="member_dbs12" dataHost="member_dh2" database="member_dbs12" />
 
         <dataHost name="member_dh1" maxCon="3000" minCon="10" balance="0" writeType="0" dbType="mysql" dbDriver="native">
                 <heartbeat>select user()</heartbeat>
-		 <writeHost host="member_host1" url="10.8.8.24:3306" user="member"  password="member@2016"/>
+                 <writeHost host="member_host1" url="{{ drill_member_master_write_host_url }}" user="{{ drill_member_master_write_host_user }}"  password="{{ drill_member_master_write_host_password }}"/>
         </dataHost>
-
+        <dataHost name="member_dh2" maxCon="3000" minCon="10" balance="0" writeType="0" dbType="mysql" dbDriver="native">
+                <heartbeat>select user()</heartbeat>
+                 <writeHost host="member_host2" url="{{ drill_member_master_write_host_url }}" user="{{ drill_member_master_write_host_user }}"  password="{{ drill_member_master_write_host_password }}"/>
+        </dataHost>
     </mycat:schema>
