@@ -10,18 +10,57 @@ $TTL 600
         NS  ns01.{{ domain_name }}.
 ns01    A   {{ ansible_default_ipv4.address }}
 
-; drill-gor环境下，记录云各应用的主机地址。
-ems-content     A   10.8.61.11
-ems-customer    A   10.8.61.12
-ems-goods       A   10.8.61.13
-ems-order       A   10.8.61.14
-ems-pay         A   10.8.61.15
-ems-message     A   10.8.61.16
-ms-content      A   10.8.61.17
-ms-customer     A   10.8.61.18
-ms-goods        A   10.8.61.19
-ms-order        A   10.8.61.20
-ms-pay          A   10.8.61.21
-ms-quartz       A   10.8.61.22
-server-buy      A   10.8.61.23
-ems-pay-api     A   10.8.61.24
+
+; 电商其他服务，A记录需要指向SLB地址，，A记录不需要每次修改。
+; ems开头的主机是通过dubbo调用，不需要做A记录。
+; ems-content     A   10.8.61.11
+; ems-customer    A   10.8.61.12
+; ems-goods       A   10.8.61.13
+; ems-order       A   10.8.61.14
+; ems-pay         A   10.8.61.15
+; ems-message     A   10.8.61.16
+ms-content      A   10.8.61.130
+ms-customer     A   10.8.61.58
+ms-goods        A   10.8.61.59
+ms-order        A   10.8.61.80
+ms-pay          A   10.8.61.91
+server-buy      A   10.8.61.69
+ems-pay-api     A   10.8.61.40
+; ms-quartz       A   10.8.61.22 ; 没有业务调用他，可以不配置A记录。
+
+
+; 单机es主机，其A记录需要每次修改。
+es                              A   10.8.61.22
+
+
+; redis-cluster集群，其A记录需要每次修改。
+node01.global.redis-cluster     A   10.8.61.22
+node02.global.redis-cluster     A   10.8.61.22
+node03.global.redis-cluster     A   10.8.61.22
+node04.global.redis-cluster     A   10.8.61.22
+node05.global.redis-cluster     A   10.8.61.22
+node06.global.redis-cluster     A   10.8.61.22
+node07.global.redis-cluster     A   10.8.61.22
+node08.global.redis-cluster     A   10.8.61.22
+node09.global.redis-cluster     A   10.8.61.22
+node10.global.redis-cluster     A   10.8.61.22
+node11.global.redis-cluster     A   10.8.61.22
+node12.global.redis-cluster     A   10.8.61.22
+
+node01.private.redis-cluster     A   10.8.61.22
+node02.private.redis-cluster     A   10.8.61.22
+node03.private.redis-cluster     A   10.8.61.22
+node04.private.redis-cluster     A   10.8.61.22
+node05.private.redis-cluster     A   10.8.61.22
+node06.private.redis-cluster     A   10.8.61.22
+node07.private.redis-cluster     A   10.8.61.22
+node08.private.redis-cluster     A   10.8.61.22
+node09.private.redis-cluster     A   10.8.61.22
+node10.private.redis-cluster     A   10.8.61.22
+
+node01.cache.redis-cluster     A   10.8.61.22
+node02.cache.redis-cluster     A   10.8.61.22
+node03.cache.redis-cluster     A   10.8.61.22
+node04.cache.redis-cluster     A   10.8.61.22
+node05.cache.redis-cluster     A   10.8.61.22
+node06.cache.redis-cluster     A   10.8.61.22
