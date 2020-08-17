@@ -28,17 +28,30 @@ ns01.mycat      A   {{ ansible_default_ipv4.address }}
 
 ; drill-gor环境下，记录生产域名指向腾讯云的SLB地址。
 ; 电商入口
-pagoda-buy-acc      A   10.8.4.39
-api.sale            A   10.8.4.39
-wx-mini             A   10.8.4.39
-app-customer        A   10.8.4.39
-wx-mini-ems         A   10.8.4.39
-wx-bgxx-ems         A   10.8.4.39
-sale-api-ems        A   10.8.4.39
-h5-web              A   10.8.4.39
+pagoda-buy-acc      A   10.8.61.64
+api.sale            A   10.8.61.138
+wx-mini             A   10.8.61.53
+app-customer        A   10.8.61.71
+wx-mini-ems         A   10.8.61.132
+wx-bgxx-ems         A   10.8.61.15
+sale-api-ems        A   10.8.61.37
+h5-web              A   10.8.61.137
 
 ; EOMS入口
 api.oms             A   10.8.4.25
 oms-api             A   10.8.4.25
 intf.oms            A   10.8.4.25
 int.oms             A   10.8.4.25
+
+
+
+; 记录公共服务记录，其A记录需要每次修改。
+node01.zk           A   10.8.61.22
+node02.zk           A   10.8.61.22
+node03.zk           A   10.8.61.22
+
+namesrv.mq          A       10.8.61.33
+broker01.mq         CNAME   namesrv.mq
+broker02.mq         A       10.8.61.33
+
+common.redis        A       10.8.61.33
