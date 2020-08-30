@@ -1,0 +1,9 @@
+---
+- name: install bind and bind-utils packages
+  hosts:
+    - 192.168.255.254
+  user: root
+  tasks:
+    - name: 'script demon on localhost'
+      script: /Users/roy/1.sh
+      delegate_to: localhost
