@@ -53,7 +53,7 @@ zone "{{ zone }}" IN {
 zone "{{ zone.ip }}.in-addr.arpa" IN {
     type slave;
     masters { {{ bind_master_ip }}; };
-    file "{{ zone.domain_name }}.rev.zone";
+    file "slaves/{{ zone.domain_name }}.rev.zone";
 };
 
 {% endfor %}
