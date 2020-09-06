@@ -13,3 +13,7 @@ common_group: work
 common_home_path: /home/work
 common_log_path: "{{ common_home_path }}/logs"
 common_data_path: "{{ common_home_path }}/data"
+
+# 内网DNS
+bind_master_ip: 192.168.2.252
+bind_slave_ip: 192.168.2.251
