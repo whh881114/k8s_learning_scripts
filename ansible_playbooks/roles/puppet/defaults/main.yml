@@ -1,0 +1,6 @@
+---
+puppet_agent_role: True
+puppet_agent_ver: "6.18.0-1.el{{ ansible_distribution_major_version }}"
+
+puppet_server_role: False
+puppet_server_host: foreman.freedom.org

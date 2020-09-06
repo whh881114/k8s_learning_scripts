@@ -1,0 +1,47 @@
+[main]
+    basemodulepath = /etc/puppetlabs/code/environments/common:/etc/puppetlabs/code/modules:/opt/puppetlabs/puppet/modules:/usr/share/puppet/modules
+    certname = {{ ansible_fqdn }}
+    codedir = /etc/puppetlabs/code
+    environmentpath = /etc/puppetlabs/code/environments
+    hiera_config = $confdir/hiera.yaml
+    hostprivkey = $privatekeydir/$certname.pem { mode = 640 }
+    logdir = /var/log/puppetlabs/puppet
+    pluginfactsource = puppet:///pluginfacts
+    pluginsource = puppet:///plugins
+    privatekeydir = $ssldir/private_keys { group = service }
+    reports = foreman
+    rundir = /var/run/puppetlabs
+    server = {{ puppet_server_host }}
+    show_diff = false
+    ssldir = /etc/puppetlabs/puppet/ssl
+    vardir = /opt/puppetlabs/puppet/cache
+
+{% if puppet_agent_role %}
+[agent]
+    classfile = $statedir/classes.txt
+    default_schedules = false
+    environment = production
+    localconfig = $vardir/localconfig
+    masterport = 8140
+    noop = false
+    report = true
+    runinterval = 1800
+    splay = false
+    splaylimit = 1800
+    usecacheonfailure = true
+{% endif %}
+
+{% if puppet_server_role %}
+[master]
+    autosign = /etc/puppetlabs/puppet/autosign.conf { mode = 0664 }
+    ca = true
+    certname = {{ puppet_server_host }}
+    external_nodes = /etc/puppetlabs/puppet/node.rb
+    logdir = /var/log/puppetlabs/puppetserver
+    node_terminus = exec
+    parser = current
+    rundir = /var/run/puppetlabs/puppetserver
+    ssldir = /etc/puppetlabs/puppet/ssl
+    strict_variables = false
+    vardir = /opt/puppetlabs/server/data/puppetserver
+{% endif %}

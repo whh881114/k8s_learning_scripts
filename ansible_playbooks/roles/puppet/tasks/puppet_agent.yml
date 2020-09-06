@@ -1,0 +1,21 @@
+---
+- name: copy puppet package
+  copy:
+    src: "puppet-agent-{{ puppet_agent_ver }}.x86_64.rpm"
+    dest: "/usr/local/src/puppet-agent-{{ puppet_agent_ver }}.x86_64.rpm"
+
+- name: install puppet package
+  package:
+    pkg: "{{ item }}"
+    state: present
+  with_items:
+    - "/usr/local/src/puppet-agent-{{ puppet_agent_ver }}.x86_64.rpm"
+
+- name: generate puppet agent configuration file
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  with_items:
+    - { src: puppet-agent/puppet.conf.j2, dest: /etc/puppetlabs/puppet/puppet.conf }
+  notify:
+    - restart puppet-agent
