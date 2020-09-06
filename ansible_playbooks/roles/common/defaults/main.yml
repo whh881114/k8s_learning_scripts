@@ -2,3 +2,5 @@
 is_k8s_host: false
 
 rc_local_file: /etc/rc.d/rc_common.local
+
+local_dns: True

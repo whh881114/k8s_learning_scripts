@@ -1,4 +1,7 @@
 ---
+- include: dns.yml
+  when: local_dns
+
 - include: common.yml
 
 - include: repos.yml
