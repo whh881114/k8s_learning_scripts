@@ -4,7 +4,13 @@
     path: "/etc/yum.repos.d/{{ item }}"
     state: absent
   with_items:
-    - "*.repo"
+    - CentOS-Base.repo
+    - CentOS-CR.repo
+    - CentOS-Debuginfo.repo
+    - CentOS-fasttrack.repo
+    - CentOS-Media.repo
+    - CentOS-Sources.repo
+    - CentOS-Vault.repo
 
 - name: copy common repo files
   copy:
