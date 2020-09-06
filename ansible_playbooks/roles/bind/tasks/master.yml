@@ -24,3 +24,14 @@
   vars:
     SN: "{{ date_format.stdout }}"
   notify: restart bind
+
+- name: generate rfc1912 reversed zone files
+  template:
+    src:  "master/{{ item }}.zone.j2"
+    dest: "{{ bind_zone_dir}}/{{ item }}.zone"
+    group: "{{ bind_group }}"
+    mode: "0644"
+  with_items: "{{ bind_rev_zones }}"
+  vars:
+    SN: "{{ date_format.stdout }}"
+  notify: restart bind

@@ -1,0 +1,51 @@
+{% set domain_name = item %}
+$TTL 600
+@       IN  SOA dns01.{{ domain_name }}. feedback.{{ domain_name }}. (
+        {{ SN }}  ; serial
+        1D          ; refresh
+        1H          ; retry
+        1W          ; expire
+        3H )        ; minimum
+
+        NS  ns01.{{ domain_name }}.
+        NS  ns02.{{ domain_name }}.
+ns01    A   {{ bind_master_ip }}
+ns02    A   {{ bind_slave_ip }}
+
+
+foreman             IN      A       192.168.2.253
+nfs                 IN      A       192.168.2.253
+jenkins             IN      A       192.168.2.253
+
+; 192.168.2.250为haproxy服务器，进行四层及七层代理。
+haproxy             IN      A       192.168.2.250
+consul              IN      A       192.168.2.250
+registry            IN      A       192.168.2.250
+
+; pfsense为NAT服务器
+pfsense             IN      A       192.168.2.249
+
+
+; 子域授权
+k8s.freedom.org.        IN      NS      ns01.k8s.freedom.org.
+k8s.freedom.org.        IN      NS      ns02.k8s.freedom.org.
+ns01.k8s.freedom.org.   IN      A       {{ bind_master_ip }}
+ns02.k8s.freedom.org.   IN      A       {{ bind_slave_ip }}
+
+ceph.freedom.org.        IN      NS      ns01.ceph.freedom.org.
+ceph.freedom.org.        IN      NS      ns02.ceph.freedom.org.
+ns01.ceph.freedom.org.   IN      A       {{ bind_master_ip }}
+ns02.ceph.freedom.org.   IN      A       {{ bind_slave_ip }}
+
+es.freedom.org.        IN      NS      ns01.es.freedom.org.
+es.freedom.org.        IN      NS      ns02.es.freedom.org.
+ns01.es.freedom.org.   IN      A       {{ bind_master_ip }}
+ns02.es.freedom.org.   IN      A       {{ bind_slave_ip }}
+
+test.freedom.org.        IN      NS      ns01.test.freedom.org.
+test.freedom.org.        IN      NS      ns02.test.freedom.org.
+ns01.test.freedom.org.   IN      A       {{ bind_master_ip }}
+ns02.test.freedom.org.   IN      A       {{ bind_slave_ip }}
+
+
+

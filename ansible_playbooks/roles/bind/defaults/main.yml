@@ -1,6 +1,12 @@
 ---
+bind_master_ip: 192.168.2.252
+bind_slave_ip: 192.168.2.251
+
 bind_master_role: False
 bind_slave_role: False
+
+# 因为是做反向解析，所以只写最后一个段即可，实际的地址为192.168.2.253。
+foreman_ip: 253
 
 bind_packages:
   - bind
@@ -27,13 +33,11 @@ bind_slave_dir: "{{ bind_dir }}/slaves"
 
 
 bind_zones:
-  - pagoda.com.cn
-  - account.pagoda.com.cn
-  - common.pagoda.com.cn
-  - customer.pagoda.com.cn
-  - db.pagoda.com.cn
-  - eshop.pagoda.com.cn
-  - member.pagoda.com.cn
-  - mycat.pagoda.com.cn
-  - platform.pagoda.com.cn
-  - tencentyun.com
+  - freedom.org
+  - ceph.freedom.org
+  - es.freedom.org
+  - k8s.freedom.org
+  - test.freedom.org
+
+bind_rev_zones:
+  - {ip: "2.168.192", domain_name: "freedom.org"}

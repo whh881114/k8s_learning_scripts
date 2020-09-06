@@ -48,3 +48,12 @@ zone "{{ zone }}" IN {
 };
 
 {% endfor %}
+
+{% for zone in bind_rev_zones %}
+zone "{{ zone.ip }}.in-addr.arpa" IN {
+    type master;
+    file "{{ zone }}.rev.zone";
+    allow-update { none; };
+};
+
+{% endfor %}

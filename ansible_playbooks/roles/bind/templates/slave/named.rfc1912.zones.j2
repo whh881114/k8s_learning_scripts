@@ -43,8 +43,17 @@ zone "0.in-addr.arpa" IN {
 {% for zone in bind_zones %}
 zone "{{ zone }}" IN {
     type slave;
-    masters { {{ master_dns_slb }}; };
+    masters { {{ bind_master_ip }}; };
     file "slaves/{{ zone }}.zone";
+};
+
+{% endfor %}
+
+{% for zone in bind_rev_zones %}
+zone "{{ zone.ip }}.in-addr.arpa" IN {
+    type slave;
+    masters { {{ bind_master_ip }}; };
+    file "{{ zone }}.rev.zone";
 };
 
 {% endfor %}

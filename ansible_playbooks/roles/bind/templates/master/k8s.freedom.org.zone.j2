@@ -1,0 +1,23 @@
+{% set domain_name = item %}
+$TTL 600
+@       IN  SOA ns01.{{ domain_name }}. feedback.{{ domain_name }}. (
+        {{ SN }}  ; serial
+        1D          ; refresh
+        1H          ; retry
+        1W          ; expire
+        3H )        ; minimum
+
+        NS  ns01.{{ domain_name }}.
+        NS  ns02.{{ domain_name }}.
+ns01    A   {{ bind_master_ip }}
+ns02    A   {{ bind_slave_ip }}
+
+master              IN      A       192.168.2.1
+worker01              IN      A       192.168.2.2
+worker02              IN      A       192.168.2.3
+worker03              IN      A       192.168.2.4
+
+; 以下服务使用haproxy进行代理，此处指向其负载均衡地址。
+rancher                 IN      A       192.168.2.250
+kibana                  IN      A       192.168.2.250
+zabbix                  IN      A       192.168.2.250
