@@ -15,7 +15,7 @@
 
 - name: install consul-template package
   unarchive:
-    src: pkgs/consul-template_{{ consul_template_ver }}_linux_amd64.tgz
+    src: consul-template_{{ consul_template_ver }}_linux_amd64.tgz
     dest: /usr/local/bin/
     mode: 0755
   notify: restart-consul-template
