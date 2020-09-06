@@ -1,9 +1,4 @@
-# tasks file for zabbix agent
-- name: copy zabbix repo
-  copy:
-    src: zabbix.repo
-    dest: /etc/yum.repos.d/zabbix.repo
-
+---
 - name: install zabbix_agent
   yum:
     name: "{{ item }}"
@@ -14,20 +9,7 @@
     - zabbix-sender
 
 - name: update zabbix agentd config
-  lineinfile:
-    path: /etc/zabbix/zabbix_agentd.conf
-    regexp: "{{ item.regexp }}"
-    line: "{{ item.line }}"
-    backrefs: yes
-  with_items:
-    - { regexp: '^\# EnableRemoteCommands=', line: "EnableRemoteCommands=1" }
-    - { regexp: '^Server=', line: "Server={{ zabbix_server }}" }
-    - { regexp: '^\# StartAgents=', line: "StartAgents=1" }
-    - { regexp: '^ServerActive=', line: "ServerActive={{ zabbix_active_server }}" }
-    - { regexp: '^Hostname=Zabbix server', line: "# Hostname=Zabbix server" }
-    - { regexp: '^\# HostMetadataItem=', line: "HostMetadataItem=system.uname" }
-    - { regexp: '^\# RefreshActiveChecks=', line: "RefreshActiveChecks=300" }
-    - { regexp: '^\# BufferSize=', line: "BufferSize=200" }
-    - { regexp: '^\# Timeout=', line: "Timeout=30" }
-    - { regexp: '^\# ListenIP=0.0.0.0', line: "ListenIP=0.0.0.0" }
+  template:
+    src: zabbix_agentd.conf.j2
+    dest: /etc/zabbix/zabbix_agentd.conf
   notify: restart-zabbix-agent

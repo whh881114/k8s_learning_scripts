@@ -5,4 +5,4 @@
   roles:
     - role: zabbix
       vars:
-        zabbix_type: agent
+        zabbix_agent_role: True
