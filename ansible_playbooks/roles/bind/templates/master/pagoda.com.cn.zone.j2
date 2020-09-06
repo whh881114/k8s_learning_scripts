@@ -1,7 +1,7 @@
 {% set domain_name = item %}
 $TTL 600
 @       IN  SOA dns01.{{ domain_name }}. feedback.{{ domain_name }}. (
-        2020012901  ; serial
+        {{ SN }}  ; serial
         1D          ; refresh
         1H          ; retry
         1W          ; expire
@@ -9,6 +9,9 @@ $TTL 600
 
         NS  ns01.{{ domain_name }}.
 ns01    A   {{ ansible_default_ipv4.address }}
+
+common           NS  ns01.common.{{ domain_name }}.
+ns01.common      A   {{ ansible_default_ipv4.address }}
 
 customer           NS  ns01.customer.{{ domain_name }}.
 ns01.customer      A   {{ ansible_default_ipv4.address }}
@@ -37,21 +40,15 @@ wx-bgxx-ems         A   10.8.61.15
 sale-api-ems        A   10.8.61.37
 h5-web              A   10.8.61.137
 
-; EOMS入口
-api.oms             A   10.8.4.25
-oms-api             A   10.8.4.25
-intf.oms            A   10.8.4.25
-int.oms             A   10.8.4.25
+; EOMS入口，一个slb，根据主机头名字转发到各个服务。
+api.oms             A   10.8.61.26
+oms-api             A   10.8.61.26
+intf.oms            A   10.8.61.26
+int.oms             A   10.8.61.26
+
+; EOMS其他主机，需要每次更新A记录。(EOMS没有单独做个子域，所以写到这里了。)
+cli.oms                         A   10.8.61.22
+beanstalkd.oms                  A   10.8.61.22
 
 
 
-; 记录公共服务记录，其A记录需要每次修改。
-node01.zk           A   10.8.61.22
-node02.zk           A   10.8.61.22
-node03.zk           A   10.8.61.22
-
-namesrv.mq          A       10.8.61.33
-broker01.mq         CNAME   namesrv.mq
-broker02.mq         A       10.8.61.33
-
-common.redis        A       10.8.61.33

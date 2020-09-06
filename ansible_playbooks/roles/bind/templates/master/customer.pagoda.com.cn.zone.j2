@@ -1,7 +1,7 @@
 {% set domain_name = item %}
 $TTL 600
 @       IN  SOA dns01.{{ domain_name }}. feedback.{{ domain_name }}. (
-        2020012901  ; serial
+        {{ SN }}  ; serial
         1D          ; refresh
         1H          ; retry
         1W          ; expire
@@ -11,9 +11,9 @@ $TTL 600
 ns01    A   {{ ansible_default_ipv4.address }}
 
 ; drill-gor环境下，记录云各应用的主机地址。
-opencenter-api      A   10.8.61.20
-member-ms           A   10.8.61.21
-coupon-ms           A   10.8.61.22
-trade-ms            A   10.8.61.23
-center-dm           A   10.8.61.24
-account-ms          A   10.8.61.25
+opencenter-api      A   10.8.61.51
+member-ms           A   10.8.61.98
+coupon-ms           A   10.8.61.142
+trade-ms            A   10.8.61.123
+center-dm           A   10.8.61.136
+account-ms          A   10.8.61.65

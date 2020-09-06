@@ -1,7 +1,7 @@
 {% set domain_name = item %}
 $TTL 600
 @       IN  SOA dns01.{{ domain_name }}. feedback.{{ domain_name }}. (
-        2020012901  ; serial
+        {{ SN }}  ; serial
         1D          ; refresh
         1H          ; retry
         1W          ; expire
@@ -16,7 +16,8 @@ member-customer         A   10.8.61.33
 coupon-customer         A   10.8.61.33
 account-customer        A   10.8.61.33
 mkt-platform            A   10.8.61.33
-master-member            A   10.8.61.33
-slave01-member            A   10.8.61.33
-slave02-member            A   10.8.61.33
-slave03-member            A   10.8.61.33    ; 会员mycat服务角色需明确认意义，不能存在slav01-slave03的标识。
+
+master01-member             A   10.8.61.33
+master02-member             A   10.8.61.33
+master03-member             A   10.8.61.33
+slave-member                A   10.8.61.33

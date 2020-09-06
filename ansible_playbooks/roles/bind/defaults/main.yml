@@ -29,9 +29,11 @@ bind_slave_dir: "{{ bind_dir }}/slaves"
 bind_zones:
   - pagoda.com.cn
   - account.pagoda.com.cn
+  - common.pagoda.com.cn
   - customer.pagoda.com.cn
   - db.pagoda.com.cn
   - eshop.pagoda.com.cn
   - member.pagoda.com.cn
   - mycat.pagoda.com.cn
   - platform.pagoda.com.cn
+  - tencentyun.com

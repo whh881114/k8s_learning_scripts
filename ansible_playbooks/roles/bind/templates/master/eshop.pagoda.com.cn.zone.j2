@@ -1,7 +1,7 @@
 {% set domain_name = item %}
 $TTL 600
 @       IN  SOA dns01.{{ domain_name }}. feedback.{{ domain_name }}. (
-        2020012901  ; serial
+        {{ SN }}  ; serial
         1D          ; refresh
         1H          ; retry
         1W          ; expire

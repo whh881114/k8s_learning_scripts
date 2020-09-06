@@ -10,6 +10,10 @@
     - { src: master/named.rfc1912.zones.j2, dest: /etc/named.rfc1912.zones }
   notify: restart bind
 
+- name: generate SOA serial number
+  shell: echo "`date +%s` - 50*365*86400 - 21629600" | bc  # 以50年前的时间戳为SOA SN，2020/08/26这天开始计算。
+  register: date_format
+
 - name: generate rfc1912 zone files
   template:
     src:  "master/{{ item }}.zone.j2"
@@ -17,4 +21,6 @@
     group: "{{ bind_group }}"
     mode: "0644"
   with_items: "{{ bind_zones }}"
+  vars:
+    SN: "{{ date_format.stdout }}"
   notify: restart bind

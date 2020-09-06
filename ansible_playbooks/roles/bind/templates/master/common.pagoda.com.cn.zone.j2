@@ -1,0 +1,27 @@
+{% set domain_name = item %}
+$TTL 600
+@       IN  SOA dns01.{{ domain_name }}. feedback.{{ domain_name }}. (
+        {{ SN }}  ; serial
+        1D          ; refresh
+        1H          ; retry
+        1W          ; expire
+        3H )        ; minimum
+
+        NS  ns01.{{ domain_name }}.
+ns01    A   {{ ansible_default_ipv4.address }}
+
+; 记录公共服务记录，其A记录需要每次修改。
+zk-node01           A   10.8.61.22
+zk-node02           A   10.8.61.22
+zk-node03           A   10.8.61.22
+
+mq-namesrv          A       10.8.61.33
+mq-broker01         CNAME   namesrv.mq
+mq-broker02         A       10.8.61.33
+
+redis               A       10.8.61.33
+mock                A       10.8.61.114
+
+consul-srv01        A       10.8.8.168
+consul-srv02        A       10.8.4.38
+consul-srv03        A       10.8.32.67

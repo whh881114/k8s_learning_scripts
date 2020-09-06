@@ -1,1 +1,11 @@
 ---
+- name: generate main config file
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    group: "{{ bind_group }}"
+    mode: "0644"
+  with_items:
+    - { src: slave/named.conf.j2, dest: /etc/named.conf }
+    - { src: slave/named.rfc1912.zones.j2, dest: /etc/named.rfc1912.zones }
+  notify: restart bind

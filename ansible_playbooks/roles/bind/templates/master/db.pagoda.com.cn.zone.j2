@@ -1,7 +1,7 @@
 {% set domain_name = item %}
 $TTL 600
 @       IN  SOA dns01.{{ domain_name }}. feedback.{{ domain_name }}. (
-        2020012901  ; serial
+        {{ SN }}  ; serial
         1D          ; refresh
         1H          ; retry
         1W          ; expire
@@ -40,11 +40,11 @@ eshop-db1m                          A   10.8.60.2
 eshop-db0m                          A   10.8.60.82
 
 account-dbs6-8-s                    A   10.8.60.132
-account-dbs6-8-M                    A   10.8.60.10
-account-dbs3-5-M                    A   10.8.60.12
-account-dbs-1-12-M                  A   10.8.60.93
+account-dbs6-8-m                    A   10.8.60.10
+account-dbs3-5-m                    A   10.8.60.12
+account-dbs-1-12-m                  A   10.8.60.93
 
-trade-account-dbs1-2-M              A   10.8.60.20
+trade-account-dbs1-2-m              A   10.8.60.20
 mk-activity-db-m1                   A   10.8.60.32
 marketing-db-m1                     A   10.8.60.95
 
