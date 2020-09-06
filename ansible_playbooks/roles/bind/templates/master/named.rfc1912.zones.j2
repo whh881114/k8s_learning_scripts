@@ -52,7 +52,7 @@ zone "{{ zone }}" IN {
 {% for zone in bind_rev_zones %}
 zone "{{ zone.ip }}.in-addr.arpa" IN {
     type master;
-    file "{{ zone }}.rev.zone";
+    file "{{ zone.domain_name }}.rev.zone";
     allow-update { none; };
 };
 

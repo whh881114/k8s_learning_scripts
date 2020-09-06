@@ -1,3 +1,4 @@
+{% set domain_name = item.domain_name %}
 $TTL 1D
 @       IN      SOA     {{ domain_name }}.     feedback.{{ domain_name }}. (
                         {{ SN }}       ; serial
