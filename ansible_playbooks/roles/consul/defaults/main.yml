@@ -9,9 +9,9 @@ consul_template_role: False
 
 # consul-server使用ds部署在容器中，其服务端口全部原始映射到宿主机
 consul_servers:
-  - worker01.k8s.freedom.org
-  - worker02.k8s.freedom.org
-  - worker03.k8s.freedom.org
+  - server01.consul.freedom.org
+  - server02.consul.freedom.org
+  - server03.consul.freedom.org
 
 consul_agent_dir: /etc/consul-agent
 consul_agent_log_dir: "{{ consul_agent_dir }}/log"

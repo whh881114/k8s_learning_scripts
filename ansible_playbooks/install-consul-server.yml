@@ -1,0 +1,11 @@
+---
+- name: install consul server
+  hosts:
+    - server01.consul.freedom.org
+    - server02.consul.freedom.org
+    - server03.consul.freedom.org
+  user: root
+  roles:
+    - role: consul
+      vars:
+        consul_server_role: True

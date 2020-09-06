@@ -1,6 +1,0 @@
-{
-    "bootstrap_expect": 3,
-    "data_dir": "{{ consul_server_data_dir }}",
-    "client_addr": "0.0.0.0",
-    "bind": "{{ ansible_default_ipv4.address }}"
-}

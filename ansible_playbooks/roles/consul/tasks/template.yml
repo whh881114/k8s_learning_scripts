@@ -20,13 +20,6 @@
     mode: 0755
   notify: restart-consul-template
 
-- name: copy init.d/consul-template
-  when: (ansible_distribution == "CentOS" or ansible_distribution == "RedHat") and ansible_distribution_major_version == "6"
-  copy: 
-    src: init.d/consul-template 
-    dest: /etc/init.d/
-    mode: 0700
-
 - name: copy systemd conf
   when: (ansible_distribution == "CentOS" or ansible_distribution == "RedHat") and ansible_distribution_major_version == "7"
   template:

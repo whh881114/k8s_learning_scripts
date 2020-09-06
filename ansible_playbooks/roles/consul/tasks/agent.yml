@@ -11,17 +11,10 @@
 
 - name: install consul package
   unarchive:
-    src: pkgs/consul_{{ consul_ver }}_linux_amd64.zip
+    src: consul_{{ consul_ver }}_linux_amd64.zip
     dest: /usr/local/bin/
     mode: 0755
   notify: restart-consul-agent
-
-- name: copy init.d/consul-agent
-  when: (ansible_distribution == "CentOS" or ansible_distribution == "RedHat") and ansible_distribution_major_version == "6"
-  copy: 
-    src: init.d/consul-agent 
-    dest: /etc/init.d/ 
-    mode: 0700
 
 - name: copy systemd conf
   when: (ansible_distribution == "CentOS" or ansible_distribution == "RedHat") and ansible_distribution_major_version == "7"
