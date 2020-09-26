@@ -3,10 +3,9 @@
 haproxy_ctmpl: haproxy-ctmpl
 
 haproxy_instances:
-
-  - service_name: drill-eshop-oms-frd               # service_name，主机上报的consul service名称，进示渲染backend_name后端的主机。
-    frontend_name: drill-eshop-oms-frd              # frontend_name，前端名称，根据此项生成acl规则。
-    http_host_header: ^int.oms.drill.pagoda.com.cn$ # 当前acl规则以hdr_reg(host)进行匹配。
-    backend_name: drill-eshop-oms-frd               # drill-eshop-oms-frd，后端名称。
+  - service_name: docker-distribution               # service_name，主机上报的consul service名称，进示渲染backend_name后端的主机。
+    frontend_name: docker-distribution              # frontend_name，前端名称，根据此项生成acl规则。
+    http_host_header: ^registry.freedom.org$        # 当前acl规则以hdr_reg(host)进行匹配。
+    backend_name: docker-distribution               # drill-eshop-oms-frd，后端名称。
     httpchk_method: GET                             # 七层检查方法。
     httpchk: "/"                                    # 七层检查方法，后面接url或其他参数
