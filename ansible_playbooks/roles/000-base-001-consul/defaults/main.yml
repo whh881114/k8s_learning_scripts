@@ -2,8 +2,8 @@
 consul_ver: 1.8.0
 consul_template_ver: 0.25.1
 
-consul_agent_role: True
-consul_server_role: True
+consul_agent_role: False
+consul_server_role: False
 consul_template_role: False
 
 consul_agent_items:
