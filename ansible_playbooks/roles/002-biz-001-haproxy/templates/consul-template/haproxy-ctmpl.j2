@@ -38,8 +38,10 @@ listen status
     stats auth freedom:Haproxy007@freedom.org
     stats hide-version
 
+# 因docker-distribution使用的是443端口，所以rancher改用为8443。这是在rancher为443端口时，使用docker push镜像时报错了，最后去掉
+# 此配置就正常了。2020/09/27。
 listen rancher
-   bind 0.0.0.0:443
+   bind 0.0.0.0:8443
    balance source
    mode tcp
    {{range service "rancher-https"}}
