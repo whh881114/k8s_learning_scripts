@@ -27,26 +27,4 @@ pfsense             IN      A       192.168.2.249
 vcenter             IN      A       192.168.2.248
 
 
-; 子域授权
-k8s.freedom.org.        IN      NS      ns01.k8s.freedom.org.
-k8s.freedom.org.        IN      NS      ns02.k8s.freedom.org.
-ns01.k8s.freedom.org.   IN      A       {{ bind_master_ip }}
-ns02.k8s.freedom.org.   IN      A       {{ bind_slave_ip }}
-
-ceph.freedom.org.        IN      NS      ns01.ceph.freedom.org.
-ceph.freedom.org.        IN      NS      ns02.ceph.freedom.org.
-ns01.ceph.freedom.org.   IN      A       {{ bind_master_ip }}
-ns02.ceph.freedom.org.   IN      A       {{ bind_slave_ip }}
-
-es.freedom.org.        IN      NS      ns01.es.freedom.org.
-es.freedom.org.        IN      NS      ns02.es.freedom.org.
-ns01.es.freedom.org.   IN      A       {{ bind_master_ip }}
-ns02.es.freedom.org.   IN      A       {{ bind_slave_ip }}
-
-test.freedom.org.        IN      NS      ns01.test.freedom.org.
-test.freedom.org.        IN      NS      ns02.test.freedom.org.
-ns01.test.freedom.org.   IN      A       {{ bind_master_ip }}
-ns02.test.freedom.org.   IN      A       {{ bind_slave_ip }}
-
-
 
