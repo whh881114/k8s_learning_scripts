@@ -1,0 +1,19 @@
+[Unit]
+Description=gor record service
+After=network.target
+Documentation=https://github.com/buger/goreplay
+
+[Service]
+User=root
+Group=root
+Type=simple
+{% set input_raw_list = [] %}
+{% for i in gor_forward_ports %}
+    {% set my_string = "--input-raw :" %}
+    {% set _= input_raw_list.append(my_string ~ i)  %}
+{% endfor %}
+
+ExecStart=/usr/local/bin/gor {{ input_raw_list | join(' ') }} --output-tcp {{ gor_record_slb }}:{{ gor_forward_port }}
+
+[Install]
+WantedBy=multi-user.target

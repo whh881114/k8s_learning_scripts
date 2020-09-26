@@ -1,0 +1,15 @@
+
+template {
+    source = "{{ consul_template_data_dir }}/haproxy.ctmpl"
+    destination = "/etc/haproxy/haproxy.cfg"
+    command = "/usr/bin/systemctl reload haproxy"
+    command_timeout = "60s"
+    perms = 0644
+    backup = true
+    left_delimiter  = "{{'{{'}}"
+    right_delimiter = "{{'}}'}}"
+    wait {
+        min = "30s"
+        max = "120s"
+    }
+}

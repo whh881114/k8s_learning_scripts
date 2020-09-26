@@ -1,8 +1,0 @@
----
-mysql_port: 3306
-mycat_server_port: 8066
-mycat_manager_port: 9066
-
-member_mycat_pkg: False # 当指定为True时，则会使用会员的包，汪小斌要求使用。
-
-instance_yml_file: /tmp/mycat-instances.yml

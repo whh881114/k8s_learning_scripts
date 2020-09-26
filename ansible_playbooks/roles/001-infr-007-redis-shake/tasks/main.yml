@@ -1,0 +1,28 @@
+---
+- name: create {{ redis_shake_dir }} directory
+  file:
+    path: "{{ redis_shake_dir }}"
+    state: directory
+
+- name: install redis-shake
+  copy:
+    src: "redis-shake-{{ redis_shake_ver }}.linux"
+    dest: "{{ redis_shake_dir }}"
+    mode: "0755"
+
+- name: create redis-shake configuration files
+  copy:
+    src: "{{ item.src }}"
+    dest: "{{ redis_shake_dir }}"
+  with_items:
+    - { src: redis-shake-global.conf }
+    - { src: redis-shake-private.conf }
+
+- name: create redis-shake system service
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ systemd_conf_dir }}/{{ item.dest }}"
+  with_items:
+    - { src: redis-shake.service.j2, dest: "redis-shake-global.service", conf_file: redis-shake-global.conf }
+    - { src: redis-shake.service.j2, dest: "redis-shake-private.service", conf_file: redis-shake-private.conf }
+

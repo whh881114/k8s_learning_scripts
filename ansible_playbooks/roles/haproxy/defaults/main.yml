@@ -1,6 +1,0 @@
----
-# defaults file for proxy
-haproxy_ctmpl: haproxy-ctmpl
-consul_template_dir: /etc/consul-template
-consul_template_data_dir: "{{ consul_template_dir }}/data"
-consul_template_config_dir: "{{ consul_template_dir }}/conf"

@@ -1,0 +1,20 @@
+---
+- name: systemctl-daemon-reload
+  systemd:
+    daemon_reload: yes
+
+- name: restart-rocketmq-broker
+  service: name=rocketmq-broker state=restarted enabled=yes
+
+- name: systemctl-enable-rocketmq-broker
+  systemd:
+    name: rocketmq-broker
+    enabled: yes
+
+- name: restart-rocketmq-namesrv
+  service: name=rocketmq-namesrv state=restarted enabled=yes
+
+- name: systemctl-enable-rocketmq-namesrv
+  systemd:
+    name: rocketmq-namesrv
+    enabled: yes

@@ -1,0 +1,6 @@
+---
+- include: forward.yml
+  when: gor_forward_role
+
+- include: record.yml
+  when: gor_record_role

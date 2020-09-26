@@ -1,0 +1,10 @@
+---
+- name: install rocketmq package
+  unarchive:
+    src: "rocketmq-{{ rocketmq_pkg_version }}.tar.gz"
+    dest: "{{ rocketmq_pkg_installed_dir }}"
+
+- name: create rocketmq data dir
+  file:
+    path: "{{ rocketmq_data_path }}"
+    state: directory

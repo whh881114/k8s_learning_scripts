@@ -1,0 +1,7 @@
+#!/bin/sh
+{% if java_xms is defined and java_xmx is defined %}
+JVMFLAGS="-Xms{{ java_xms }}m -Xmx{{ java_xmx }}m $JVMFLAGS"
+{% else %}
+JVMFLAGS="-Xms{{ (ansible_memtotal_mb * 0.75) | round | int }}m -Xmx{{ (ansible_memtotal_mb * 0.75) | round | int }}m $JVMFLAGS"
+{% endif %}
+ZOO_LOG_DIR="{{ zookeeper_data_path }}"

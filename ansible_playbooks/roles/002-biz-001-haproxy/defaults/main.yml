@@ -1,0 +1,35 @@
+---
+# defaults file for proxy
+haproxy_ctmpl: haproxy-ctmpl
+
+haproxy_instances:
+  - service_name: haproxy-demo01
+    frontend_name: haproxy-demo01
+    http_host_header: node01.test.freedom.org
+    backend_name: haproxy-demo01
+    httpchk_method: GET
+    httpchk: "/"
+  - service_name: haproxy-demo02
+    frontend_name: haproxy-demo02
+    http_host_header: node02.test.freedom.org
+    backend_name: haproxy-demo02
+    httpchk_method: GET
+    httpchk: "/"
+  - service_name: drill-eshop-oms-frd               # service_name，主机上报的consul service名称，进示渲染backend_name后端的主机。
+    frontend_name: drill-eshop-oms-frd              # frontend_name，前端名称，根据此项生成acl规则。
+    http_host_header: ^int.oms.drill.pagoda.com.cn$ # 当前acl规则以hdr_reg(host)进行匹配。
+    backend_name: drill-eshop-oms-frd               # drill-eshop-oms-frd，后端名称。
+    httpchk_method: GET                             # 七层检查方法。
+    httpchk: "/"                                    # 七层检查方法，后面接url或其他参数
+  - service_name: drill-eshop-oms-api
+    frontend_name: drill-eshop-oms-api
+    http_host_header: ^(api.oms.drill.pagoda.com.cn|oms-api.drill.pagoda.com.cn)$
+    backend_name: drill-eshop-oms-api
+    httpchk_method: GET
+    httpchk: "/check"
+  - service_name: drill-eshop-oms-svc
+    frontend_name: drill-eshop-oms-svc
+    http_host_header: ^intf.oms.pagoda.com.cn$
+    backend_name: drill-eshop-oms-svc
+    httpchk_method: GET
+    httpchk: "/check"

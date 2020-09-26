@@ -1,0 +1,11 @@
+---
+- include: common.yml
+
+- include: install_redis.yml
+  when: is_install_redis
+
+- include: config_redis_standalone.yml
+  when: redis_standalone_role
+
+- include: config_redis_cluster.yml
+  when: redis_cluster_role

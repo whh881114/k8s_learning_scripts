@@ -1,6 +1,0 @@
----
-- include: install_redis.yml
-  when: is_install_redis
-
-- include: config_redis.yml
-  when: redis_port != ''

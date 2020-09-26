@@ -1,0 +1,21 @@
+---
+rocketmq_user: root
+rocketmq_group: root
+
+rocketmq_pkg_installed_dir: /usr/local
+rocketmq_pkg_version: 4.7.0
+rocketmq_home: "{{ rocketmq_pkg_installed_dir }}/rocketmq-{{ rocketmq_pkg_version }}"
+rocketmq_data_path: "{{ rocketmq_home }}/data"
+
+# 配置服务
+rocketmq_brokerClusterName: rocketmq
+rocketmq_namesrv01: namesrv01.rocketmq.freedom.org
+rocketmq_namesrv02: namesrv02.rocketmq.freedom.org
+rocketmq_brokerName01: broker01
+rocketmq_brokerName02: broker02
+
+rocketmq_namesrv_role: False
+rocketmq_broker01m_role: False
+rocketmq_broker02m_role: False
+rocketmq_broker01s_role: False
+rocketmq_broker02s_role: False

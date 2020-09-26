@@ -1,0 +1,24 @@
+---
+- name: "config redis data dir for instance {{ redis_port }}"
+  file:
+    path: "{{ redis_data_dir }}/{{ redis_port }}"
+    state: directory
+
+- name: "config redis for instnace {{ redis_port }}"
+  template:
+    src: redis_cluster.conf.j2
+    dest: "{{ redis_conf_dir }}/redis_{{ redis_port }}.conf"
+
+- name: "config redis.sh for instance {{ redis_port }}"
+  template:
+    src: redis.sh.j2
+    dest: "{{ redis_installation_dir }}/redis_{{ redis_port }}.sh"
+    mode: "0755"
+
+- name: "start redis service"
+  shell: sh "{{ redis_installation_dir }}/redis_{{ redis_port }}.sh" start
+  register: redis_service_status
+
+- name: "check redis service status"
+  debug:
+    var: redis_service_status.stdout_lines

@@ -1,0 +1,18 @@
+---
+- include: common.yml
+- include: install_mq.yml
+
+- include: config_namesrv.yml
+  when: rocketmq_namesrv_role
+
+- include: config_broker01-m.yml
+  when: rocketmq_broker01m_role
+
+- include: config_broker02-m.yml
+  when: rocketmq_broker02m_role
+
+- include: config_broker01-s.yml
+  when: rocketmq_broker01s_role
+
+- include: config_broker02-s.yml
+  when: rocketmq_broker02s_role

@@ -1,6 +1,0 @@
----
-- include: record.yml
-  when: gor_record_role
-
-- include: replay.yml
-  when: gor_replay_role

@@ -1,0 +1,11 @@
+---
+- name: generate rocketmq namesrv system service
+  template:
+    src: "{{ rocketmq_pkg_version }}/rocketmq-namesrv.service"
+    dest: "{{ systemd_conf_dir }}/"
+  notify:
+    - systemctl-daemon-reload
+    - systemctl-enable-rocketmq-namesrv
+
+- name: start rocketmq namesrv
+  service: name=rocketmq-namesrv state=restarted enabled=yes

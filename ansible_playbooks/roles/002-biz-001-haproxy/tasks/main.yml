@@ -1,0 +1,67 @@
+---
+- name: install haproxy
+  yum:
+    name: haproxy
+    state: present
+
+- name: configure rsyslog for haproxy step 1
+  lineinfile: 
+    path: "{{ item.path }}"
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+    backrefs: yes
+  with_items:
+    - { path: "/etc/rsyslog.conf", regexp: "^#$ModLoad imudp$", line: "$ModLoad imudp" }
+    - { path: "/etc/rsyslog.conf", regexp: "^#$UDPServerRun 514$", line: '$UDPServerRun 514' }
+    - { path: "/etc/sysconfig/rsyslog", regexp: '^SYSLOGD_OPTIONS=""$', line: 'SYSLOGD_OPTIONS="-r -m 0 -c 2"' }
+  notify: restart-rsyslog
+
+- name: configure rsyslog for haproxy step 2
+  blockinfile:
+    path: /etc/rsyslog.conf
+    block: |
+      local2.*                                                /var/log/haproxy.log
+  notify: restart-rsyslog
+
+- block:
+    - name: update systemd haproxy service
+      lineinfile: 
+        path: /usr/lib/systemd/system/haproxy.service
+        regexp: "{{item.regexp }}"
+        line: "{{ item.line }}"
+        insertafter: "{{ item.insertafter }}"
+      with_items:
+        - { regexp: '^RestartSec=', line: 'RestartSec=1s', insertafter: '^KillMode=' }
+        - { regexp: '^Restart=', line: 'Restart=on-failure', insertafter: '^KillMode=' }
+      notify: 
+        - systemctl-daemon-reload
+        - systemctl-enable-haproxy
+        - start-haproxy
+
+    - name: update systemd haproxy service
+      lineinfile:
+        path: /usr/lib/systemd/system/haproxy.service
+        line: "LimitNOFILE=100000"
+        insertafter: '\[Service\]'
+      notify:
+        - systemctl-daemon-reload
+        - start-haproxy
+  when: (ansible_distribution == "CentOS" or ansible_distribution == "RedHat") and ansible_distribution_major_version == "7"
+
+- name: generate consul template sub hcl
+  tags: generate-config
+  template:
+    src: consul-template/haproxy-hcl.j2
+    dest: "{{ consul_template_config_dir }}/haproxy.hcl"
+    mode: 0644
+  notify: restart-consul-template
+
+- name: generate consul template ctmpl
+  tags: generate-consul-template
+  template:
+    src: consul-template/{{ haproxy_ctmpl }}.j2
+    dest: "{{ consul_template_data_dir }}/haproxy.ctmpl"
+    variable_start_string: '[['
+    variable_end_string: ']]'
+    mode: 0644
+  notify: restart-consul-template

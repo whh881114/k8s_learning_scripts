@@ -1,0 +1,19 @@
+[Unit]
+Description=rocketmq-broker Service
+Documentation=http://rocketmq.apache.org
+Requires=network.target
+After=network.target
+
+[Service]
+LimitNOFILE=100000
+Type=simple
+User={{ rocketmq_user }}
+Group={{ rocketmq_user }}
+WorkingDirectory={{ rocketmq_home }}
+ExecStart={{ rocketmq_home }}/bin/mqbroker -c {{ rocketmq_home }}/conf/broker.properties
+TimeoutSec=10s
+Restart=always
+RestartSec=1s
+
+[Install]
+WantedBy=default.target

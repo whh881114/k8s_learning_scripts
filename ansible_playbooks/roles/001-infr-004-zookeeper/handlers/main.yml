@@ -1,0 +1,7 @@
+---
+- name: systemctl-daemon-reload
+  systemd:
+    daemon_reload: yes
+
+- name: restart-zookeeper
+  service: name=zookeeper state=restarted enabled=yes

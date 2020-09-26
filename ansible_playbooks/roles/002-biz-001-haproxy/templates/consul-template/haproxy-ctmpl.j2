@@ -1,0 +1,57 @@
+global
+    log         127.0.0.1 local2 info
+    chroot      /var/lib/haproxy
+    pidfile     /var/run/haproxy.pid
+    maxconn     65535
+    user        haproxy
+    group       haproxy
+    daemon
+    stats socket /var/lib/haproxy/stats
+
+defaults
+    mode                    http
+    log                     global
+    option                  httplog
+    option                  dontlognull
+    option http-server-close
+    option forwardfor       except 127.0.0.0/8
+    option                  redispatch
+    retries                 3
+    timeout http-request    10s
+    timeout queue           1m
+    timeout connect         10s
+    timeout client          1m
+    timeout server          1m
+    timeout http-keep-alive 10s
+    timeout check           3s
+    maxconn                 65535
+    compression algo gzip
+    compression type text/html text/plain text/css application/javascript application/json application/xml
+
+listen status
+    bind 0.0.0.0:5001
+    mode http
+    log global
+    stats refresh 30s
+    stats uri /stats
+    stats realm Private lands
+    stats auth freedom:Haproxy007@freedom.org
+    stats hide-version
+
+frontend  main *:80
+{% for item in haproxy_instances %}
+{# 前端规则产生：acl [frontend_name] hdr_reg(host) -i [http_host_header] #}
+{# 后端实例列表：use_backend [backend_name] if [frontend_name] #}
+    acl acl_[[ item.frontend_name ]] hdr_reg(host) -i [[ item.http_host_header ]]
+    use_backend [[ item.backend_name ]] if acl_[[ item.frontend_name ]]
+
+{% endfor %}
+
+{% for item in haproxy_instances %}
+backend [[ item.backend_name ]]
+     balance   leastconn
+     option    httpchk [[ item.httpchk_method ]] [[ item.httpchk ]]
+     {{range service "[[ item.service_name ]]"}}
+     server {{.Node}} {{.Address}}:{{.Port}} check cookie {{.Node}} weight 1 check inter 1000 rise 2 fall 3{{end}}
+
+{% endfor %}

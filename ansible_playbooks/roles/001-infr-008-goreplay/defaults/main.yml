@@ -1,0 +1,16 @@
+---
+gor_replay_pkg_ver: 0.16.1  # gor回放流量时使用的软件版本
+gor_record_pkg_ver: 1.1.0   # gor录制流量时使用的软件版本，转发机与录制机要使用同一版本
+
+# 在现网的haproxy/slb后端主机上启动转发录制
+gor_forward_role: False
+# 转发录制流量时可以监听多个端口
+gor_forward_ports:
+  - 80
+  - 443
+  - 8080
+
+# 分布式录制流量转发到目标回放主机
+gor_record_role: False  # 在弹性主机上录制流量
+gor_record_traffic_dir: /data/goreplay
+
