@@ -38,6 +38,13 @@ listen status
     stats auth freedom:Haproxy007@freedom.org
     stats hide-version
 
+listen rancher
+   bind 0.0.0.0:443
+   balance source
+   mode tcp
+   {{range service "rancher-https"}}
+   server {{.Node}} {{.Address}}:{{.Port}} check{{end}}
+
 frontend  main *:80
 {% for item in haproxy_instances %}
 {# 前端规则产生：acl [frontend_name] hdr_reg(host) -i [http_host_header] #}
