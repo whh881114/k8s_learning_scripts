@@ -16,12 +16,15 @@ spec:
     spec:
       containers:
       - name: consul-agent
-        image: registry.k8s.example.com:5000/docker.io/consul:1.7.2
+        image: registry.freedom.org/docker.io/consul:1.7.2
         args:
           - "agent"
-          - "-join=consul-server.$(NAMESPACE).svc.cluster.local"
+#          - "-join=consul-server.$(NAMESPACE).svc.cluster.local" # 容器内部使用方式
+          - "-join=server01.consul.freedom.org"                   # 虚拟机使用方式
+          - "-join=server02.consul.freedom.org"                   # 虚拟机使用方式
+          - "-join=server03.consul.freedom.org"                   # 虚拟机使用方式
           - "-data-dir=/consul/data"
-          - "-config-dir=/consul/config"
+          - "-config-dir=/consul/conf"
           - "-log-level=info"
           - "-log-rotate-duration=86400s"
           - "-log-rotate-max-files=7"
@@ -54,14 +57,14 @@ spec:
         volumeMounts:
           - name: data
             mountPath: /consul/data
-          - name: config
-            mountPath: /consul/config
+          - name: conf
+            mountPath: /consul/conf
       volumes:
         - name: data
           hostPath:
             path: /etc/consul-agent/data
-        - name: config
+        - name: conf
           hostPath:
-            path: /etc/consul-agent/config
+            path: /etc/consul-agent/conf
       hostNetwork: true
       dnsPolicy: ClusterFirstWithHostNet
