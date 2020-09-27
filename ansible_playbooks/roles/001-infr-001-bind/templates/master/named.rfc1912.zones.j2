@@ -57,3 +57,12 @@ zone "{{ zone.ip }}.in-addr.arpa" IN {
 };
 
 {% endfor %}
+
+
+{% for zone in k8s_coredns_zones %}
+zone "{{ zone }}" IN {
+    type forward;
+    forwarders { {% for server in k8s_coredns_servers %} {{ server }}; {% endfor %} };
+};
+
+{% endfor %}
