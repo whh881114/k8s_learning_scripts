@@ -2,7 +2,15 @@
 # defaults file for proxy
 haproxy_ctmpl: haproxy-ctmpl
 
-haproxy_instances:
+tcp_instances:
+  - listen_name: rancher
+    service_name: rancher-https
+    args:
+      - "bind 0.0.0.0:8443"
+      - "balance source"
+
+
+http_instances:
   - service_name: docker-distribution               # service_name，主机上报的consul service名称，进示渲染backend_name后端的主机。
     frontend_name: docker-distribution              # frontend_name，前端名称，根据此项生成acl规则。
     http_host_header: ^registry.freedom.org$        # 当前acl规则以hdr_reg(host)进行匹配。

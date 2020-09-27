@@ -6,15 +6,15 @@ global
     user        haproxy
     group       haproxy
     daemon
-    stats socket /var/lib/haproxy/stats
+    stats       socket /var/lib/haproxy/stats
 
 defaults
     mode                    http
     log                     global
     option                  httplog
     option                  dontlognull
-    option http-server-close
-    option forwardfor       except 127.0.0.0/8
+    option                  http-server-close
+    option                  forwardfor  except 127.0.0.0/8
     option                  redispatch
     retries                 3
     timeout http-request    10s
@@ -28,7 +28,8 @@ defaults
     compression algo gzip
     compression type text/html text/plain text/css application/javascript application/json application/xml
 
-listen status
+# 2020/09/27 -- 监听stats，设置为固定即可。
+listen stats
     bind 0.0.0.0:5001
     mode http
     log global
@@ -38,17 +39,23 @@ listen status
     stats auth freedom:Haproxy007@freedom.org
     stats hide-version
 
-# 因docker-distribution使用的是443端口，所以rancher改用为8443。这是在rancher为443端口时，使用docker push镜像时报错了，最后去掉
-# 此配置就正常了。2020/09/27。
-listen rancher
-   bind 0.0.0.0:8443
-   balance source
-   mode tcp
-   {{range service "rancher-https"}}
-   server {{.Node}} {{.Address}}:{{.Port}} check{{end}}
+# 2020/09/27 -- 因docker-distribution使用的是443端口，所以rancher改用为8443。这是在rancher为443端口时，使用docker push镜像
+#               时报错了，最后去掉此配置就正常了。
+{% for item in tcp_instances %}
+listen [[ item.listen_name ]]
+    mode tcp
+{% for arg in item.args %}
+    [[ arg ]]
+{% endfor %}
+    {{range service "[[ item.service_name ]]"}}
+    server {{.Node}} {{.Address}}:{{.Port}} check{{end}}
+
+
+{% endfor %}
+
 
 frontend  main *:80
-{% for item in haproxy_instances %}
+{% for item in http_instances %}
 {# 前端规则产生：acl [frontend_name] hdr_reg(host) -i [http_host_header] #}
 {# 后端实例列表：use_backend [backend_name] if [frontend_name] #}
     acl acl_[[ item.frontend_name ]] hdr_reg(host) -i [[ item.http_host_header ]]
@@ -56,11 +63,12 @@ frontend  main *:80
 
 {% endfor %}
 
-{% for item in haproxy_instances %}
+{% for item in http_instances %}
 backend [[ item.backend_name ]]
-     balance   leastconn
-     option    httpchk [[ item.httpchk_method ]] [[ item.httpchk ]]
-     {{range service "[[ item.service_name ]]"}}
-     server {{.Node}} {{.Address}}:{{.Port}} check cookie {{.Node}} weight 1 check inter 1000 rise 2 fall 3{{end}}
+    balance   leastconn
+    option    httpchk [[ item.httpchk_method ]] [[ item.httpchk ]]
+    {{range service "[[ item.service_name ]]"}}
+    server {{.Node}} {{.Address}}:{{.Port}} check cookie {{.Node}} weight 1 check inter 1000 rise 2 fall 3{{end}}
+
 
 {% endfor %}
