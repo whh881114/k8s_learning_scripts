@@ -36,6 +36,7 @@ spec:
                - "-retry-join=consul-server-2.consul-server.$(NAMESPACE).svc.cluster.local"
                - "-domain=cluster.local"
                - "-disable-host-node-id"
+               - "-datacenter=k8s"
           env:
             - name: PODIP
               valueFrom:
@@ -63,8 +64,8 @@ spec:
           volumeMounts:
               - name: data
                 mountPath: /consul/data
-              - name: config
-                mountPath: /consul/config
+              - name: conf
+                mountPath: /consul/conf
           resources:
             limits:
               cpu: 100m
@@ -83,7 +84,7 @@ spec:
           requests:
             storage: 1Gi
     - metadata:
-        name: config
+        name: conf
         annotations:
           volume.beta.kubernetes.io/storage-class: nfs-storage-public-infra
       spec:
