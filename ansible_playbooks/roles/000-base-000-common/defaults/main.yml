@@ -5,6 +5,6 @@ rc_local_file: /etc/rc.d/rc_common.local
 
 local_dns: True
 
-k8s_master01_ip: 192.168.2.2
+k8s_master01_ip: 192.168.2.1
 k8s_pod_network: 10.244.0.0
 k8s_pod_netmask: 255.255.0.0
