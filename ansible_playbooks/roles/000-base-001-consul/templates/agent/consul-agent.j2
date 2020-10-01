@@ -10,7 +10,11 @@
     ],
     "datacenter": "{{ consul_datacenter }}",
     "data_dir": "{{ consul_agent_data_dir }}",
+{% if consul_agent_ipaddr is define %}
+    "bind_addr": "{{ consul_agent_ipaddr }}",
+{% else %}
     "bind_addr": "{{ ansible_default_ipv4.address }}",
+{% endif %}
     "client_addr": "0.0.0.0",
     "leave_on_terminate": true,
     "rejoin_after_leave": true,
