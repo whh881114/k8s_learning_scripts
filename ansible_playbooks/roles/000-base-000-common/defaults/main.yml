@@ -4,3 +4,7 @@ is_k8s_host: false
 rc_local_file: /etc/rc.d/rc_common.local
 
 local_dns: True
+
+k8s_worker01_ip: 192.168.2.3
+k8s_worker02_ip: 192.168.2.4
+k8s_worker03_ip: 192.168.2.5

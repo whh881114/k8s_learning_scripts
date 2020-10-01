@@ -1,4 +1,11 @@
 ---
+# 增加虚拟机到k8s pod的路由，其网段及k8s的worker主机要根据实际情况改。
+- name: add route to k8s pod
+  shell: |
+    route add -net 10.244.1.0 netmask 255.255.255.0 gw {{ k8s_worker01_ip }}
+    route add -net 10.244.2.0 netmask 255.255.255.0 gw {{ k8s_worker02_ip }}
+    route add -net 10.244.3.0 netmask 255.255.255.0 gw {{ k8s_worker03_ip }}
+
 - name: modify PS1
   blockinfile:
     path: /etc/profile

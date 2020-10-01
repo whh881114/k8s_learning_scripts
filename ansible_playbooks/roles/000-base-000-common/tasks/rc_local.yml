@@ -15,3 +15,11 @@
     path: "{{ rc_local_file }}"
     state: present
     line: 'echo never > /sys/kernel/mm/transparent_hugepage/enabled'
+
+- name: add k8s route items to rc_common.local file
+  blockinfile:
+    path: "{{ rc_local_file }}"
+    block: |
+      route add -net 10.244.1.0 netmask 255.255.255.0 gw {{ k8s_worker01_ip }}
+      route add -net 10.244.2.0 netmask 255.255.255.0 gw {{ k8s_worker02_ip }}
+      route add -net 10.244.3.0 netmask 255.255.255.0 gw {{ k8s_worker03_ip }}
