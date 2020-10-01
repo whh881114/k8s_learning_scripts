@@ -10,7 +10,7 @@
     ],
     "datacenter": "{{ consul_datacenter }}",
     "data_dir": "{{ consul_agent_data_dir }}",
-{% if consul_agent_ipaddr %}
+{% if consul_agent_ipaddr is defined %}
     "bind_addr": "{{ consul_agent_ipaddr }}",
 {% else %}
     "bind_addr": "{{ ansible_default_ipv4.address }}",
