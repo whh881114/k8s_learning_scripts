@@ -14,39 +14,48 @@ spec:
     - name: http
       port: 8500
       targetPort: 8500
+      nodePort: 32486
 
     - name: https
       port: 8443
       targetPort: 8443
+      nodePort: 31079
 
     - name: rpc
       port: 8400
       targetPort: 8400
+      nodePort: 30713
 
     - name: serflan-tcp
       protocol: "TCP"
       port: 8301
       targetPort: 8301
+      nodePort: 32370
 
     - name: serflan-udp
       protocol: "UDP"
       port: 8301
       targetPort: 8301
+      nodePort: 32370
 
     - name: serfwan-tcp
       protocol: "TCP"
       port: 8302
       targetPort: 8302
+      nodePort: 30826
 
     - name: serfwan-udp
       protocol: "UDP"
       port: 8302
       targetPort: 8302
+      nodePort: 30826
 
     - name: server
       port: 8300
       targetPort: 8300
+      nodePort: 31872
 
     - name: consuldns
       port: 8600
       targetPort: 8600
+      nodePort: 30055

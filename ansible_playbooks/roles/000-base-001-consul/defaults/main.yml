@@ -1,4 +1,6 @@
 ---
+consul_datacenter: k8s
+
 #consul_ver: 1.8.0
 #consul_template_ver: 0.25.1
 #

@@ -8,7 +8,7 @@
     {% endif %}
 {% endfor %}
     ],
-    "datacenter": "vm",
+    "datacenter": "{{ consul_datacenter }}",
     "data_dir": "{{ consul_agent_data_dir }}",
     "bind_addr": "{{ ansible_default_ipv4.address }}",
     "client_addr": "0.0.0.0",

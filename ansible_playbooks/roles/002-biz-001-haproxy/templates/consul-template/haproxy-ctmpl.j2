@@ -41,6 +41,9 @@ listen stats
 
 # 2020/09/27 -- 因docker-distribution使用的是443端口，所以rancher改用为8443。这是在rancher为443端口时，使用docker push镜像
 #               时报错了，最后去掉此配置就正常了。
+# 2020/10/01 -- 当使用docker pull拉取镜像时，默认会走https端口，当不存在时就走http端口，所以最开始时使用443转rancher时就会与
+#               docker registry服务起冲突，而采用集群方式安装rancher时要进行转发时要用到TCP模式，所以最终决定使用TCP转发rancher
+#               和docker registry服务。
 {% for item in tcp_instances %}
 listen [[ item.listen_name ]]
     mode tcp
@@ -58,13 +61,13 @@ frontend  main *:80
 {% for item in http_instances %}
 {# 前端规则产生：acl [frontend_name] hdr_reg(host) -i [http_host_header] #}
 {# 后端实例列表：use_backend [backend_name] if [frontend_name] #}
-    acl acl_[[ item.frontend_name ]] hdr_reg(host) -i [[ item.http_host_header ]]
-    use_backend [[ item.backend_name ]] if acl_[[ item.frontend_name ]]
+    acl acl_[[ item.service_name ]] hdr_reg(host) -i [[ item.http_host_header ]]
+    use_backend [[ item.service_name ]] if acl_[[ item.service_name ]]
 
 {% endfor %}
 
 {% for item in http_instances %}
-backend [[ item.backend_name ]]
+backend [[ item.service_name ]]
     balance   leastconn
     option    httpchk [[ item.httpchk_method ]] [[ item.httpchk ]]
     {{range service "[[ item.service_name ]]"}}

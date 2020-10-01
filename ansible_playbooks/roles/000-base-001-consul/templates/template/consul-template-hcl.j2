@@ -1,6 +1,11 @@
 consul {
-    # 官方推荐使用本地接口。
+    # 当consul-server部署在虚拟机中时使用此方式，官方推荐使用本地接口。
+    # 如果在容器模式下使用此配置时，consul-template会读取到consul-server的容器地址，而虚拟机是无法与容器的PODIP通信，所以就无法
+    # 正常工作。
     address = "127.0.0.1:8500"
+
+    # 当consul-server部署在k8s中时，则使用以下方式，使用nodePort模式下consul-server的8500端口。
+    address = "worker01.k8s.freedom.org:32486"
     retry {
         enabled = true
         attempts = 12

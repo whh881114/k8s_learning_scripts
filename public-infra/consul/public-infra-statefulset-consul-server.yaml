@@ -24,20 +24,24 @@ spec:
                - "-bootstrap-expect=3"
                - "-ui"
                - "-data-dir=/consul/data"     # 就算是在虚拟机中使用consul-server集群，也没有使用-data-dir及-config-dir目录，先在yaml中保留。
-               - "-config-dir=/consul/config"
+               - "-config-dir=/consul/conf"
                - "-log-level=info"
                - "-log-rotate-duration=86400s"
                - "-log-rotate-max-files=7"
                - "-bind=0.0.0.0"
                - "-client=0.0.0.0"
+               - "-datacenter=k8s"
                - "-advertise=$(PODIP)"
                - "-retry-join=consul-server-0.consul-server.$(NAMESPACE).svc.cluster.local"
                - "-retry-join=consul-server-1.consul-server.$(NAMESPACE).svc.cluster.local"
                - "-retry-join=consul-server-2.consul-server.$(NAMESPACE).svc.cluster.local"
                - "-domain=cluster.local"
                - "-disable-host-node-id"
-               - "-datacenter=k8s"
           env:
+            - name: HOSTIP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
             - name: PODIP
               valueFrom:
                 fieldRef:
