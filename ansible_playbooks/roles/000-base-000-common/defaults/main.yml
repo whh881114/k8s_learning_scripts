@@ -5,7 +5,7 @@ rc_local_file: /etc/rc.d/rc_common.local
 
 local_dns: True
 
-local_nic_name: ens192
+static_route_nic: ens192
 
 k8s_master01_ip: 192.168.2.1
 k8s_pod_network: 10.244.0.0
