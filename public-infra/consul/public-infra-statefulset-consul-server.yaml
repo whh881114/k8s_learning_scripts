@@ -17,7 +17,7 @@ spec:
       terminationGracePeriodSeconds: 10
       containers:
         - name: consul-server
-          image: registry.freedom.org/docker.io/consul:1.7.2
+          image: registry.freedom.org/docker.io/consul:1.8.4
           args:
                - "agent"
                - "-server"
