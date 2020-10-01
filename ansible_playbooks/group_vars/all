@@ -32,9 +32,9 @@ consul_agent_items:
 
 # 以下是虚拟机部署三台consul server变量配置示例。
 consul_servers:
-  - worker01.k8s.freedom.org:32370
-  - worker02.k8s.freedom.org:32370
-  - worker03.k8s.freedom.org:32370
+  - consul-server-0.consul-server.consul.svc.cluster.local
+  - consul-server-1.consul-server.consul.svc.cluster.local
+  - consul-server-2.consul-server.consul.svc.cluster.local
 
 consul_agent_dir: /etc/consul-agent
 consul_agent_log_dir: "{{ consul_agent_dir }}/log"
