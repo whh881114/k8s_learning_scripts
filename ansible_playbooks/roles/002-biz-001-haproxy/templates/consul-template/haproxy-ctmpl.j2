@@ -44,7 +44,7 @@ listen stats
 # 2020/10/01 -- 当使用docker pull拉取镜像时，默认会走https端口，当不存在时就走http端口，所以最开始时使用443转rancher时就会与
 #               docker registry服务起冲突，而采用集群方式安装rancher时要进行转发时要用到TCP模式，所以最终决定使用TCP转发rancher
 #               和docker registry服务。
-# 2020/10/01 -- 经测试发现，此转registry的服务还不通使用TCP，必须要用到HTTP，也就是说要用http转https，当haproxy返回时就是Https协议，
+# 2020/10/01 -- 经测试发现，此转registry的服务还不通使用TCP，必须要用到HTTP，也就是说要用http转https，当haproxy返回时就是https协议，
 #               所以443端口就能用来转发了。
 {% for item in tcp_instances %}
 listen [[ item.listen_name ]]
@@ -59,7 +59,7 @@ listen [[ item.listen_name ]]
 {% endfor %}
 
 
-frontend  main *:80
+frontend  http-items *:80
 {% for item in http_instances %}
 {# 前端规则产生：acl [frontend_name] hdr_reg(host) -i [http_host_header] #}
 {# 后端实例列表：use_backend [backend_name] if [frontend_name] #}
@@ -69,6 +69,26 @@ frontend  main *:80
 {% endfor %}
 
 {% for item in http_instances %}
+backend [[ item.service_name ]]
+    balance   leastconn
+    option    httpchk [[ item.httpchk_method ]] [[ item.httpchk ]]
+    {{range service "[[ item.service_name ]]"}}
+    server {{.Node}} {{.Address}}:{{.Port}} check cookie {{.Node}} weight 1 check inter 1000 rise 2 fall 3{{end}}
+
+
+{% endfor %}
+
+
+frontend  https-items *:443
+{% for item in https_instances %}
+{# 前端规则产生：acl [frontend_name] hdr_reg(host) -i [http_host_header] #}
+{# 后端实例列表：use_backend [backend_name] if [frontend_name] #}
+    acl acl_[[ item.service_name ]] hdr_reg(host) -i [[ item.http_host_header ]]
+    use_backend [[ item.service_name ]] if acl_[[ item.service_name ]]
+
+{% endfor %}
+
+{% for item in https_instances %}
 backend [[ item.service_name ]]
     balance   leastconn
     option    httpchk [[ item.httpchk_method ]] [[ item.httpchk ]]
