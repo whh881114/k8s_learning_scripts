@@ -59,7 +59,7 @@ listen tcp-[[ item.listen_name ]]
 {% endfor %}
 
 
-frontend  http-items *:80
+frontend  http-frontend *:80
 {% for item in http_instances %}
 {# 前端规则产生：acl [frontend_name] hdr_reg(host) -i [http_host_header] #}
 {# 后端实例列表：use_backend [backend_name] if [frontend_name] #}
@@ -69,7 +69,7 @@ frontend  http-items *:80
 {% endfor %}
 
 {% for item in http_instances %}
-backend [[ item.service_name ]]
+backend http-backend-[[ item.service_name ]]
     balance   leastconn
     option    httpchk [[ item.httpchk_method ]] [[ item.httpchk ]]
     {{range service "[[ item.service_name ]]"}}
