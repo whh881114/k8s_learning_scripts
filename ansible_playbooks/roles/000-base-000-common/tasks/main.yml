@@ -1,4 +1,6 @@
 ---
+- include: static_route.yml
+
 - include: dns.yml
   when: local_dns
 

@@ -1,0 +1,12 @@
+# 增加虚拟机到k8s pod的路由，其网段及k8s的worker主机要根据实际情况改。
+- name: add route to k8s pod
+  shell: |
+    route add -net {{ k8s_pod_network }} netmask {{ k8s_pod_netmask }} gw {{ k8s_master01_ip }}
+  ignore_errors: yes
+
+- name: create /etc/sysconfig/static-routes
+  blockinfile:
+    path: /etc/sysconfig/static-routes
+    create: yes
+    block: |
+      any -net {{ k8s_pod_network }} netmask {{ k8s_pod_netmask }} gw {{ k8s_master01_ip }}
