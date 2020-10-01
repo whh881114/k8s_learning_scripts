@@ -45,7 +45,7 @@ listen tcp-stats
 #               docker registry服务起冲突，而采用集群方式安装rancher时要进行转发时要用到TCP模式，所以最终决定使用TCP转发rancher
 #               和docker registry服务。
 # 2020/10/01 -- 经测试发现，此转registry的服务还不通使用TCP，必须要用到HTTP，也就是说要用http转https，当haproxy返回时就是https协议，
-#               所以443端口就能用来转发了。
+#               所以443端口就能用来转发了。这个理解应该是不对的，先留下来。
 {% for item in tcp_instances %}
 listen tcp-[[ item.listen_name ]]
     mode tcp
