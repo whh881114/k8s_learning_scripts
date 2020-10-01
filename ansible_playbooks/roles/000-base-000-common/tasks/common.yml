@@ -3,6 +3,7 @@
 - name: add route to k8s pod
   shell: |
     route add -net {{ k8s_pod_network }} netmask {{ k8s_pod_netmask }} gw {{ k8s_master01_ip }}
+  ignore_errors: yes
 
 - name: modify PS1
   blockinfile:
