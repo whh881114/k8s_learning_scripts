@@ -15,9 +15,6 @@ http_instances:
     http_host_header: ^consul.freedom.org$          # 当前acl规则以hdr_reg(host)进行匹配。
     httpchk_method: GET                             # 七层检查方法。
     httpchk: "/"                                    # 七层检查方法，后面接url或其他参数
-
-
-https_instances:
   - service_name: docker-distribution
     http_host_header: ^registry.freedom.org$
     httpchk_method: GET
