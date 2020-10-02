@@ -19,3 +19,7 @@ http_instances:
     http_host_header: ^registry.freedom.org$
     httpchk_method: GET
     httpchk: "/"
+  - service_name: zabbix-web
+    http_host_header: ^zabbix.freedom.org$
+    httpchk_method: GET
+    httpchk: "/"
