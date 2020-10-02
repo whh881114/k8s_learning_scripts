@@ -55,6 +55,11 @@ spec:
             requests:
               cpu: 50m
               memory: 64Mi
+      volumes:
+        - name: conf
+          configMap:
+            name: redis-cluster
+            defaultMode: 0755
   volumeClaimTemplates:
     - metadata:
         name: data
