@@ -37,7 +37,7 @@
     group: "{{ common_group }}"
 
 - name: create zk id
-  shell: echo {{ myid }} > {{ zookeeper_data_path }}/myid
+  shell: echo {{ zookeeper_myid }} > {{ zookeeper_data_path }}/myid
 
 - name: generate zk system service
   template:
