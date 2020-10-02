@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: mysql
-          image: registry.k8s.example.com:5000/docker.io/mysql:5.7.29
+          image: registry.example.com/docker.io/mysql:5.7.29
           env:
             - name: MYSQL_ROOT_PASSWORD
               valueFrom:
