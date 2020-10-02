@@ -2,11 +2,11 @@
 - name: copy zookeeper
   copy:
     src: "{{ zookeeper_pkg }}"
-    dest: "{{ source_dir }}/{{ zookeeper_pkg }}"
+    dest: "{{ resource_dir }}/{{ zookeeper_pkg }}"
 
 - name: install zookeeper package
   shell: |
-    cd {{ source_dir }}
+    cd {{ resource_dir }}
     tar xf {{ zookeeper_pkg }} -C {{ pkg_installed_dir }}
 
 - name: create zookeeper data directory

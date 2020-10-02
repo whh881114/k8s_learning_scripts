@@ -13,6 +13,10 @@ systemd_conf_dir: /usr/lib/systemd/system
 #common_log_path: "{{ common_home_path }}/logs"
 #common_data_path: "{{ common_home_path }}/data"
 
+# 通用设置
+pkg_installed_dir: /usr/local   # 第三方包存放路径默认在/usr/local目录
+resource_dir: /usr/local/src    # 存放包的路径
+
 # 内网DNS
 bind_master_ip: 192.168.2.252
 bind_slave_ip: 192.168.2.251

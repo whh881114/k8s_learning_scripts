@@ -2,9 +2,6 @@
 zk_user: "{{ common_user }}"
 zk_group: "{{ common_group }}"
 
-pkg_installed_dir: "{{ common_home_path }}"
-
-source_dir: /usr/local/src
 zookeeper_version: 3.4.14
 zookeeper_pkg: zookeeper-{{ zookeeper_version }}.tar.gz
 
