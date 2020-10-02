@@ -17,14 +17,18 @@ foreman             IN      A       192.168.2.253
 nfs                 IN      A       192.168.2.253
 jenkins             IN      A       192.168.2.253
 
+; pfsense为NAT服务器
+pfsense             IN      A       192.168.2.249
+
+; vcenter为管理服务器地址
+vcenter             IN      A       192.168.2.248
+
+
 ; 192.168.1.250/192.168.2.250为haproxy服务器，进行四层及七层代理。
+; 将虚拟机/k8s里的服务都通过这台主机进行转发。
 haproxy             IN      A       192.168.2.250
 consul              IN      A       192.168.2.250
 registry            IN      A       192.168.2.250
-
-; pfsense为NAT服务器
-pfsense             IN      A       192.168.2.249
-vcenter             IN      A       192.168.2.248
-
+rancher             IN      A       192.168.2.250
 
 
