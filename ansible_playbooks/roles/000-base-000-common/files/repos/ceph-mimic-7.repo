@@ -1,0 +1,17 @@
+[Ceph-mimic-SRPMS]
+name=Ceph SRPMS packages
+baseurl=https://mirrors.aliyun.com/ceph/rpm-mimic/el7/SRPMS/
+enabled=1
+gpgcheck=0
+
+[Ceph-mimic-noarch]
+name=Ceph noarch packages
+baseurl=https://mirrors.aliyun.com/ceph/rpm-mimic/el7/noarch/
+enabled=1
+gpgcheck=0
+
+[Ceph-mimic-x86_64]
+name=Ceph x86_64 packages
+baseurl=https://mirrors.aliyun.com/ceph/rpm-mimic/el7/x86_64/
+enabled=1
+gpgcheck=0
