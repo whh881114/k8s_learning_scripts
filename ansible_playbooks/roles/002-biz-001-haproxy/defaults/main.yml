@@ -8,7 +8,11 @@ tcp_instances:
     args:
       - "bind 0.0.0.0:8443"
       - "balance source"
-
+  - listen_name: zookeeper
+    service_name: zookeeper-client
+    args:
+      - "bind 0.0.0.0:2181"
+      - "balance source"
 
 http_instances:
   - service_name: consul-ui                         # service_name，主机上报的consul service名称，进示渲染backend_name后端的主机。
