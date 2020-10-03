@@ -4,7 +4,7 @@ metadata:
   labels:
     daemonset: consul-agent
   name: consul-agent
-  namespace: consul
+  namespace: production-consul-agent
 spec:
   selector:
     matchLabels:
@@ -30,21 +30,15 @@ spec:
           - "-advertise=$(PODIP)"
           - "-domain=cluster.local"
           - "-disable-host-node-id"
-          - "-datacenter=k8s"
+          - "-datacenter=k8s-production"
         env:
           - name: PODIP
             valueFrom:
               fieldRef:
                 fieldPath: status.podIP
           - name: NAMESPACE
-            valueFrom:
-              fieldRef:
-                fieldPath: metadata.namespace
-        imagePullPolicy: Always
-        # consul agent跑在容器中，可以不用以下配置声明，因为它会自动暴露出来。
-#        ports:
-#          - containerPort: 8301 #使用hostport方式暴露地址
-#            hostPort: 8301
+            value: production-consul-server   # server与agent不在同一个namespace中，所以这在里指定其值。
+        imagePullPolicy: IfNotPresent
         resources:
           limits:
             cpu: 100m
