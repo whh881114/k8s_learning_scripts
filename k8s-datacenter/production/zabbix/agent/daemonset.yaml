@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  labels:
+    daemonset: zabbix-agent
+  name: zabbix-agent
+  namespace: production-zabbix
+spec:
+  selector:
+    matchLabels:
+      daemonset: zabbix-agent
+  template:
+    metadata:
+      labels:
+        daemonset: zabbix-agent
+    spec:
+      containers:
+        - name: zabbix-agent
+          env:
+            - name: ZBX_HOSTNAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+            - name: ZBX_SERVER_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: vars-zabbix-agent
+                  key: DS_ZBX_SERVER_NAME
+            - name: ZBX_SERVER_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: vars-zabbix-agent
+                  key: DS_ZBX_SERVER_PORT
+            - name: ZBX_PASSIVE_ALLOW
+              valueFrom:
+                configMapKeyRef:
+                  name: vars-zabbix-agent
+                  key: DS_ZBX_PASSIVE_ALLOW
+            - name: ZBX_PASSIVESERVERS
+              valueFrom:
+                configMapKeyRef:
+                  name: vars-zabbix-agent
+                  key: DS_ZBX_PASSIVESERVERS
+          image: registry.freedom.org/docker.io/zabbix/zabbix-agent:centos-4.0.17
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 10050 #使用hostport方式暴露地址
+              hostPort: 10050
+          resources:
+            limits:
+              cpu: 200m
+              memory: 100Mi
+            requests:
+              cpu: 100m
+              memory: 50Mi
+          volumeMounts:
+            - name: include
+              mountPath: /etc/zabbix/zabbix_agentd.d
+      volumes:
+        - name: include
+          hostPath:
+            path: /etc/zabbix/zabbix_agentd.d
+      hostNetwork: true
+      dnsPolicy: ClusterFirstWithHostNet
