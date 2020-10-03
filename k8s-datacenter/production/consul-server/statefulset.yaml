@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: consul-server
-  namespace: consul
+  namespace: production-consul-server
 spec:
   serviceName: consul-server
   selector:
@@ -23,14 +23,14 @@ spec:
                - "-server"
                - "-bootstrap-expect=3"
                - "-ui"
-               - "-data-dir=/consul/data"     # 就算是在虚拟机中使用consul-server集群，也没有使用-data-dir及-config-dir目录，先在yaml中保留。
-               - "-config-dir=/consul/conf"
+               #- "-data-dir=/consul/data"     # 就算是在虚拟机中使用consul-server集群，也没有使用-data-dir及-config-dir目录，先在yaml中保留。
+               #- "-config-dir=/consul/conf"
                - "-log-level=info"
                - "-log-rotate-duration=86400s"
                - "-log-rotate-max-files=7"
                - "-bind=0.0.0.0"
                - "-client=0.0.0.0"
-               - "-datacenter=k8s"
+               - "-datacenter=k8s-production"
                - "-advertise=$(PODIP)"
                - "-retry-join=consul-server-0.consul-server.$(NAMESPACE).svc.cluster.local"
                - "-retry-join=consul-server-1.consul-server.$(NAMESPACE).svc.cluster.local"
@@ -65,34 +65,34 @@ spec:
                 name: consuldns
               - containerPort: 8300
                 name: server
-          volumeMounts:
-              - name: data
-                mountPath: /consul/data
-              - name: conf
-                mountPath: /consul/conf
+#          volumeMounts:
+#              - name: data
+#                mountPath: /consul/data
+#              - name: conf
+#                mountPath: /consul/conf
           resources:
             limits:
-              cpu: 100m
+              cpu: 200m
               memory: 128Mi
             requests:
-              cpu: 50m
+              cpu: 100m
               memory: 64Mi
-  volumeClaimTemplates:
-    - metadata:
-        name: data
-        annotations:
-          volume.beta.kubernetes.io/storage-class: nfs-storage-public-infra
-      spec:
-        accessModes: ["ReadWriteOnce"]
-        resources:
-          requests:
-            storage: 1Gi
-    - metadata:
-        name: conf
-        annotations:
-          volume.beta.kubernetes.io/storage-class: nfs-storage-public-infra
-      spec:
-        accessModes: ["ReadWriteOnce"]
-        resources:
-          requests:
-            storage: 1Gi
+#  volumeClaimTemplates:
+#    - metadata:
+#        name: data
+#        annotations:
+#          volume.beta.kubernetes.io/storage-class: nfs-storage-public-infra
+#      spec:
+#        accessModes: ["ReadWriteOnce"]
+#        resources:
+#          requests:
+#            storage: 1Gi
+#    - metadata:
+#        name: conf
+#        annotations:
+#          volume.beta.kubernetes.io/storage-class: nfs-storage-public-infra
+#      spec:
+#        accessModes: ["ReadWriteOnce"]
+#        resources:
+#          requests:
+#            storage: 1Gi
