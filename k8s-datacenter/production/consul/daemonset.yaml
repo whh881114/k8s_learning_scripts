@@ -4,7 +4,7 @@ metadata:
   labels:
     daemonset: consul-agent
   name: consul-agent
-  namespace: production-consul-agent
+  namespace: production-consul
 spec:
   selector:
     matchLabels:
@@ -37,7 +37,9 @@ spec:
               fieldRef:
                 fieldPath: status.podIP
           - name: NAMESPACE
-            value: production-consul-server   # server与agent不在同一个namespace中，所以这在里指定其值。
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.namespace
         imagePullPolicy: IfNotPresent
         resources:
           limits:
