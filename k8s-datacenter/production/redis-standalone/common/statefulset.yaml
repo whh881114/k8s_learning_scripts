@@ -2,20 +2,20 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: redis-standalone
-  namespace: redis
+  name: redis-standalone-common
+  namespace: production-redis-standalone
   labels:
-    name: redis-standalone
+    name: redis-standalone-common
 spec:
-  serviceName: redis-standalone
+  serviceName: redis-standalone-common
   replicas: 1
   selector:
     matchLabels:
-      name: redis-standalone
+      name: redis-standalone-common
   template:
     metadata:
       labels:
-        name: redis-standalone
+        name: redis-standalone-common
     spec:
       initContainers:
         - name: sysctl
@@ -30,12 +30,15 @@ spec:
           securityContext:
             privileged: true
       containers:
-        - name: redis-standalone
-          image: registry.k8s.example.com:5000/docker.io/redis:5.0.7
+        - name: redis-standalone-common
+          image: registry.freedom.org/docker.io/redis:5.0.7
           resources:
             requests:
               cpu: 100m
-              memory: 100Mi
+              memory: 128Mi
+            limits:
+              cpu: 200m
+              memory: 256Mi
           command: ["redis-server"]
           args: ["/usr/local/etc/redis/redis.conf"] # 配置文件中的daemon值要设置为no。
           ports:
@@ -49,12 +52,12 @@ spec:
       volumes:
         - name: conf
           configMap:
-            name: redis-standalone
+            name: redis-standalone-common
   volumeClaimTemplates:
     - metadata:
         name: data
         annotations:
-          volume.beta.kubernetes.io/storage-class: nfs-storage-public-infra
+          volume.beta.kubernetes.io/storage-class: nfs-client-provisioner-common
       spec:
         accessModes: ["ReadWriteOnce"]
         resources:
