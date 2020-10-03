@@ -1,1 +1,0 @@
-/usr/bin/mount --bind "/data/yum/7" "/var/ftp/pub/yum"
