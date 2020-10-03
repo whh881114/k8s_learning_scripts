@@ -1,18 +1,18 @@
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-   name: storage-ceph-rbd-public-infra
-   namespace: storage-class-ceph
-provisioner: ceph.com/rbd-public-infra
+   name: rbd-provisioner-common
+   namespace: production-storage-class-rbd
+provisioner: ceph.com/production-storage-class-rbd-rbd-provisioner-common
 parameters:
   monitors: node01.ceph.freedom.org, node02.ceph.freedom.org, node03.ceph.freedom.org
   adminId: admin
-  adminSecretName: ceph-secret
-  adminSecretNamespace: storage-class-ceph
-  pool: k8s
+  adminSecretName: production-storage-class-rbd-secret
+  adminSecretNamespace: production-storage-class-rbd
+  pool: k8s_production
   userId: admin
-  userSecretName: ceph-secret
-  fsType: ext4
+  userSecretName: production-storage-class-rbd-secret
+  fsType: xfs
   imageFormat: "2"
   imageFeatures: "layering"
 allowVolumeExpansion: true

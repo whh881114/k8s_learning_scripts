@@ -1,10 +1,10 @@
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: storage-ceph-rbd-public-infra
-  namespace: storage-class-ceph
+  name: storage-ceph-rbd-demo
+  namespace: production-storage-class-rbd
 spec:
-  storageClassName: storage-ceph-rbd-public-infra
+  storageClassName: rbd-provisioner-common
   accessModes:
   - ReadWriteOnce
   resources:
