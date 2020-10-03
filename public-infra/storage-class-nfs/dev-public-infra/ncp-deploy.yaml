@@ -1,24 +1,24 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: public-infra
-  namespace: nfs-client-provisioner
+  name: dev-public-infra
+  namespace: storage-class-nfs
 spec:
   replicas: 1
   strategy:
     type: Recreate
   selector:
     matchLabels:
-      app: public-infra
+      app: dev-public-infra
   template:
     metadata:
       labels:
-        app: public-infra
+        app: dev-public-infra
     spec:
-      serviceAccountName: nfs-client-provisioner-public-infra
+      serviceAccountName: dev-public-infra
       containers:
-        - name: public-infra-ncp
-          image: registry.k8s.example.com:5000/quay.io/external_storage/nfs-client-provisioner:latest
+        - name: dev-public-infra
+          image: registry.freedom.org/quay.io/external_storage/nfs-client-provisioner:v3.1.0-k8s1.11
           volumeMounts:
             - name: nfs-client-root
               mountPath: /persistentvolumes
@@ -28,9 +28,9 @@ spec:
             - name: NFS_SERVER
               value: nfs.freedom.org
             - name: NFS_PATH
-              value: /data01/k8s_nfs_pvc/public-infra
+              value: /data01/k8s-nfs-pvc/dev-public-infra
       volumes:
         - name: nfs-client-root
           nfs:
             server: nfs.freedom.org
-            path: /data01/k8s_nfs_pvc/public-infra
+            path: /data01/k8s_nfs_pvc/dev-public-infra

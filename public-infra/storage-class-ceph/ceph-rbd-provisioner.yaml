@@ -84,7 +84,7 @@ spec:
     spec:
       containers:
       - name: storage-ceph-rbd-public-infra
-        image: quay.io/external_storage/rbd-provisioner:v0.1.0
+        image: registry.freedom.org/quay.io/external_storage/rbd-provisioner:v2.1.1-k8s1.11
         env:
         - name: PROVISIONER_NAME
           value: ceph.com/rbd-public-infra
