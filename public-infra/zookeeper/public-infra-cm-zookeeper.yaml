@@ -1,0 +1,30 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: zoo.cfg
+  namespace: zookeeper
+data:
+  zoo.cfg: |
+    tickTime=2000
+    initLimit=10
+    syncLimit=5
+    dataDir=/data
+    dataLogDir=/datalog
+    clientPort=2181
+    server.1=zookeeper-0.zookeeper.zookeeper.svc.cluster.local:2888:3888
+    server.2=zookeeper-1.zookeeper.zookeeper.svc.cluster.local:2888:3888
+    server.3=zookeeper-2.zookeeper.zookeeper.svc.cluster.local:2888:3888
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: generate-myid.sh
+  namespace: zookeeper
+data:
+  generate-myid.sh: |
+    #!/bin/bash
+    myid=`echo $HOSTNAME | awk -F "-" '{print $NF}'`
+    myid=$[myid+1]
+    echo $myid > /data/myid
