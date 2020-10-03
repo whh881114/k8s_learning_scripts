@@ -2,18 +2,18 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: redis-cluster
-  namespace: redis
+  name: redis-cluster-common
+  namespace: production-redis-cluster
 spec:
-  serviceName: redis-cluster
+  serviceName: redis-cluster-common
   replicas: 6
   selector:
     matchLabels:
-      app: redis-cluster
+      app: redis-cluster-common
   template:
     metadata:
       labels:
-        app: redis-cluster
+        app: redis-cluster-common
     spec:
       initContainers:
         - name: sysctl
@@ -28,7 +28,7 @@ spec:
           securityContext:
             privileged: true
       containers:
-        - name: redis
+        - name: redis-cluster-common
           image: registry.freedom.org/docker.io/redis:5.0.7
           ports:
             - containerPort: 6379
@@ -50,21 +50,21 @@ spec:
               readOnly: false
           resources:
             limits:
-              cpu: 100m
+              cpu: 200m
               memory: 128Mi
             requests:
-              cpu: 50m
+              cpu: 100m
               memory: 64Mi
       volumes:
         - name: conf
           configMap:
-            name: redis-cluster
+            name: redis-cluster-common
             defaultMode: 0755
   volumeClaimTemplates:
     - metadata:
         name: data
         annotations:
-          volume.beta.kubernetes.io/storage-class: nfs-storage-public-infra
+          volume.beta.kubernetes.io/storage-class: nfs-client-provisioner-common
       spec:
         accessModes: ["ReadWriteOnce"]
         resources:
