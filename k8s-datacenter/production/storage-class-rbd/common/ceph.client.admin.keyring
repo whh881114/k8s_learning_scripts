@@ -1,13 +1,15 @@
 [client.admin]
-	key = QVFEM0duaGZkc3loSHhBQU1mOU1WdkdUSzlLT1h4TytSRVBHakE9PQ==
+	key = QVFBc2xYaGZTVjVHSEJBQWQ4d2g2eHNOSVYrbmtRa1dwK1RURkE9PQ==
 	caps mds = "allow *"
 	caps mgr = "allow *"
 	caps mon = "allow *"
 	caps osd = "allow *"
 
 # shell命令如下：
-# [root@node01.ceph.freedom.org /etc/ceph 14:31]# 18> ceph auth get-or-create client.k8s mon 'allow r' osd 'allow rwx pool=k8s' -o ceph.client.k8s.keyring
-# [root@node01.ceph.freedom.org /etc/ceph 14:32]# 19> ceph auth get-key client.k8s | base64
-# QVFEM0duaGZkc3loSHhBQU1mOU1WdkdUSzlLT1h4TytSRVBHakE9PQ==
-# [root@node01.ceph.freedom.org /etc/ceph 14:32]# 20>
+# [root@node01.ceph.freedom.org /etc/ceph 09:19]# 14> ceph auth get-or-create client.k8s mon 'allow r' osd 'allow rwx pool=k8s_production' -o ceph.client.k8s.keyring
+# [root@node01.ceph.freedom.org /etc/ceph 09:19]# 15> ceph auth get-key client.k8s | base64
+# QVFBNEkzbGY4cWNTRGhBQTQ2SlIxTTI2RnAxbjdTczFLbkI1c3c9PQ==
+# [root@node01.ceph.freedom.org /etc/ceph 09:20]# 16> ceph auth get-key client.admin | base64
+# QVFBc2xYaGZTVjVHSEJBQWQ4d2g2eHNOSVYrbmtRa1dwK1RURkE9PQ==
+# [root@node01.ceph.freedom.org /etc/ceph 09:20]# 17>
 
