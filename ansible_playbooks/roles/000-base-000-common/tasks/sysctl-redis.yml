@@ -1,4 +1,17 @@
 ---
+# 针对redis应用配置
+- name: set net.core.somaxconn to 65535.
+  sysctl:
+    name: "{{ item.name }}"
+    value: "{{ item.value }}"
+    sysctl_set: yes
+    reload: yes
+    sysctl_file: /etc/sysctl.d/common.conf
+  with_items:
+    - { name: 'net.core.somaxconn', value: 65535 }
+    - { name: 'vm.overcommit_memory', value: 1 }
+
+
 - name: set transparent_hugepage to enabled
   shell: echo never > /sys/kernel/mm/transparent_hugepage/enabled
 

@@ -1,9 +1,0 @@
-# 增加虚拟机到k8s pod的路由，其网段及k8s的worker主机要根据实际情况改。
-- name: create /etc/sysconfig/network-scripts/route-{{ static_route_nic }}
-  blockinfile:
-    path: /etc/sysconfig/network-scripts/route-{{ static_route_nic }}
-    create: yes
-    block: |
-      {{ k8s_pod_network }}/{{ k8s_pod_netmask }} via {{ k8s_master01_ip }}
-  notify:
-    - restart-network

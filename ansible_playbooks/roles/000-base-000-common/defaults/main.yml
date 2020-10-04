@@ -1,9 +1,10 @@
 # 默认认为k8s主机，此时会禁止swap。
 is_k8s_host: false
+is_redis_host: false
+is_dns_server: false
 
-rc_local_file: /etc/rc.d/rc_common.local
-
-local_dns: True
+common_local_file: /etc/rc.d/common.local
+redis_local_file: /etc/rc.d/redis.local
 
 # 此路由是打通虚拟机到容器内部的路由，这个是解决consul-server部署在容器中，而虚拟机
 # consul-agent与consul-server通信时上报服务不成功的问题，因为consul-agent拿到的是

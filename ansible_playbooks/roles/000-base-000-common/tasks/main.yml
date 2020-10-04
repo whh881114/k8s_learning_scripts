@@ -1,19 +1,8 @@
 ---
-- include: static_route.yml
-
-- include: dns.yml
-  when: local_dns
-
 - include: common.yml
 
-- include: repos.yml
+- include: common-k8s.yml
+  when: is_k8s_host
 
-- include: rc_local.yml
-
-- include: limits.yml
-
-- include: common-pkgs.yml
-
-- include: k8s-pkgs.yml
-
-- include: sysctl.yml
+- include: sysctl-redis.yml
+  when: is_redis_host

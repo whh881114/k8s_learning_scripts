@@ -1,4 +1,48 @@
 ---
+- name: '使用内网DNS'
+  template:
+    src: resolv.conf.j2
+    dest: /etc/resolv.conf
+
+- name: delete internel repo file
+  file:
+    path: "/etc/yum.repos.d/{{ item }}"
+    state: absent
+  with_items:
+    - CentOS-Base.repo
+    - CentOS-CR.repo
+    - CentOS-Debuginfo.repo
+    - CentOS-fasttrack.repo
+    - CentOS-Media.repo
+    - CentOS-Sources.repo
+    - CentOS-Vault.repo
+
+- name: copy common repo files
+  copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: root
+    group: root
+    mode: "0644"
+  with_items:
+    - { src: "repos/centos-{{ ansible_distribution_major_version }}.repo", dest: /etc/yum.repos.d/centos.repo }
+    - { src: "repos/epel-{{ ansible_distribution_major_version }}.repo", dest: /etc/yum.repos.d/epel.repo }
+    - { src: "repos/kubernetes-{{ ansible_distribution_major_version }}.repo", dest: /etc/yum.repos.d/kubernetes.repo }
+    - { src: "repos/zabbix-4.0-{{ ansible_distribution_major_version }}.repo", dest: /etc/yum.repos.d/zabbix.repo }
+    - { src: "repos/ceph-mimic-{{ ansible_distribution_major_version }}.repo", dest: /etc/yum.repos.d/ceph.repo }
+  when: ansible_distribution == "CentOS" or ansible_distribution == "RedHat"
+
+
+# 增加虚拟机到k8s pod的路由，其网段及k8s的worker主机要根据实际情况改。
+- name: create /etc/sysconfig/network-scripts/route-{{ static_route_nic }}
+  blockinfile:
+    path: /etc/sysconfig/network-scripts/route-{{ static_route_nic }}
+    create: yes
+    block: |
+      {{ k8s_pod_network }}/{{ k8s_pod_netmask }} via {{ k8s_master01_ip }}
+  notify:
+    - restart-network
+
 - name: modify PS1
   blockinfile:
     path: /etc/profile
@@ -33,14 +77,30 @@
   with_items:
     - { src: vimrc, dest: /root/.vimrc }
 
-- block:
-  - name: disable swap in /etc/fstab
-    replace:
-      path: /etc/fstab
-      regexp: '(^/dev/mapper/centos-swap.*)'
-      replace: '#\1'
+- name: install common packages
+  yum:
+    name: "{{ packages }}"
+    state: present
+  vars:
+    packages:
+      - tcl
+      - openssl-devel
+      - zlib-devel
+      - lrzsz
+      - tree
+      - nc
+      - telnet
 
-  - name: disable swap
-    shell: swapoff -a
+- name: unlimit the system limitations
+  shell: ulimit -SHn 65535 && ulimit -n
 
-  when: is_k8s_host
+- name: set unlimitations in the limits.conf file
+  lineinfile:
+    path: /etc/security/limits.conf
+    state: present
+    line: "{{ item.name }}"
+  with_items:
+    - { name: '* soft nofile 65536'}
+    - { name: '* hard nofile 131072'}
+    - { name: '* soft nproc 65535'}
+    - { name: '* hard nproc 65535'}
