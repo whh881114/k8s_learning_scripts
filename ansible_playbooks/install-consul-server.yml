@@ -6,6 +6,20 @@
     - server03.consul.freedom.org
   user: root
   roles:
-    - role: consul
+    - role: 000-base-000-common
+      tags:
+        - common
+
+    - role: 000-base-001-consul
+      tags:
+        - consul-server
       vars:
         consul_server_role: True
+
+    - role: 000-base-002-zabbix
+      tags:
+        - zabbix-agent
+
+    - role: 000-base-003-puppet
+      tags:
+        - puppet-agent
