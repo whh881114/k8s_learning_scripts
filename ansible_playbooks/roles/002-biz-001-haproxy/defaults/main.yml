@@ -1,5 +1,6 @@
 ---
 # defaults file for proxy
+# haproxy配置负责转发有的规则，所以角色对外时，不需要额外变量。
 haproxy_ctmpl: haproxy-ctmpl
 
 tcp_instances:

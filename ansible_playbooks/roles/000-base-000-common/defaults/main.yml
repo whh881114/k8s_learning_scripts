@@ -5,6 +5,10 @@ rc_local_file: /etc/rc.d/rc_common.local
 
 local_dns: True
 
+# 此路由是打通虚拟机到容器内部的路由，这个是解决consul-server部署在容器中，而虚拟机
+# consul-agent与consul-server通信时上报服务不成功的问题，因为consul-agent拿到的是
+# pod ip，此路由只能写一个k8s主机地址，轻型流量应用是可以的。
+# 指定网卡名称是因为主机上有多个网卡，默认为ens192。
 static_route_nic: ens192
 
 k8s_master01_ip: 192.168.2.1
