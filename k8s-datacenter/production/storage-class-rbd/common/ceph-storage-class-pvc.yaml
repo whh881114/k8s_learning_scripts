@@ -1,12 +1,12 @@
-kind: PersistentVolumeClaim
 apiVersion: v1
+kind: PersistentVolumeClaim
 metadata:
   name: storage-ceph-rbd-demo
   namespace: production-storage-class-rbd
 spec:
   storageClassName: rbd-provisioner-common
   accessModes:
-  - ReadWriteOnce
+    - ReadWriteOnce
   resources:
     requests:
       storage: 1Gi
