@@ -1,8 +1,0 @@
----
-- name: install zabbix agent for {{ hosts }}
-  hosts: "{{ hosts }}"
-  user: root
-  roles:
-    - role: zabbix
-      vars:
-        zabbix_agent_role: True

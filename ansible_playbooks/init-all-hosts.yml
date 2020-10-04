@@ -1,0 +1,27 @@
+---
+- name: init hosts
+  hosts: "{{ hosts }}"
+  user: root
+  roles:
+    - role: 000-base-000-common
+      tags:
+        - common
+
+    - role: 000-base-001-consul
+      tags:
+        - consul-agent
+      vars:
+        consul_template_role: True
+        consul_agent_role: True
+        consul_agent_items:
+          services:
+            - name: consul-agent
+              port: 8500
+
+    - role: 000-base-002-zabbix
+      tags:
+        - zabbix-agent
+
+    - role: 000-base-003-puppet
+      tags:
+        - puppet-agent
