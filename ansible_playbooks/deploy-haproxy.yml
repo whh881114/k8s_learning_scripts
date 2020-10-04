@@ -1,0 +1,42 @@
+---
+- name: deploy consul server
+  hosts:
+    - haproxy.freedom.org
+  user: root
+  roles:
+    - role: 000-base-000-common
+      tags:
+        - common
+      vars:
+        - static_route_nic: ens224          # 此路由是打通虚拟机到容器内部的路由，这个是解决consul-server部署在容器中，而虚拟机
+                                            # consul-agent与consul-server通信时上报服务不成功的问题，因为consul-agent拿到的是
+                                            # pod ip，此路由只能写一个k8s主机地址，轻型流量应用是可以的。
+                                            # 指定网卡名称是因为主机上有多个网卡。
+
+    - role: 000-base-001-consul
+      tags:
+        - consul-agent
+      vars:
+        consul_template_role: True
+        consul_agent_role: True
+        consul_agent_items:
+          services:
+            - name: http
+              port: 80
+            - name: https
+              port: 443
+            - name: consul-agent
+              port: 8500
+        consul_agent_ipaddr: 192.168.2.250    # 如果有多个haproxy实例，那就不需要一个模板生成此playbook。
+
+    - role: 000-base-002-zabbix
+      tags:
+        - zabbix-agent
+
+    - role: 000-base-003-puppet
+      tags:
+        - puppet-agent
+
+    - role: 002-biz-001-haproxy
+      tags:
+        - haproxy
