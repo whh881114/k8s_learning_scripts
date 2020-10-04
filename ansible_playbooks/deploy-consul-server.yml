@@ -1,5 +1,5 @@
 ---
-- name: install consul server
+- name: deploy consul server
   hosts:
     - server01.consul.freedom.org
     - server02.consul.freedom.org
