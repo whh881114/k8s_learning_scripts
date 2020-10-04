@@ -1,4 +1,5 @@
 ---
+# 只能针对没有业务部署的主机，不可针对k8s主机主机执行，因为像consul-agent部署是用容器的daemonset模式部署。
 - name: init hosts
   hosts: "{{ hosts }}"
   user: root
