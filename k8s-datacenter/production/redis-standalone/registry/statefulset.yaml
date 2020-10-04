@@ -1,0 +1,65 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: redis-standalone-registry
+  namespace: production-redis-standalone
+  labels:
+    name: redis-standalone-registry
+spec:
+  serviceName: redis-standalone-registry
+  replicas: 1
+  selector:
+    matchLabels:
+      name: redis-standalone-registry
+  template:
+    metadata:
+      labels:
+        name: redis-standalone-registry
+    spec:
+      initContainers:
+        - name: sysctl
+          image: registry.k8s.example.com:5000/docker.io/busybox:1.31.1
+          command: ["sysctl"]
+          args: ["-w", "net.core.somaxconn=65535"]
+          securityContext:
+            privileged: true
+        - name: disable-transparent-hugepage
+          image: registry.k8s.example.com:5000/docker.io/busybox:1.31.1
+          command: ["echo", "never", ">", "/sys/kernel/mm/transparent_hugepage/enabled"]
+          securityContext:
+            privileged: true
+      containers:
+        - name: redis-standalone-registry
+          image: registry.freedom.org/docker.io/redis:5.0.7
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 200m
+              memory: 256Mi
+          command: ["redis-server"]
+          args: ["/usr/local/etc/redis/redis.conf"] # 配置文件中的daemon值要设置为no。
+          ports:
+            - containerPort: 6379
+          volumeMounts:
+            - name: data
+              mountPath: /data
+            - name: conf
+              mountPath: /usr/local/etc/redis/
+              readOnly: true
+      volumes:
+        - name: conf
+          configMap:
+            name: redis-standalone-registry
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+        annotations:
+          volume.beta.kubernetes.io/storage-class: rbd-provisioner-common
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 1Gi
