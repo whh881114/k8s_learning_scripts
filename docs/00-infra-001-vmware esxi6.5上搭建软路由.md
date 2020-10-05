@@ -1,4 +1,4 @@
-# 09-vmware esxi6.5上搭建软路由
+# 00-infra-001-vmware esxi6.5上搭建软路由.md
 
 ### 前言
 - vmware workstation与esxi的网络有点不一样，在workstation中可以轻松使用nat网络，但在esxi中没有，所以需要自己搭一个软路由。这里在网上找了一个叫pfSense的软件。
