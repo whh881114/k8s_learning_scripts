@@ -71,7 +71,9 @@ frontend  http-frontend *:80
 {% for item in http_instances %}
 backend http-backend-[[ item.service_name ]]
     balance   leastconn
+{% if item.httpchk_method is defined %}
     option    httpchk [[ item.httpchk_method ]] [[ item.httpchk ]]
+{% endif %}
     rspadd Access-Control-Allow-Origin:\ *
     rspadd Access-Control-Max-Age:\ 31536000
     rspadd Access-Control-Allow-Credentials:\ true
