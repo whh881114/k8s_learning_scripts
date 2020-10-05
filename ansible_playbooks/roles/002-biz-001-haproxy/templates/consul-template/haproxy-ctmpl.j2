@@ -86,6 +86,16 @@ backend http-backend-[[ item.service_name ]]
 {% endfor %}
 
 
+
+frontend  https-frontend *:443
+{% for item in https_instances %}
+{# 前端规则产生：acl [frontend_name] hdr_reg(host) -i [http_host_header] #}
+{# 后端实例列表：use_backend [backend_name] if [frontend_name] #}
+    acl acl-[[ item.service_name ]] hdr_reg(host) -i [[ item.http_host_header ]]
+    use_backend https-backend-[[ item.service_name ]] if acl-[[ item.service_name ]]
+
+{% endfor %}
+
 {% for item in https_instances %}
 backend https-backend-[[ item.service_name ]]
     balance   leastconn
