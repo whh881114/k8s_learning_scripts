@@ -1,0 +1,80 @@
+---
+- name: deploy zookeeper cluster servers
+  hosts:
+    - node01.zookeeper.freedom.org
+    - node02.zookeeper.freedom.org
+    - node03.zookeeper.freedom.org
+  user: root
+  roles:
+    - role: 000-base-000-common
+      tags:
+        - common
+
+    - role: 000-base-001-consul
+      tags:
+        - consul-agent
+      vars:
+        consul_agent_role: True
+        consul_agent_items:
+          services:
+            - name: zookeeper-client
+              port: 2181
+            - name: zookeeper-server
+              port: 2888
+            - name: zookeeper-leader-election
+              port: 3888
+            - name: consul-agent
+              port: 8500
+
+    - role: 000-base-002-zabbix
+      tags:
+        - zabbix-agent
+
+    - role: 000-base-003-puppet
+      tags:
+        - puppet-agent
+
+
+- name: deploy zookeeper cluster servers
+  hosts:
+    - node01.zookeeper.freedom.org
+  user: root
+  roles:
+    - role: 001-infr-004-zookeeper
+      tags:
+        - zookeeper
+      vars:
+        zookeeper_myid: 1
+        zookeeper_server1: node01.zookeeper.freedom.org
+        zookeeper_server2: node02.zookeeper.freedom.org
+        zookeeper_server3: node03.zookeeper.freedom.org
+
+
+- name: deploy zookeeper cluster servers
+  hosts:
+    - node02.zookeeper.freedom.org
+  user: root
+  roles:
+    - role: 001-infr-004-zookeeper
+      tags:
+        - zookeeper
+      vars:
+        zookeeper_myid: 2
+        zookeeper_server1: node01.zookeeper.freedom.org
+        zookeeper_server2: node02.zookeeper.freedom.org
+        zookeeper_server3: node03.zookeeper.freedom.org
+
+
+- name: deploy zookeeper cluster servers
+  hosts:
+    - node03.zookeeper.freedom.org
+  user: root
+  roles:
+    - role: 001-infr-004-zookeeper
+      tags:
+        - zookeeper
+      vars:
+        zookeeper_myid: 3
+        zookeeper_server1: node01.zookeeper.freedom.org
+        zookeeper_server2: node02.zookeeper.freedom.org
+        zookeeper_server3: node03.zookeeper.freedom.org
