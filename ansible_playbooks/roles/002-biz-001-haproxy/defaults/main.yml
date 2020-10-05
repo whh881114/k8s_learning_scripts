@@ -39,3 +39,13 @@ http_instances:
     httpchk: "/"
   - service_name: harbor-registry-ui
     http_host_header: ^harbor-registry-ui.freedom.org$
+
+https_instances:
+  - service_name: docker-registry
+    http_host_header: ^docker-registry.freedom.org$|^registry.freedom.org$
+    httpchk_method: GET
+    httpchk: "/"
+  - service_name: harbor-registry
+    http_host_header: ^harbor.freedom.org$|^harbor-registry.freedom.org$
+    httpchk_method: GET
+    httpchk: "/"

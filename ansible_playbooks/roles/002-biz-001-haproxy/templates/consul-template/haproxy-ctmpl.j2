@@ -84,3 +84,21 @@ backend http-backend-[[ item.service_name ]]
 
 
 {% endfor %}
+
+
+{% for item in https_instances %}
+backend https-backend-[[ item.service_name ]]
+    balance   leastconn
+{% if item.httpchk_method is defined %}
+    option    httpchk [[ item.httpchk_method ]] [[ item.httpchk ]]
+{% endif %}
+    rspadd    Access-Control-Allow-Origin:\ *
+    rspadd    Access-Control-Max-Age:\ 31536000
+    rspadd    Access-Control-Allow-Credentials:\ true
+    rspadd    Access-Control-Allow-Headers:\ Accept,\ Authorization,\ Cache-Control,\ Content-Type,\ Content-Md5,\ DNT,\ If-Modified-Since,\ Keep-Alive,\ Origin,\ User-Agent,\ X-Mx-ReqToken,\ X-Requested-With,\ X-Amz-Date,\ X-Amz-User-Agent,\ X-Amz-Acl,\ X-Amz-Copy-Source
+    rspadd    Access-Control-Allow-Methods:\ POST,\ GET,\ OPTIONS,\ PUT,\ DELETE
+    {{range service "[[ item.service_name ]]"}}
+    server {{.Node}} {{.Address}}:{{.Port}} check cookie {{.Node}} weight 1 check inter 1000 rise 2 fall 3{{end}}
+
+
+{% endfor %}
