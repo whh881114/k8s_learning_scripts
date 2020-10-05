@@ -3,8 +3,9 @@
   template:
     src: resolv.conf.j2
     dest: /etc/resolv.conf
+  when: not is_dns_server
 
-- name: delete internel repo file
+- name: delete origin repo files
   file:
     path: "/etc/yum.repos.d/{{ item }}"
     state: absent
@@ -76,6 +77,7 @@
     dest: "{{ item.dest }}"
   with_items:
     - { src: vimrc, dest: /root/.vimrc }
+    - { src: vimrc, dest: "/{{ common_user }}/.vimrc" }
 
 - name: install common packages
   yum:

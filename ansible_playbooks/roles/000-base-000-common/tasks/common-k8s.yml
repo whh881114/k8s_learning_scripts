@@ -8,16 +8,6 @@
 - name: disable swap
   shell: swapoff -a
 
-- name: copy other repo files
-  copy:
-    src: "{{ item.src }}"
-    dest: "{{ item.dest }}"
-    owner: root
-    group: root
-    mode: "0644"
-  with_items:
-    - { src: repos/kubernetes.repo, dest: /etc/yum.repos.d/kubernetes.repo }
-
 - name: set sysctl configurations to k8s hosts.
   sysctl:
     name: "{{ item.name }}"

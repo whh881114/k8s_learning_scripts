@@ -6,18 +6,17 @@
     value: "{{ item.value }}"
     sysctl_set: yes
     reload: yes
-    sysctl_file: /etc/sysctl.d/common.conf
+    sysctl_file: "{{ redis_local_file }}"
   with_items:
     - { name: 'net.core.somaxconn', value: 65535 }
     - { name: 'vm.overcommit_memory', value: 1 }
 
-
 - name: set transparent_hugepage to enabled
   shell: echo never > /sys/kernel/mm/transparent_hugepage/enabled
 
-- name: create rc_common.local file
+- name: create {{ redis_local_file }} file
   file:
-    path: "{{ rc_local_file }}"
+    path: "{{ redis_local_file }}"
     state: touch
     owner: root
     group: root
@@ -25,6 +24,6 @@
 
 - name: set transparent_hugepage to enabled at the system boot
   lineinfile:
-    path: "{{ rc_local_file }}"
+    path: "{{ redis_local_file }}"
     state: present
     line: 'echo never > /sys/kernel/mm/transparent_hugepage/enabled'
