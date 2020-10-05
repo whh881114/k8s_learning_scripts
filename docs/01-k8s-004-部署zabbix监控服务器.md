@@ -6,40 +6,44 @@
 
 - 安装zabbix-mysql
     ```shell
-    kubectl create namespace zabbix
-    cd public-infra/zabbix/zabbix-mysql
+    kubectl create namespace production-zabbix
+    cd k8s-datacenter/production/zabbix/mysql
     kubectl apply -f .
     ```
     
 - 安装zabbix-server
     ```shell
-    cd public-infra/zabbix/zabbix-server
+    cd k8s-datacenter/production/zabbix/server
     kubectl apply -f .
     ```
 
 - 安装zabbix-web
     ```shell
-    cd public-infra/zabbix/zabbix-web
+    cd k8s-datacenter/production/zabbix/web
     kubectl apply -f .
     ```
 
 - 安装zabbix-agent
     ```shell
-    cd public-infra/zabbix/zabbix-agent
+    cd k8s-datacenter/production/zabbix/agent
     kubectl apply -f .
     ```
     
 ## 2. 导流（映射服务）
-- 在lb.freedom.org安装nginx进行反向代理，配置文件在此目录中proxy/nginx，nginx服务来代理http/https服务，
-目录proxy/haproxy则为代理tcp/udp服务。
+- **很久很久以前**
+    - 在lb.freedom.org安装nginx进行反向代理，配置文件在此目录中proxy/nginx，nginx服务来代理http/https服务，
+    目录proxy/haproxy则为代理tcp/udp服务。
+    
+    - 代理zabbix服务，nginx主配置文件为proxy/nginx/nginx.conf，子配置文件为proxy/nginx/conf.d/zabbix.k8s.freedom.org.conf。
 
-- 代理zabbix服务，nginx主配置文件为proxy/nginx/nginx.conf，子配置文件为proxy/nginx/conf.d/zabbix.k8s.freedom.org.conf。
+- **2020/10/05**
+    - 负载全更换为haproxy，不再使用nginx。
 
 ## 3. 细节问题
 - zabbix-server，部署时，需在在pod里指定两个容器，一个是zabbi-agent，另一个是zabbix-server，这样的话zabbix-agent和zabbix-server
 共享pod ip地址，所以就能实现监控zabbix-server本身了。另外，zabbix-agent不需要挂pvc来放自定义监控脚本。
 
-- zabbix-server部署时，必须要使用headless来暴露服务，这时候服务域名解析出来的就是pod ip地址，这样在web界面上设置zabbix-server地址
+- zabbix-server部署时，必须要使用**headless**来暴露服务，这时候服务域名解析出来的就是pod ip地址，这样在web界面上设置zabbix-server地址
 时使用域名即能解决zabbix-agent unreachable on zabbix-server的问题了。
 
 - 部署zabbix-agent在node上时，需要把配置文件中的zabbix-server地址改成node节点的网段这样才能解决节点上报zabbix-agent unreachable
