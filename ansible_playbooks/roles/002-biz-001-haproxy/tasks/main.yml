@@ -6,14 +6,13 @@
 
 - name: configure rsyslog for haproxy step 1
   lineinfile: 
-    path: "{{ item.path }}"
-    regexp: "{{ item.regexp }}"
+    path: /etc/rsyslog.conf
     line: "{{ item.line }}"
-    backrefs: yes
+    insertafter: "{{ item.insertafter }}"
   with_items:
-    - { path: "/etc/rsyslog.conf", regexp: "^#$ModLoad imudp$", line: "$ModLoad imudp" }
-    - { path: "/etc/rsyslog.conf", regexp: "^#$UDPServerRun 514$", line: '$UDPServerRun 514' }
-    - { path: "/etc/sysconfig/rsyslog", regexp: '^SYSLOGD_OPTIONS=""$', line: 'SYSLOGD_OPTIONS="-r -m 0 -c 2"' }
+    - { line: '$ModLoad imudp', insertafter: '^\#\$ModLoad imudp' }
+    - { line: '$UDPServerRun 514', insertafter: '^\#\$UDPServerRun 514' }
+    - { line: 'local2.*  /var/log/haproxy.log', insertafter: None }
   notify: restart-rsyslog
 
 - name: configure rsyslog for haproxy step 2

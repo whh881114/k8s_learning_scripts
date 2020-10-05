@@ -68,7 +68,7 @@
       tags:
         - puppet-agent
 
-    - role: bind
+    - role: 001-infr-001-bind
       vars:
         is_dns_server: True
         bind_slave_role: True
