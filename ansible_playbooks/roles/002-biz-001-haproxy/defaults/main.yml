@@ -26,7 +26,7 @@ http_instances:
     httpchk_method: GET
     httpchk: "/"
   - service_name: docker-registry
-    http_host_header: ^docker-registry.freedom.org$
+    http_host_header: ^docker-registry.freedom.org$|^registry.freedom.org$
     httpchk_method: GET
     httpchk: "/"
   - service_name: docker-registry-ui
