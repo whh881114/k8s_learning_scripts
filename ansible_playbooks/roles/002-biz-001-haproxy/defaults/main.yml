@@ -20,17 +20,22 @@ http_instances:
     http_host_header: ^consul.freedom.org$          # 当前acl规则以hdr_reg(host)进行匹配。
     httpchk_method: GET                             # 七层检查方法。
     httpchk: "/"                                    # 七层检查方法，后面接url或其他参数
-  - service_name: docker-distribution
-    http_host_header: ^registry.freedom.org$
-    httpchk_method: GET
-    httpchk: "/"
+
   - service_name: zabbix-web
     http_host_header: ^zabbix.freedom.org$
+    httpchk_method: GET
+    httpchk: "/"
+  - service_name: docker-registry
+    http_host_header: ^docker-registry.freedom.org$
     httpchk_method: GET
     httpchk: "/"
   - service_name: docker-registry-ui
     http_host_header: ^docker-registry-ui.freedom.org$
     httpchk_method: GET
     httpchk: "/"
-  - service_name: harbor
-    http_host_header: ^harbor.freedom.org$
+  - service_name: harbor-registry
+    http_host_header: ^harbor-registry.freedom.org$
+    httpchk_method: GET
+    httpchk: "/"
+  - service_name: harbor-registry-ui
+    http_host_header: ^harbor-registry-ui.freedom.org$
