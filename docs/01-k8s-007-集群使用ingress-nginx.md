@@ -6,7 +6,7 @@
 ## 1. ingress-nginx安装步骤
 - 官方安装说明文档：https://github.com/kubernetes/ingress-nginx/blob/master/docs/deploy/index.md。
 
-- 步骤其实就一步，`cd k8s_platform && kubectl apply -f ingress-nginx-0.28.0-mandatory-deployment.yaml`。
+- 步骤其实就一步，`cd k8s-platform/ingress && kubectl apply -f ingress-nginx-0.28.0-mandatory-deployment.yaml`。
   
     
 ## 2. 安装LAMP环境
