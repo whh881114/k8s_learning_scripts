@@ -13,16 +13,16 @@
 ## 1. 安装步骤
 - 安装
     ```shell
-    cd public-infra/redis/redis-standalone
-    kubectl create namespace redis
+    cd k8s-datacenter/production/redis-standalone/common
+    kubectl create namespace production-redis-standalone
     kubectl apply -f .
     
-    cd redis-cluster
+    cd k8s-datacenter/production/redis-cluster/common       # 集群模式下使用到storage-class动态申请pvc，并且其配置文件要修改，这个是关键，这个是看了RancherLab后进行部署的。
     kubectl apply -f .
     ```
     
 ## 2. 导流（映射服务）
-- 在lb.freedom.org安装haproxy进行TCP代理，配置文件片断在此目录中laboratory/proxy/haproxy/redis.cfg。
+- 在haproxy.freedom.org安装haproxy进行TCP代理，服务上报是采用consul-agent，模板渲染使用consul-template。
 
     ```shell
     listen redis-standalone
