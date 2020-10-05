@@ -59,7 +59,8 @@ listen tcp-[[ item.listen_name ]]
 {% endfor %}
 
 
-frontend  http-frontend *:80
+frontend  http-frontend
+    bind *:80
 {% for item in http_instances %}
 {# 前端规则产生：acl [frontend_name] hdr_reg(host) -i [http_host_header] #}
 {# 后端实例列表：use_backend [backend_name] if [frontend_name] #}
@@ -74,11 +75,11 @@ backend http-backend-[[ item.service_name ]]
 {% if item.httpchk_method is defined %}
     option    httpchk [[ item.httpchk_method ]] [[ item.httpchk ]]
 {% endif %}
-    rspadd    Access-Control-Allow-Origin:\ *
-    rspadd    Access-Control-Max-Age:\ 31536000
-    rspadd    Access-Control-Allow-Credentials:\ true
-    rspadd    Access-Control-Allow-Headers:\ Accept,\ Authorization,\ Cache-Control,\ Content-Type,\ Content-Md5,\ DNT,\ If-Modified-Since,\ Keep-Alive,\ Origin,\ User-Agent,\ X-Mx-ReqToken,\ X-Requested-With,\ X-Amz-Date,\ X-Amz-User-Agent,\ X-Amz-Acl,\ X-Amz-Copy-Source
-    rspadd    Access-Control-Allow-Methods:\ POST,\ GET,\ OPTIONS,\ PUT,\ DELETE
+    #rspadd    Access-Control-Allow-Origin:\ *
+    #rspadd    Access-Control-Max-Age:\ 31536000
+    #rspadd    Access-Control-Allow-Credentials:\ true
+    #rspadd    Access-Control-Allow-Headers:\ Accept,\ Authorization,\ Cache-Control,\ Content-Type,\ Content-Md5,\ DNT,\ If-Modified-Since,\ Keep-Alive,\ Origin,\ User-Agent,\ X-Mx-ReqToken,\ X-Requested-With,\ X-Amz-Date,\ X-Amz-User-Agent,\ X-Amz-Acl,\ X-Amz-Copy-Source
+    #rspadd    Access-Control-Allow-Methods:\ POST,\ GET,\ OPTIONS,\ PUT,\ DELETE
     {{range service "[[ item.service_name ]]"}}
     server {{.Node}} {{.Address}}:{{.Port}} check cookie {{.Node}} weight 1 check inter 1000 rise 2 fall 3{{end}}
 
@@ -87,7 +88,12 @@ backend http-backend-[[ item.service_name ]]
 
 
 
-frontend  https-frontend *:443
+frontend  https-frontend
+    bind: *:443 ssl crt /etc/ssl/certs/haproxy.crt
+    mode http
+    option httpclose
+    option forwardfor
+    reqadd X-Forwarded-Proto:\ https
 {% for item in https_instances %}
 {# 前端规则产生：acl [frontend_name] hdr_reg(host) -i [http_host_header] #}
 {# 后端实例列表：use_backend [backend_name] if [frontend_name] #}
@@ -102,11 +108,11 @@ backend https-backend-[[ item.service_name ]]
 {% if item.httpchk_method is defined %}
     option    httpchk [[ item.httpchk_method ]] [[ item.httpchk ]]
 {% endif %}
-    rspadd    Access-Control-Allow-Origin:\ *
-    rspadd    Access-Control-Max-Age:\ 31536000
-    rspadd    Access-Control-Allow-Credentials:\ true
-    rspadd    Access-Control-Allow-Headers:\ Accept,\ Authorization,\ Cache-Control,\ Content-Type,\ Content-Md5,\ DNT,\ If-Modified-Since,\ Keep-Alive,\ Origin,\ User-Agent,\ X-Mx-ReqToken,\ X-Requested-With,\ X-Amz-Date,\ X-Amz-User-Agent,\ X-Amz-Acl,\ X-Amz-Copy-Source
-    rspadd    Access-Control-Allow-Methods:\ POST,\ GET,\ OPTIONS,\ PUT,\ DELETE
+    #rspadd    Access-Control-Allow-Origin:\ *
+    #rspadd    Access-Control-Max-Age:\ 31536000
+    #rspadd    Access-Control-Allow-Credentials:\ true
+    #rspadd    Access-Control-Allow-Headers:\ Accept,\ Authorization,\ Cache-Control,\ Content-Type,\ Content-Md5,\ DNT,\ If-Modified-Since,\ Keep-Alive,\ Origin,\ User-Agent,\ X-Mx-ReqToken,\ X-Requested-With,\ X-Amz-Date,\ X-Amz-User-Agent,\ X-Amz-Acl,\ X-Amz-Copy-Source
+    #rspadd    Access-Control-Allow-Methods:\ POST,\ GET,\ OPTIONS,\ PUT,\ DELETE
     {{range service "[[ item.service_name ]]"}}
     server {{.Node}} {{.Address}}:{{.Port}} check cookie {{.Node}} weight 1 check inter 1000 rise 2 fall 3{{end}}
 
