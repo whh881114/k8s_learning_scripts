@@ -1,9 +1,10 @@
 ---
-- name: init k8s workers
-  hosts: k8s_workers
+- name: init k8s master nodes
+  hosts:
+    - master.k8s.freedom.org
   user: root
   roles:
-    - role: common
+    - role: 000-base-000-common
       tags:
         - common
       vars:

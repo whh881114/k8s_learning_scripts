@@ -1,4 +1,4 @@
-docker_registry_url: registry.k8s.example.com:5000
+docker_registry_url: registry.freedom.org
 
 k8s_v1_16_2_imgs:
   - k8s.gcr.io/coredns:1.6.2
