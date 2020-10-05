@@ -4,6 +4,11 @@
     name: haproxy
     state: present
 
+- name: install haproxy cert file
+  copy:
+    src: haproxy.crt
+    dest: /etc/ssl/certs/haproxy.crt
+
 - name: configure rsyslog for haproxy step 1
   lineinfile: 
     path: /etc/rsyslog.conf
