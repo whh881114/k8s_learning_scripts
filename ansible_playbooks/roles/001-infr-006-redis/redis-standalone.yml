@@ -7,7 +7,7 @@
     - name: generate redis standalone playbook
       template:
         src: redis-standalone-template.yml.j2
-        dest: "{{ ansible_playbooks_output_dir }}/0-{{ item.host }}-{{ item.redis_port }}.yml"
+        dest: "/tmp/0-{{ item.host }}-{{ item.redis_port }}.yml"
       loop:
         - {"host": 'redis.freedom.org', redis_version: "3.2.13", is_install_redis: false,  "redis_port": 20001, "redis_password": "hnwyrxaAh8Ctib2ggwj&tsjzhippvoak" }
         - {"host": 'redis.freedom.org', redis_version: "3.2.13", is_install_redis: false,  "redis_port": 20002, "redis_password": "d]beitzzbbpe5twnTlkrcjewuyqJstj8" }

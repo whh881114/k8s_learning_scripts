@@ -7,7 +7,7 @@
     - name: generate redis cluster playbook
       template:
         src: redis-cluster-template.yml.j2
-        dest: "{{ output_dir }}/0-{{ item.service_name }}.yml"
+        dest: "/tmp/0-{{ item.service_name }}.yml"
 
       with_items:
         - {
