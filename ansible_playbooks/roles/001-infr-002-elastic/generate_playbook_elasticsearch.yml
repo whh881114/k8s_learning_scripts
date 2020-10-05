@@ -1,0 +1,18 @@
+---
+- name: generate elasticsearch cluster playbook
+  hosts: localhost
+  gather_facts: True
+
+  tasks:
+    - name: generate playbook elasticsearch
+      template:
+        src: generate_playboook_templates/elasticesearch.yml.j2
+        dest: "/tmp/{{ item.playbook_name }}.yml"
+      with_items:
+        - playbook_name: 'deploy-elasticsearch-cluster.yml'
+          cluster_name: private-cloud-elasticsearch
+          elastic_stack_version: 7.6.2
+          hosts:
+            - node01.es.freedom.org
+            - node02.es.freedom.org
+            - node03.es.freedom.org

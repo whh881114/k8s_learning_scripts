@@ -1,15 +1,10 @@
 ---
-- name: Create sysctl file
-  file:
-    path: "{{ sysctl_file }}"
-    state: touch
-
-
 - name: Configure the kernel parameters
   blockinfile:
     path: "{{ sysctl_file }}"
     block: |
       {{ item.key }} = {{ item.value }}
+    create: yes
   with_items:
   - { key: vm.max_map_count, value: 655360 }
 
@@ -22,7 +17,7 @@
     ulimit -n 65535
 
 
-- name: install elasticsearch {{ version }}
+- name: install elasticsearch {{ elastic_stack_version }}
   yum:
     name: "{{ packages }}"
     state: present
@@ -31,7 +26,7 @@
       - "{{ pkg_url }}/{{ elasticsearch_pkg }}"
 
 
-- name: config elasticsearch {{ version }}
+- name: config elasticsearch {{ elastic_stack_version }}
   template:
     src: elasticsearch/elasticsearch.yml.j2
     dest: /etc/elasticsearch/elasticsearch.yml

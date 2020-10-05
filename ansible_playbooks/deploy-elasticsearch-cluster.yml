@@ -1,0 +1,56 @@
+---
+- name: elasticsearch host node01.es.freedom.org
+  hosts: node01.es.freedom.org
+  user: root
+  roles:
+    - role: 000-base-000-common
+      tags:
+        - common
+
+    - role: 001-infr-002-elastic
+      tags:
+        - elastic
+      vars:
+        - elastic_stack_version: 7.6.2
+        - cluster_name: private-cloud-elasticsearch
+        - node_name: node01.es.freedom.org
+        - cluster_hosts: "[node01.es.freedom.org, node02.es.freedom.org, node03.es.freedom.org]"
+        - minimum_cluster_nodes: 2
+
+
+- name: elasticsearch host node02.es.freedom.org
+  hosts: node02.es.freedom.org
+  user: root
+  roles:
+    - role: 000-base-000-common
+      tags:
+        - common
+
+    - role: 001-infr-002-elastic
+      tags:
+        - elastic
+      vars:
+        - elastic_stack_version: 7.6.2
+        - cluster_name: private-cloud-elasticsearch
+        - node_name: node02.es.freedom.org
+        - cluster_hosts: "[node01.es.freedom.org, node02.es.freedom.org, node03.es.freedom.org]"
+        - minimum_cluster_nodes: 2
+
+
+- name: elasticsearch host node03.es.freedom.org
+  hosts: node03.es.freedom.org
+  user: root
+  roles:
+    - role: 000-base-000-common
+      tags:
+        - common
+
+    - role: 001-infr-002-elastic
+      tags:
+        - elastic
+      vars:
+        - elastic_stack_version: 7.6.2
+        - cluster_name: private-cloud-elasticsearch
+        - node_name: node03.es.freedom.org
+        - cluster_hosts: "[node01.es.freedom.org, node02.es.freedom.org, node03.es.freedom.org]"
+        - minimum_cluster_nodes: 2
