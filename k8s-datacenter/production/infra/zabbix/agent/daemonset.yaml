@@ -41,8 +41,8 @@ spec:
                 configMapKeyRef:
                   name: vars-zabbix-agent
                   key: DS_ZBX_PASSIVESERVERS
-          image: registry.freedom.org/docker.io/zabbix/zabbix-agent:centos-4.0.17
-          imagePullPolicy: Always
+          image: harbor.freedom.org/zabbix/zabbix-agent:centos-4.0.17
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 10050 #使用hostport方式暴露地址
               hostPort: 10050
