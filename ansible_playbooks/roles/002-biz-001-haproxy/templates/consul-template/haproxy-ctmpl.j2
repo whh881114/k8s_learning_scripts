@@ -7,6 +7,7 @@ global
     group       haproxy
     daemon
     stats       socket /var/lib/haproxy/stats
+    tune.ssl.default-dh-param   2048
 
 defaults
     mode                    http
@@ -49,6 +50,7 @@ listen tcp-stats
 {% for item in tcp_instances %}
 listen tcp-[[ item.listen_name ]]
     mode tcp
+    option tcplog
 {% for arg in item.args %}
     [[ arg ]]
 {% endfor %}
@@ -89,7 +91,7 @@ backend http-backend-[[ item.service_name ]]
 
 
 frontend  https-frontend
-    bind: *:443 ssl crt /etc/ssl/certs/haproxy.crt
+    bind *:443 ssl crt /etc/ssl/certs/haproxy.crt
     mode http
     option httpclose
     option forwardfor

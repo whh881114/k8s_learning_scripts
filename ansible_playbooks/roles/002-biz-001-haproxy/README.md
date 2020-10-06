@@ -1,38 +1,21 @@
-Role Name
-=========
+# SSL自签名证书过程
 
-A brief description of the role goes here.
+## 第一步：生成CA证书
+### 1- 修改全局配置文件：/etc/pki/tls/openssl.cnf （非必须，只是说修改后，好方便生成CA证书）
+### 2- 进入/etc/pki/CA/目录，生成index.txt和serial文件，并写入"01"到serial文件中。
+### 3- 生成根密钥：openssl genrsa -out private/cakey.pem 2048
+### 4- 生成根证书：openssl req -new -x509 -key private/cakey.pem -out cacert.pem
 
-Requirements
-------------
+## 第二步：生成haproxy所需为pem格式的ssl证书
+### 1- cd /etc/pki/CA/
+### 2- openssl genrsa -out haproxy.key 2048
+### 3- openssl req -new -key haproxy.key -out haproxy.csr
+### 4- openssl x509 -req -in haproxy.csr -CA cacert.pem -CAkey private/cakey.pem -CAcreateserial -out haproxy.crt
+### 5- cat haproxy.crt haproxy.key > haproxy.pem
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+## 第三步：haproxy.cfg修改，请查看haproxy.cfg即可。
 
-Role Variables
---------------
-
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
-
-Dependencies
-------------
-
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
-
-Example Playbook
-----------------
-
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
-
-License
--------
-
-BSD
-
-Author Information
-------------------
-
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+## 参考资料：
+- https://www.jianshu.com/p/71ce5e6eb6a7
+- https://www.cnblogs.com/qiumingcheng/p/12024280.html
+- https://zhuanlan.zhihu.com/p/146587866

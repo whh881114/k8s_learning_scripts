@@ -25,10 +25,6 @@ http_instances:
     http_host_header: ^zabbix.freedom.org$
     httpchk_method: GET
     httpchk: "/"
-  - service_name: docker-registry-ui
-    http_host_header: ^docker-registry-ui.freedom.org$
-    httpchk_method: GET
-    httpchk: "/"
   - service_name: harbor-registry-ui
     http_host_header: ^harbor-registry-ui.freedom.org$
 
