@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: vars-zabbix-web
+  name: zabbix-web-vars
   namespace: production-infra
 data:
   # zabbix-server及zabbix-agent端所需变量，此变量应用于运行在POD中的容器。
