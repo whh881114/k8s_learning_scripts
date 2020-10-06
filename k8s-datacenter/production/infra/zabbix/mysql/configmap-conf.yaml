@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: files-zabbix-mysql
+  name: zabbix-mysql-conf
   namespace: production-infra
 data:
   my.cnf: |
