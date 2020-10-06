@@ -27,11 +27,5 @@ http_instances:
 
 
 https_instances:
-  - service_name: docker-registry
-    http_host_header: ^docker-registry.freedom.org$|^registry.freedom.org$
-    httpchk_method: GET
-    httpchk: "/"
   - service_name: harbor
-    http_host_header: ^harbor.freedom.org$
-#    httpchk_method: GET
-#    httpchk: "/"
+    http_host_header: ^harbor.freedom.org$          # 多次测试，发现验证harbor时使用七层检查时，始终报错，最后使用四层。
