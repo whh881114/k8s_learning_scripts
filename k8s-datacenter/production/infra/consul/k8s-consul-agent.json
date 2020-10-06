@@ -1,0 +1,28 @@
+{
+    "services": [
+        {
+            "name": "rancher-https",
+            "port": 30235
+        },
+        {
+            "name": "consul-ui",
+            "port": 32486
+        },
+        {
+            "name": "zabbix-web",
+            "port": 30214
+        },
+        {
+            "name": "harbor-registry-ui",
+            "port": 30002
+        },
+        {
+            "name": "harbor-registry",
+            "port": 35811
+        },
+        {
+            "name": "zookeeper-client",
+            "port": 1135
+        }
+    ]
+}

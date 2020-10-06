@@ -33,3 +33,5 @@ https_instances:
     httpchk: "/"
   - service_name: harbor
     http_host_header: ^harbor.freedom.org$
+#    httpchk_method: GET
+#    httpchk: "/"

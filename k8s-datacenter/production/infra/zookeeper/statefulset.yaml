@@ -7,7 +7,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: zookeeper
-  namespace: production-zookeeper
+  namespace: production-infra
 spec:
   serviceName: zookeeper
   replicas: 3
@@ -61,7 +61,7 @@ spec:
     - metadata:
         name: data
         annotations:
-          volume.beta.kubernetes.io/storage-class: nfs-client-provisioner-common
+          volume.beta.kubernetes.io/storage-class: rbd-provisioner-common
       spec:
         accessModes: ["ReadWriteOnce"]
         resources:
@@ -70,7 +70,7 @@ spec:
     - metadata:
         name: datalog
         annotations:
-          volume.beta.kubernetes.io/storage-class: nfs-client-provisioner-common
+          volume.beta.kubernetes.io/storage-class: rbd-provisioner-common
       spec:
         accessModes: ["ReadWriteOnce"]
         resources:

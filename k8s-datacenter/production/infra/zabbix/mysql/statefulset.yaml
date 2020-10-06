@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: zabbix-mysql
-  namespace: production-zabbix
+  namespace: production-infra
   labels:
     name: zabbix-mysql
 spec:
