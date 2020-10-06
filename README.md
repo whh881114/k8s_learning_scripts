@@ -16,7 +16,10 @@
     - `test`，测试环境。
     - `staging`，联调环境。
     - `production`，生产环境。
-        - `consul`，如果在一个k8s集群中，只能有一个consul集群，因为consul-agent是以daemonset方式部署在各个worker节点，一次只能加入一个集群。
+        - `infra`，基础设施，存放共用的系统。
+            - `harbor`，私有库，取代docker-registry。
+            
+            - `consul`，如果在一个k8s集群中，只能有一个consul集群，因为consul-agent是以daemonset方式部署在各个worker节点，一次只能加入一个集群。
         
         - `redis-cluster`，集群模式，使用statefulset模式部署，动态申请pvc，现在使用的nfs后端存储。此目录下，还有`common`目录，表示部署后的业务用途，并且还为每个不同的业务用途创建了不同的namespace（感觉有点过于复杂了^_^，但也有好处，利于强迫症患者解压。）
         

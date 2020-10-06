@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: consul-server
-  namespace: production-consul
+  namespace: production-infra
 spec:
   serviceName: consul-server
   selector:

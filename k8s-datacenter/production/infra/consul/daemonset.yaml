@@ -4,7 +4,7 @@ metadata:
   labels:
     daemonset: consul-agent
   name: consul-agent
-  namespace: production-consul
+  namespace: production-infra
 spec:
   selector:
     matchLabels:
