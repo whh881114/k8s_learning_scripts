@@ -65,7 +65,7 @@ spec:
     - metadata:
         name: data
         annotations:
-          volume.beta.kubernetes.io/storage-class: rbd-provisioner-common
+          volume.beta.kubernetes.io/storage-class: nfs-client-provisioner-common
       spec:
         accessModes: ["ReadWriteOnce"]
         resources:
@@ -74,7 +74,7 @@ spec:
     - metadata:
         name: logs
         annotations:
-          volume.beta.kubernetes.io/storage-class: rbd-provisioner-common
+          volume.beta.kubernetes.io/storage-class: nfs-client-provisioner-common
       spec:
         accessModes: ["ReadWriteOnce"]
         resources:
