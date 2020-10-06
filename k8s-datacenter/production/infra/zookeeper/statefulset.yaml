@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: zookeeper
-          image: registry.freedom.org/zookeeper:3.4.14
+          image: harbor.freedom.org/docker.io/zookeeper:3.4.14
           command:
             - sh
             - -c
@@ -41,25 +41,25 @@ spec:
               cpu: 1000m
               memory: 1024Mi
           volumeMounts:
-            - name: data
+            - name: zookeeper-data
               mountPath: /data
-            - name: datalog
+            - name: zookeeper-datalog
               mountPath: /datalog
-            - name: conf
+            - name: zookeeper-conf
               mountPath: /conf
-            - name: script
+            - name: zookeeper-script
               mountPath: /tmp
       volumes:
-        - name: conf
+        - name: zookeeper-conf
           configMap:
-            name: zoo.cfg
-        - name: script              # 在/data目录下创建myid文件，需要挂一个script来生成，不使用ZOO_MY_ID环境变量的方式。
+            name: zookeeper-zoo.cfg
+        - name: zookeeper-script              # 在/data目录下创建myid文件，需要挂一个script来生成，不使用ZOO_MY_ID环境变量的方式。
           configMap:
-            name: generate-myid.sh
+            name: zookeeper-generate-myid.sh
             defaultMode: 0755
   volumeClaimTemplates:
     - metadata:
-        name: data
+        name: zookeeper-data
         annotations:
           volume.beta.kubernetes.io/storage-class: rbd-provisioner-common
       spec:
@@ -68,7 +68,7 @@ spec:
           requests:
             storage: 10Gi
     - metadata:
-        name: datalog
+        name: zookeeper-datalog
         annotations:
           volume.beta.kubernetes.io/storage-class: rbd-provisioner-common
       spec:
