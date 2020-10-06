@@ -24,15 +24,15 @@ spec:
             - name: ZBX_SERVER_HOST
               valueFrom:
                 configMapKeyRef:
-                  name: vars-zabbix-server
+                  name: zabbix-server-vars
                   key: ZBX_SERVER_HOST
             - name: ZBX_SERVER_PORT
               valueFrom:
                 configMapKeyRef:
-                  name: vars-zabbix-server
+                  name: zabbix-server-vars
                   key: ZBX_SERVER_PORT
           volumeMounts:
-            - name: include
+            - name: zabbix-server-zabbix-agentd-d
               mountPath: /etc/zabbix/zabbix_agentd.d
         - name: zabbix-server
           image: harbor.freedom.org/zabbix/zabbix-server-mysql:centos-4.0.17
@@ -43,47 +43,47 @@ spec:
             - name: DB_SERVER_HOST
               valueFrom:
                 configMapKeyRef:
-                  name: vars-zabbix-server
+                  name: zabbix-server-vars
                   key: ZBX_DB_SERVER_HOST
             - name: DB_SERVER_PORT
               valueFrom:
                 configMapKeyRef:
-                  name: vars-zabbix-server
+                  name: zabbix-server-vars
                   key: ZBX_DB_SERVER_PORT
             - name: ZBX_LISTENIP
               valueFrom:
                 configMapKeyRef:
-                  name: vars-zabbix-server
+                  name: zabbix-server-vars
                   key: ZBX_SERVER_LISTENIP
             - name: MYSQL_DATABASE
               valueFrom:
                 configMapKeyRef:
-                  name: vars-zabbix-server
+                  name: zabbix-server-vars
                   key: ZBX_MYSQL_DATABASE
             - name: MYSQL_USER
               valueFrom:
                 configMapKeyRef:
-                  name: vars-zabbix-server
+                  name: zabbix-server-vars
                   key: ZBX_MYSQL_USER
             - name: MYSQL_PASSWORD
               valueFrom:
                 configMapKeyRef:
-                  name: vars-zabbix-server
+                  name: zabbix-server-vars
                   key: ZBX_MYSQL_PASSWORD
           volumeMounts:
-            - name: alertscripts
+            - name: zabbix-server-alertscripts
               mountPath: /usr/lib/zabbix/alertscripts
-            - name: externalscripts
+            - name: zabbix-server-externalscripts
               mountPath: /usr/lib/zabbix/externalscripts
       volumes:
-        - name: include
+        - name: zabbix-server-zabbix-agentd-d
           persistentVolumeClaim:
-            claimName: include-zabbix-server-agent
-        - name: alertscripts
+            claimName: zabbix-server-zabbix-agentd-d
+        - name: zabbix-server-alertscripts
           persistentVolumeClaim:
-            claimName: alertscripts-zabbix-server
-        - name: externalscripts
+            claimName: zabbix-server-alertscripts
+        - name: zabbix-server-externalscripts
           persistentVolumeClaim:
-            claimName: externalscripts-zabbix-server
+            claimName: zabbix-server-externalscripts
       nodeSelector:
         kubernetes.io/hostname: master.k8s.freedom.org
