@@ -22,11 +22,35 @@
       tags:
         - common
 
+    - role: 000-base-001-consul
+      tags:
+        - consul-agent
+      vars:
+        consul_template_role: True
+        consul_agent_role: True
+        consul_agent_items:
+          services:
+            - name: elasticsearch-db
+              port: 9200
+            - name: elasticsearch-transport
+              port: 9300
+            - name: consul-agent
+              port: 8500
+
+    - role: 000-base-002-zabbix
+      tags:
+        - zabbix-agent
+
+    - role: 000-base-003-puppet
+      tags:
+        - puppet-agent
+
     - role: 001-infr-002-elastic
       tags:
         - elastic
       vars:
         - elastic_stack_version: {{ item.elastic_stack_version }}
+        - elasticsearch: true
         - cluster_name: {{ item.cluster_name }}
         - node_name: {{ instance }}
         - cluster_hosts: "[{{ elasticsearch_hosts_str }}]"
