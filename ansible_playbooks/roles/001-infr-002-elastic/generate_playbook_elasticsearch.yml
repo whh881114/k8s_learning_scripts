@@ -11,7 +11,7 @@
       with_items:
         - playbook_name: 'deploy-elasticsearch-cluster.yml'
           cluster_name: private-cloud-elasticsearch
-          elastic_stack_version: 7.6.2
+          elastic_stack_version: 7.9.2
           hosts:
             - node01.es.freedom.org
             - node02.es.freedom.org
