@@ -1,0 +1,1 @@
+- wanghaohao 2020/10/6 23:51，部署mysql后端时，使用ceph rbd时报权限问题，而pvc又默认被删除（这个待确认），还是用回nfs。 所以zabbix整个服务还都是使用nfs作为后端存储。
