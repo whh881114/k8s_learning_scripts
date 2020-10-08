@@ -28,7 +28,7 @@
         
         - 其他的配置项，就使用默认值即可。
         
-- 安装chart，进入chart的目录，然后使用命令：`helm install harbor . -n production-infra`
+- 安装chart，进入chart的目录，然后使用命令：`helm install harbor . -n production-harbor`
 
 
 - 排错：
