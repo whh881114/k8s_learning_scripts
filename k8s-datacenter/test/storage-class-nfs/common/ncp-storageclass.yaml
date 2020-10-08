@@ -1,6 +1,6 @@
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  name: nfs-client-provisioner-common
+  name: test-nfs-client-provisioner-common
   namespace: test-storage-class-nfs
 provisioner: fuseim.pri/ifs-test-storage-class-nfs-common
