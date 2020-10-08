@@ -96,6 +96,10 @@ spec:
               value: "true"
             - name: "node.ingest"
               value: "false"
+            - name: "node.ml"
+              value: "false"
+            - name: "node.remote_cluster_client"  # 各个角色介绍：https://www.elastic.co/guide/en/elasticsearch/reference/current/modules-node.html
+              value: "false"
           resources:
             limits:
               cpu: 1000m
