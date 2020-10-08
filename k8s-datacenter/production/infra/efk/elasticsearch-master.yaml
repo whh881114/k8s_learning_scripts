@@ -36,6 +36,7 @@ metadata:
     component: elasticsearch
     role: master
 spec:
+  serviceAccountName: elasticsearch-master
   replicas: 3
   selector:
     matchLabels:
