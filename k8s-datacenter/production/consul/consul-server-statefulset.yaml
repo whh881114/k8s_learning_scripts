@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: consul-server
-  namespace: production-infra
+  namespace: production-consul
 spec:
   serviceName: consul-server
   selector:
@@ -51,25 +51,20 @@ spec:
                 fieldRef:
                   fieldPath: metadata.namespace
           ports:
-              - containerPort: 8500
-                name: ui-port
-              - containerPort: 8443
-                name: https-port
-              - containerPort: 8400
-                name: rpc-port
-              - containerPort: 8301
-                name: serflan
-              - containerPort: 8302
-                name: serfwan
-              - containerPort: 8600
-                name: consuldns
-              - containerPort: 8300
-                name: server
-#          volumeMounts:
-#              - name: data
-#                mountPath: /consul/data
-#              - name: conf
-#                mountPath: /consul/conf
+            - containerPort: 8500
+              name: ui-port
+            - containerPort: 8443
+              name: https-port
+            - containerPort: 8400
+              name: rpc-port
+            - containerPort: 8301
+              name: serflan
+            - containerPort: 8302
+              name: serfwan
+            - containerPort: 8600
+              name: consuldns
+            - containerPort: 8300
+              name: server
           imagePullPolicy: IfNotPresent
           resources:
             limits:
@@ -78,22 +73,3 @@ spec:
             requests:
               cpu: 100m
               memory: 64Mi
-#  volumeClaimTemplates:
-#    - metadata:
-#        name: data
-#        annotations:
-#          volume.beta.kubernetes.io/storage-class: nfs-storage-public-infra
-#      spec:
-#        accessModes: ["ReadWriteOnce"]
-#        resources:
-#          requests:
-#            storage: 1Gi
-#    - metadata:
-#        name: conf
-#        annotations:
-#          volume.beta.kubernetes.io/storage-class: nfs-storage-public-infra
-#      spec:
-#        accessModes: ["ReadWriteOnce"]
-#        resources:
-#          requests:
-#            storage: 1Gi
