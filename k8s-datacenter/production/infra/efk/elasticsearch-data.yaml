@@ -2,52 +2,72 @@
 kind: ServiceAccount
 apiVersion: v1
 metadata:
-  name: elasticsearch-master
+  name: elasticsearch-data
   namespace: production-infra
   labels:
-    app: elasticsearch-master
+    app: elasticsearch-data
 
 
 ---
 kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: elasticsearch-master
+  name: elasticsearch-data
   namespace: production-infra
   labels:
-    app: elasticsearch-master
+    app: elasticsearch-data
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: elasticsearch-master
+  name: elasticsearch-data
 subjects:
   - kind: ServiceAccount
-    name: elasticsearch-master
+    name: elasticsearch-data
     namespace: production-infra
 
-
 ---
-kind: Deployment
-apiVersion: apps/v1
+kind: Service
+apiVersion: v1
 metadata:
-  name: elasticsearch-master
+  name: elasticsearch-data
   namespace: production-infra
   labels:
     component: elasticsearch
-    role: master
+    role: data
 spec:
+  type: ClusterIP
+  clusterIP: None
+  selector:
+    component: elasticsearch
+    role: master
+  ports:
+    - name: transport
+      port: 9300
+      protocol: TCP
+
+---
+kind: StatefulSet
+apiVersion: apps/v1
+metadata:
+  name: elasticsearch-data
+  namespace: production-infra
+  labels:
+    component: elasticsearch
+    role: data
+spec:
+  serviceName: elasticsearch-data
   replicas: 3
   selector:
     matchLabels:
       component: elasticsearch
-      role: master
+      role: data
   template:
     metadata:
       labels:
         component: elasticsearch
-        role: master
+        role: data
     spec:
-      serviceAccountName: elasticsearch-master
+      serviceAccountName: elasticsearch-data
       initContainers:
         - name: init-sysctl
           image: harbor.freedom.org/docker.io/busybox:1.31.1
@@ -58,7 +78,7 @@ spec:
           securityContext:
             privileged: true
       containers:
-        - name: elasticsearch-master
+        - name: elasticsearch-data
           image: harbor.freedom.org/elastic/elasticsearch:7.9.2
           imagePullPolicy: IfNotPresent
           env:
@@ -71,9 +91,9 @@ spec:
             - name: "cluster.initial_master_nodes"
               value: "elasticsearch-master"
             - name: "node.master"
-              value: "true"
-            - name: "node.data"
               value: "false"
+            - name: "node.data"
+              value: "true"
             - name: "node.ingest"
               value: "false"
           resources:
@@ -84,34 +104,19 @@ spec:
               cpu: 100m
               memory: 1024Mi
           ports:
-            - containerPort: 9300
-              name: transport
+            - name: transport
+              containerPort: 9300
               protocol: TCP
           volumeMounts:
-            - name: storage
-              mountPath: /data
-      volumes:
-        - name: "storage"
-          emptyDir:
-            medium: ""
-
-
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: elasticsearch-master
-  namespace: production-infra
-  labels:
-    component: elasticsearch
-    role: master
-spec:
-  type: ClusterIP
-  clusterIP: None
-  selector:
-    component: elasticsearch
-    role: master
-  ports:
-    - name: transport
-      port: 9300
-      protocol: TCP
+            - name: elasticsearch-data
+              mountPath: /usr/share/elasticsearch/data
+  volumeClaimTemplates:
+    - metadata:
+        name: elasticsearch-data
+        annotations:
+          volume.beta.kubernetes.io/storage-class: nfs-client-provisioner-common
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 10Gi
