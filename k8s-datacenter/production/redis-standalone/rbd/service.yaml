@@ -2,10 +2,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: redis-standalone-registry
+  name: redis-standalone-rbd
   namespace: production-redis-standalone
   labels:
-    name: redis-standalone-registry
+    name: redis-standalone-rbd
 spec:
   type: NodePort
   clusterIP: 10.97.72.51
@@ -14,4 +14,4 @@ spec:
       targetPort: 6379  # 容器端口
       nodePort: 32653
   selector:
-    name: redis-standalone-registry
+    name: redis-standalone-rbd

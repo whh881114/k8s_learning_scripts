@@ -2,20 +2,20 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: redis-standalone-registry
+  name: redis-standalone-rbd
   namespace: production-redis-standalone
   labels:
-    name: redis-standalone-registry
+    name: redis-standalone-rbd
 spec:
-  serviceName: redis-standalone-registry
+  serviceName: redis-standalone-rbd
   replicas: 1
   selector:
     matchLabels:
-      name: redis-standalone-registry
+      name: redis-standalone-rbd
   template:
     metadata:
       labels:
-        name: redis-standalone-registry
+        name: redis-standalone-rbd
     spec:
       initContainers:
         - name: sysctl
@@ -30,7 +30,7 @@ spec:
           securityContext:
             privileged: true
       containers:
-        - name: redis-standalone-registry
+        - name: redis-standalone-rbd
           image: registry.freedom.org/docker.io/redis:5.0.7
           resources:
             requests:
@@ -52,7 +52,7 @@ spec:
       volumes:
         - name: conf
           configMap:
-            name: redis-standalone-registry
+            name: redis-standalone-rbd
   volumeClaimTemplates:
     - metadata:
         name: data

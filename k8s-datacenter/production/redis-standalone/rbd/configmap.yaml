@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: redis-standalone-registry
+  name: redis-standalone-rbd
   namespace: production-redis-standalone
 data:
   redis.conf: |
