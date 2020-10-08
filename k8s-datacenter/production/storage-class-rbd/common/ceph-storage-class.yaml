@@ -16,3 +16,4 @@ parameters:
   imageFormat: "2"
   imageFeatures: "layering"
 allowVolumeExpansion: true
+reclaimPolicy: Retain
