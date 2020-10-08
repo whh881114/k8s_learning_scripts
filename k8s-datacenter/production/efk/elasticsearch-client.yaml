@@ -3,7 +3,7 @@ kind: ServiceAccount
 apiVersion: v1
 metadata:
   name: elasticsearch-client
-  namespace: production-infra
+  namespace: production-elasticsearch
   labels:
     app: elasticsearch-client
 
@@ -13,7 +13,7 @@ kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: elasticsearch-client
-  namespace: production-infra
+  namespace: production-elasticsearch
   labels:
     app: elasticsearch-client
 roleRef:
@@ -23,7 +23,7 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: elasticsearch-client
-    namespace: production-infra
+    namespace: production-elasticsearch
 
 
 ---
@@ -31,7 +31,7 @@ kind: Service
 apiVersion: v1
 metadata:
   name: elasticsearch-client
-  namespace: production-infra
+  namespace: production-elasticsearch
   labels:
     component: elasticsearch
     role: client
@@ -51,7 +51,7 @@ kind: Deployment
 apiVersion: apps/v1
 metadata:
   name: elasticsearch-client
-  namespace: production-infra
+  namespace: production-elasticsearch
   labels:
     component: elasticsearch
     role: client
@@ -84,7 +84,7 @@ spec:
           - name: "ES_JAVA_OPTS"
             value: "-Xms512m -Xmx512m"
           - name: "cluster.name"
-            value: "production-infra-elasticsearch"
+            value: "production-elasticsearch-elasticsearch"
           - name: "discovery.seed_hosts"
             value: "elasticsearch-master"
           - name: "cluster.initial_master_nodes"

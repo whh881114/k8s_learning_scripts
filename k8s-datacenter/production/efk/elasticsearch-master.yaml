@@ -3,7 +3,7 @@ kind: ServiceAccount
 apiVersion: v1
 metadata:
   name: elasticsearch-master
-  namespace: production-infra
+  namespace: production-elasticsearch
   labels:
     app: elasticsearch-master
 
@@ -13,7 +13,7 @@ kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: elasticsearch-master
-  namespace: production-infra
+  namespace: production-elasticsearch
   labels:
     app: elasticsearch-master
 roleRef:
@@ -23,7 +23,7 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: elasticsearch-master
-    namespace: production-infra
+    namespace: production-elasticsearch
 
 
 ---
@@ -31,7 +31,7 @@ kind: StatefulSet
 apiVersion: apps/v1
 metadata:
   name: elasticsearch-master
-  namespace: production-infra
+  namespace: production-elasticsearch
   labels:
     component: elasticsearch
     role: master
@@ -66,7 +66,7 @@ spec:
             - name: "ES_JAVA_OPTS"
               value: "-Xms512m -Xmx512m"
             - name: "cluster.name"
-              value: "production-infra-elasticsearch"
+              value: "production-elasticsearch-elasticsearch"
             - name: "discovery.seed_hosts"
               value: "elasticsearch-master"
 #            - name: "discovery.seed_providers"
@@ -108,7 +108,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: elasticsearch-master
-  namespace: production-infra
+  namespace: production-elasticsearch
   labels:
     component: elasticsearch
     role: master
