@@ -28,6 +28,8 @@ http_instances:
     http_host_header: ^registry.freedom.org$
     httpchk_method: GET
     httpchk: "/"
+  - service_name: kibana
+    http_host_header: ^kibana.freedom.org$
 
 
 https_instances:
