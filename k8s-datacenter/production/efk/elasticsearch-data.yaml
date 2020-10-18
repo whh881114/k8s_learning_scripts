@@ -85,7 +85,7 @@ spec:
             - name: "ES_JAVA_OPTS"
               value: "-Xms512m -Xmx512m"
             - name: "cluster.name"
-              value: "production-elasticsearch-elasticsearch"
+              value: "production-elasticsearch"
             - name: "discovery.seed_hosts"
               value: "elasticsearch-master"
             - name: "cluster.initial_master_nodes"

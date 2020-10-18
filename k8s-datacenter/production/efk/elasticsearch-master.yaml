@@ -36,13 +36,13 @@ metadata:
     component: elasticsearch
     role: master
 spec:
+  serviceName: elasticsearch-master
   replicas: 3
   selector:
     matchLabels:
       component: elasticsearch
       role: master
   template:
-    serviceName: elasticsearch-master
     metadata:
       labels:
         component: elasticsearch
@@ -66,11 +66,9 @@ spec:
             - name: "ES_JAVA_OPTS"
               value: "-Xms512m -Xmx512m"
             - name: "cluster.name"
-              value: "production-elasticsearch-elasticsearch"
+              value: "production-elasticsearch"
             - name: "discovery.seed_hosts"
               value: "elasticsearch-master"
-#            - name: "discovery.seed_providers"
-#              value: "elasticsearch-master"
             - name: "cluster.initial_master_nodes"
               value: "elasticsearch-master"
             - name: "node.master"
