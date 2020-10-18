@@ -1,0 +1,72 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: elasticsearch-kibana-configmap
+  namespace: production-elasticsearch
+data:
+  kibana.yml: |
+    server.name: kibana
+    server.host: "0"
+    elasticsearch.hosts: ["http://elasticsearch-client.production-elasticsearch.svc.cluster.local:9200"]
+    monitoring.ui.container.elasticsearch.enabled: true
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: elasticsearch-kibana
+  namespace: production-elasticsearch
+  labels:
+    component: elasticsearch
+    role: kibana
+spec:
+  type: NodePort
+  selector:
+    component: elasticsearch
+    role: kibana
+  ports:
+    - name: kibana
+      port: 5601
+      protocol: TCP
+
+
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: elasticsearch-kibana
+  namespace: production-elasticsearch
+  labels:
+    component: elasticsearch
+    role: kibana
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: elasticsearch
+      role: kibana
+  template:
+    metadata:
+      labels:
+        component: elasticsearch
+        role: kibana
+    spec:
+      containers:
+        - name: elasticsearch-kibana
+          image: harbor.freedom.org/elastic/kibana@sha256:ef7a30c372d9fa9cedcfe5b93bfb0940f287e756a0e06a16baf9d65189409fa1
+          resources:
+            limits:
+              cpu: 1
+          ports:
+            - name: kibana
+              containerPort: 5601
+          volumeMounts:
+            - name: kibana-yml
+              mountPath: /usr/share/kibana/config/kibana.yml
+              subPath: kibana.yml
+              readOnly: true
+      volumes:
+        - name: kibana-yml
+          configMap:
+            name: elasticsearch-kibana-configmap

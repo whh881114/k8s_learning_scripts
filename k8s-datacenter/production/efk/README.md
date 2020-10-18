@@ -2,8 +2,12 @@
 
 - 先上参考资料：
     - https://mp.weixin.qq.com/s?__biz=MzIyMTUwMDMyOQ==&mid=2247494653&idx=1&sn=4a7be81f5851a92821ff297dbcfb1210&chksm=e8396d3bdf4ee42d3a6bc1ff2c6920c0acd7f76d525d9a5ece90e0f8686ca7defda080817abb&scene=0&xtrack=1&key=694ad12351d974dcabcccc6215bdd503ba80465efce410331e85f1df7134542cc2a3c319ff20b752a1eb09ab269bbc1ce5fc0cba4b360633aa32d13329ce97ec66420dd3d404ec8981955dee8fa2acb52557c34c722fa6626a1f3adb3626cf306b2de5e733ad13cafe603fcab7eccfcc7dac6b2fc22bff27aa179b54f7c297b5&ascene=1&uin=MTc3NjA0ODMwMQ%3D%3D&devicetype=Windows+10+x64&version=62090538&lang=zh_CN&exportkey=Ax9nnyal3s9T8Q%2FrqbdJYLk%3D&pass_ticket=GyGb6LDxaKbUL53v4EyXuyCHNDKoWPvH%2FOXwIE05nJiYKKHOraaEKGbr15GFLR3k&wx_header=0
+    
     - https://mp.weixin.qq.com/s?__biz=MzIyMTUwMDMyOQ==&mid=2247494666&idx=1&sn=b8066191186892dd4cf2650c67a9b2b8&chksm=e8396accdf4ee3da8b35ea2871091ea590fdf71894b7c05fb80d29f4b6888c2aeb3e942cfc07&scene=0&xtrack=1&key=746aaa0a1205eb9565813cc78bda7daee027c9e72328fc57f93eef0edde95da1ecca68ef15c8c4822f1981d1d91d389c5d4a1cbd9e9331eb6ebb52e2fd06b0b8e98938dd98a753a643cf5818b34a428220d42f657e71788a9d2a611352e271c6722acbc28b9ba9b3ccec35b876d9732c0b98eca493182ec9fbb53f3e07e932b6&ascene=1&uin=MTc3NjA0ODMwMQ%3D%3D&devicetype=Windows+10+x64&version=62090538&lang=zh_CN&exportkey=A41kyUd%2FiVcTlZkqVyrG6Ys%3D&pass_ticket=GyGb6LDxaKbUL53v4EyXuyCHNDKoWPvH%2FOXwIE05nJiYKKHOraaEKGbr15GFLR3k&wx_header=0
+    
     - https://blog.csdn.net/chenleiking/article/details/79453460
+    
+    - https://wayjam.me/posts/deploy-elasticsearch7-cluster-on-k8s/
 
 
 - 碰上的坑：
@@ -46,17 +50,13 @@
     
     - 再调试，使用一个容器部署（此时，还是使用statefulset模式），什么参数也不加，结果报错，这说明了，elasticsearch启动时就需要配置参数，加上后成功；当部署到第三个，看日志有报错，参数设置不对，最后调整后就成功了。此时，`cluster.initial_master_nodes`参数还是stateful模式下的配置。
     
-    - 再进行调整。此时，他是master模式，不进行任务数据存储，所以改回deployment部署。其实，statefulset和deployment两都都没有错，只是说deployment模式更加合理些。
+    - 再进行调整。此时，他是master模式，不进行任务数据存储，所以改回deployment部署。其实，statefulset和deployment两都都没有错，只是说deployment模式更加合理些（无状态本来使用这个是更合理，但是由于换了版本7后，就只能使用statefulset模式，2020/10/18）。
+    
+    - 2020/10/18，当使用版本`7`时，则要使用`statefulset`模式，这是因为配置参数有变化。当使用版本`6`时，可以使用`Deployment`模式部署。
     
     - 集群模式创建成功，日志如下：
         ```
-        {"type": "server", "timestamp": "2020-10-08T05:32:34,994Z", "level": "WARN", "component": "o.e.c.c.ClusterFormationFailureHelper", "cluster.name": "docker-cluster", "node.name": "elasticsearch-master-76b5f648fc-zwhks", "message": "master not discovered yet, this node has not previously joined a bootstrapped (v7+) cluster, and this node must discover master-eligible nodes [elasticsearch-master] to bootstrap a cluster: have discovered [{elasticsearch-master-76b5f648fc-zwhks}{FKW37IUuTzC33Zfx_WstaQ}{KAH8oU4eRF6ODpxpMb3AKg}{10.244.3.121}{10.244.3.121:9300}{dilmrt}{ml.machine_memory=4294967296, xpack.installed=true, transform.node=true, ml.max_open_jobs=20}, {elasticsearch-master-76b5f648fc-s6dl8}{y7zv7VG3REa_eBARqhamAA}{mp_H8JDuQuGYkO15mWZCsQ}{10.244.0.249}{10.244.0.249:9300}{dilmrt}{ml.machine_memory=4294967296, ml.max_open_jobs=20, xpack.installed=true, transform.node=true}, {elasticsearch-master-76b5f648fc-cm6wq}{lbUtwFxWTiKDpjnJvmdpTg}{TT0wdlktQGiLw8zw48oguA}{10.244.1.95}{10.244.1.95:9300}{dilmrt}{ml.machine_memory=4294967296, ml.max_open_jobs=20, xpack.installed=true, transform.node=true}]; discovery will continue using [10.244.1.95:9300, 10.244.0.249:9300] from hosts providers and [{elasticsearch-master-76b5f648fc-zwhks}{FKW37IUuTzC33Zfx_WstaQ}{KAH8oU4eRF6ODpxpMb3AKg}{10.244.3.121}{10.244.3.121:9300}{dilmrt}{ml.machine_memory=4294967296, xpack.installed=true, transform.node=true, ml.max_open_jobs=20}] from last-known cluster state; node term 0, last-accepted version 0 in term 0" }
-    
-        {"type": "server", "timestamp": "2020-10-08T05:32:35,003Z", "level": "WARN", "component": "o.e.n.Node", "cluster.name": "docker-cluster", "node.name": "elasticsearch-master-76b5f648fc-zwhks", "message": "timed out while waiting for initial discovery state - timeout: 30s" }
-    
-        {"type": "server", "timestamp": "2020-10-08T05:32:35,021Z", "level": "INFO", "component": "o.e.h.AbstractHttpServerTransport", "cluster.name": "docker-cluster", "node.name": "elasticsearch-master-76b5f648fc-zwhks", "message": "publish_address {10.244.3.121:9200}, bound_addresses {[::]:9200}" }
-    
-        {"type": "server", "timestamp": "2020-10-08T05:32:35,022Z", "level": "INFO", "component": "o.e.n.Node", "cluster.name": "docker-cluster", "node.name": "elasticsearch-master-76b5f648fc-zwhks", "message": "started" }
+        {"type": "server", "timestamp": "2020-10-18T14:59:33,922Z", "level": "INFO", "component": "o.e.x.s.s.SecurityStatusChangeListener", "cluster.name": "production-elasticsearch", "node.name": "elasticsearch-master-0", "message": "Active license is now [BASIC]; Security is disabled", "cluster.uuid": "F6TaYCs8QaSIzgFpYSU1ew", "node.id": "uj6QKreZQ1-Cx88PbJ9X_g"  }
         ```
         
 - 总结：
