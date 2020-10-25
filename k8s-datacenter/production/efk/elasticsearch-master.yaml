@@ -94,7 +94,7 @@ spec:
               protocol: TCP
           volumeMounts:
             - name: elasticsearch-master
-              mountPath: /data
+              mountPath: /usr/share/elasticsearch/data
   volumeClaimTemplates:
     - metadata:
         name: elasticsearch-master
