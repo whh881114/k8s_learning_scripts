@@ -7,7 +7,7 @@ metadata:
 data:
   kibana.yml: |
     server.name: kibana
-    server.host: "0"
+    server.host: "0.0.0.0"
     elasticsearch.hosts: ["http://elasticsearch-client.production-elasticsearch.svc.cluster.local:9200"]
     monitoring.ui.container.elasticsearch.enabled: true
 
