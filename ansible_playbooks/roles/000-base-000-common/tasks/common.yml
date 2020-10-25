@@ -31,6 +31,7 @@
     - { src: "repos/kubernetes-{{ ansible_distribution_major_version }}.repo", dest: /etc/yum.repos.d/kubernetes.repo }
     - { src: "repos/zabbix-4.0-{{ ansible_distribution_major_version }}.repo", dest: /etc/yum.repos.d/zabbix.repo }
     - { src: "repos/ceph-mimic-{{ ansible_distribution_major_version }}.repo", dest: /etc/yum.repos.d/ceph.repo }
+    - { src: "repos/docker-ce-{{ ansible_distribution_major_version }}.repo", dest: /etc/yum.repos.d/docker-ce-7.repo }
   when: ansible_distribution == "CentOS" or ansible_distribution == "RedHat"
 
 
