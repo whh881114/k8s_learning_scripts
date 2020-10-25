@@ -25,25 +25,6 @@ subjects:
     name: elasticsearch-data
     namespace: production-elasticsearch
 
----
-kind: Service
-apiVersion: v1
-metadata:
-  name: elasticsearch-data
-  namespace: production-elasticsearch
-  labels:
-    component: elasticsearch
-    role: data
-spec:
-  type: ClusterIP
-  clusterIP: None
-  selector:
-    component: elasticsearch
-    role: master
-  ports:
-    - name: transport
-      port: 9300
-      protocol: TCP
 
 ---
 kind: StatefulSet
@@ -88,8 +69,6 @@ spec:
               value: "production-elasticsearch"
             - name: "discovery.seed_hosts"
               value: "elasticsearch-master"
-            - name: "cluster.initial_master_nodes"
-              value: "elasticsearch-master"
             - name: "node.master"
               value: "false"
             - name: "node.data"
@@ -108,6 +87,9 @@ spec:
               cpu: 100m
               memory: 1024Mi
           ports:
+            - name: data
+              containerPort: 9200
+              protocol: TCP
             - name: transport
               containerPort: 9300
               protocol: TCP
@@ -124,3 +106,23 @@ spec:
         resources:
           requests:
             storage: 10Gi
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: elasticsearch-data
+  namespace: production-elasticsearch
+  labels:
+    component: elasticsearch
+    role: data
+spec:
+  type: ClusterIP
+  clusterIP: None
+  selector:
+    component: elasticsearch
+    role: data
+  ports:
+    - name: transport
+      port: 9300
+      protocol: TCP
