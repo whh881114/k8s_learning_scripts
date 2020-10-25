@@ -93,12 +93,18 @@ spec:
               name: transport
               protocol: TCP
           volumeMounts:
-            - name: storage
+            - name: elasticsearch-master
               mountPath: /data
-      volumes:
-        - name: "storage"
-          emptyDir:
-            medium: ""
+  volumeClaimTemplates:
+    - metadata:
+        name: elasticsearch-master
+        annotations:
+          volume.beta.kubernetes.io/storage-class: nfs-client-provisioner-common
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 10Gi
 
 
 ---
