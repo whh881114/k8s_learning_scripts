@@ -1,0 +1,16 @@
+---
+harbor_docker_pkgs:
+  - docker-ce
+  - docker-compose
+
+harbor_data_dir: /data
+
+harbor_version: v2.1.0
+
+harbor_hostname: harbor.freedom.org
+
+harbor_ssl_crt: /etc/ssl/certs/freedom.org.crt
+harbor_ssl_key: /etc/ssl/certs/freedom.org.key
+
+harbor_admin_password: q+q8tyIloQ3ppopyzv
+harbor_database_password: y4xOrk4}uxhjMentre

@@ -1,0 +1,58 @@
+---
+# 官方地址：https://goharbor.io/docs/2.1.0/
+- name: install docker-ce and docker-compose packages
+  yum:
+    name: "{{ harbor_docker_pkgs }}"
+    state: latest
+
+- name: create docker daemon.json file
+  template:
+    src: daemon.json.j2
+    dest: /etc/docker/daemon.json
+  notify:
+    - restart-docker
+
+- name: create harbor data directory
+  file:
+    path: "{{ harbor_data_dir }}"
+    state: directory
+
+- name: download harbor-online-installer package
+  get_url:
+    url: "https://github.com/goharbor/harbor/releases/download/{{ harbor_version }}/harbor-online-installer-{{ harbor_version }}.tgz"
+    dest: "/usr/local/src/harbor-online-installer-{{ harbor_version }}.tgz"
+
+- name: delete harbor-online-installer old package
+  file:
+    path: /usr/local/harbor
+    state: absent
+
+- name: unarchive harbor-online-installer package
+  unarchive:
+    src: "/usr/local/usr/harbor-online-installer-{{ harbor_version }}.tgz"
+    dest: /usr/local
+    remote_src: yes
+
+- name: create harbor.yml file
+  template:
+    src: "{{ harbor_version }}/harbor.yml.j2"
+    dest: /usr/local/harbor/harbor.yml
+
+- name: install harbor
+  shell: cd /usr/local/harbor && ./install.sh --with-notary --with-clair --with-chartmuseum
+  register: install_harbor_status
+
+- name: show install harbor status
+  debug:
+    var: install_harbor_status.stdout_lines
+
+- name: chmod 755 /etc/rc.d/rc.local
+  file:
+    path: /etc/rc.d/rc.local
+    mode: "0755"
+
+- name: setup rc.local to start docker-compose on boot
+  blockinfile:
+    path: /etc/rc.d/rc.local
+    block: |
+      cd /usr/local/harbor && /usr/bin/docker-compose up -d
