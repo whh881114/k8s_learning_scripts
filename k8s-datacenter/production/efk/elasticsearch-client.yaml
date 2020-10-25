@@ -27,27 +27,6 @@ subjects:
 
 
 ---
-kind: Service
-apiVersion: v1
-metadata:
-  name: elasticsearch-client
-  namespace: production-elasticsearch
-  labels:
-    component: elasticsearch
-    role: client
-spec:
-  type: ClusterIP
-  clusterIP: None
-  selector:
-    component: elasticsearch
-    role: client
-  ports:
-    - name: data
-      port: 9200
-      protocol: TCP
-
-
----
 kind: Deployment
 apiVersion: apps/v1
 metadata:
@@ -86,9 +65,7 @@ spec:
             value: "-Xms512m -Xmx512m"
           - name: "cluster.name"
             value: "production-elasticsearch"
-          - name: "discovery.seed_hosts"
-            value: "elasticsearch-master"
-          - name: "cluster.initial_master_nodes"
+          - name: "discovery.seed_hosts"        # 这里用服务发现
             value: "elasticsearch-master"
           - name: "node.master"
             value: "false"
@@ -113,3 +90,24 @@ spec:
           - emptyDir:
               medium: ""
             name: storage
+
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: elasticsearch-client
+  namespace: production-elasticsearch
+  labels:
+    component: elasticsearch
+    role: client
+spec:
+  type: ClusterIP
+  clusterIP: None
+  selector:
+    component: elasticsearch
+    role: client
+  ports:
+    - name: http
+      port: 9200
+      protocol: TCP

@@ -67,7 +67,7 @@ spec:
               value: "-Xms512m -Xmx512m"
             - name: "cluster.name"
               value: "production-elasticsearch"
-            - name: "discovery.seed_hosts"
+            - name: "discovery.seed_hosts"        # 这里用服务发现
               value: "elasticsearch-master"
             - name: "node.master"
               value: "false"
@@ -87,7 +87,7 @@ spec:
               cpu: 100m
               memory: 1024Mi
           ports:
-            - name: data
+            - name: http
               containerPort: 9200
               protocol: TCP
             - name: transport
