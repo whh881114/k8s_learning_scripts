@@ -18,7 +18,7 @@
         
         - nodePort，此处的配置使用默认值即可，像其他的暴露方式ingress/clusterIP/loadBalancer就完全忽略掉即可，因为这是多选一。
         
-        - externalURL，这里其实就是一个说明提示，你不配置或者配置错了也关系，因为这个我之前在rancher上配置错了，但是我知道如何访问harbor配置页面。在我的环境下其地址是：`harbor.freedom.org`。
+        - externalURL，这里其实就是一个说明提示，你不配置或者配置错了也关系，因为这个我之前在rancher上配置错了，但是我知道如何访问harbor配置页面。在我的环境下其地址是：`harbor-k8s.freedom.org`。
         
         - internalTLS --> enabled: false，内部通信全关掉https即可。
         
@@ -35,3 +35,7 @@
     - haproxy侧必须提供https协议服务，所以需要制作自签名证书，注意记得使用`*.freedom.org`这个泛域名来签发。记得第一次使用rancher界面来部署时就选的是http通信，最后在界面上测试harbor连接时一直报错，但是不知道原因，想一想，真是糗大了。这个可能是受haproxy使用http转docker-registry时都是正常的影响，所以一直没做https，只是后来再次想起tcp 443转rancher时碰到的问题后，发意识到需要配置https。
     
     - 解决https的问题后，再来碰到push镜像报错，在registry中报`level=error msg="response completed with error" auth.user.name=admin err.code="blob unknown"`，解决方法:引用自: `https://github.com/goharbor/harbor/issues/3114#issuecomment-394139225`，删除/注释掉common/config/nginx/nginx.conf中的`proxy_set_header X-Forwarded-Proto $scheme;`，这是因为在haproxy.cfg文件中，已经做过主机头的配置项了，在registry的nginx.cfg中有重复。之前在rancher管理界面中虽然有修改，但是好像没有重启registry的容器，所以一直没成功。（这个有没有删除registry容器等重建的操作，现在想不起来了。）
+    
+
+# 更新日记
+- 2020/10/25，个人觉得还是将基础设施类服务还是部署在k8s集群外比较好，所以此文档中的`harbor.freedom.org`将改名为`harbor-k8s.freedom.org`，此harbor作为k8s平台上的CICD功能验证。
