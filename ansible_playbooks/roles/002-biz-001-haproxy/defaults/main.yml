@@ -17,7 +17,7 @@ tcp_instances:
 
 http_instances:
   - service_name: consul-ui                         # service_name，主机上报的consul service名称，进示渲染backend_name后端的主机。
-    http_host_header: ^consul.freedom.org$          # 当前acl规则以hdr_reg(host)进行匹配。
+    http_host_header: ^web.consul.freedom.org$          # 当前acl规则以hdr_reg(host)进行匹配。
     httpchk_method: GET                             # 七层检查方法。
     httpchk: "/"                                    # 七层检查方法，后面接url或其他参数
   - service_name: zabbix-web
