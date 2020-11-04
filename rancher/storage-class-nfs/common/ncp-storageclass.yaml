@@ -1,0 +1,6 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: nfs-client-provisioner-public-infra
+  namespace: nfs-client-provisioner-public-infra
+provisioner: fuseim.pri/ifs-nfs-client-provisioner-public-infra

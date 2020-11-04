@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: zabbix-agent
-          image: harbor.freedom.org/zabbix/zabbix-agent:centos-4.0.17
+          image: docker.io/zabbix/zabbix-agent:centos-4.0.17
           ports:
             - containerPort: 10050
           env:
@@ -35,7 +35,7 @@ spec:
             - name: zabbix-server-zabbix-agentd-d
               mountPath: /etc/zabbix/zabbix_agentd.d
         - name: zabbix-server
-          image: harbor.freedom.org/zabbix/zabbix-server-mysql:centos-4.0.17
+          image: docker.io/zabbix/zabbix-server-mysql:centos-4.0.17
           ports:
             - containerPort: 10051
               hostPort: 10051       # zabbix-server时采用hostPort暴露端口，可以使k8s集群外部主机接入监控。
@@ -86,4 +86,4 @@ spec:
           persistentVolumeClaim:
             claimName: zabbix-server-externalscripts
       nodeSelector:
-        kubernetes.io/hostname: master.k8s.freedom.org
+        kubernetes.io/hostname: worker01.k8s.freedom.org

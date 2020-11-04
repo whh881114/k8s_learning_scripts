@@ -6,7 +6,7 @@ metadata:
   labels:
     name: zabbix-server-alertscripts
   annotations:
-    volume.beta.kubernetes.io/storage-class: nfs-client-provisioner-common
+    volume.beta.kubernetes.io/storage-class: nfs-client-provisioner-public-infra
 spec:
   accessModes:
     - ReadWriteOnce
@@ -23,7 +23,7 @@ metadata:
   labels:
     name: zabbix-server-externalscripts
   annotations:
-    volume.beta.kubernetes.io/storage-class: nfs-client-provisioner-common
+    volume.beta.kubernetes.io/storage-class: nfs-client-provisioner-public-infra
 spec:
   accessModes:
     - ReadWriteOnce
@@ -40,7 +40,7 @@ metadata:
   labels:
     name: zabbix-server-zabbix-agentd-d
   annotations:
-    volume.beta.kubernetes.io/storage-class: nfs-client-provisioner-common
+    volume.beta.kubernetes.io/storage-class: nfs-client-provisioner-public-infra
 spec:
   accessModes:
     - ReadWriteOnce

@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: zabbix-web
-          image: harbor.freedom.org/zabbix/zabbix-web-apache-mysql:centos-4.0.17
+          image: zabbix/zabbix-web-apache-mysql:centos-4.0.17
           ports:
             - containerPort: 80
           env:

@@ -7,7 +7,6 @@ metadata:
     name: zabbix-web
 spec:
   type: NodePort
-  clusterIP: 10.98.126.193
   ports:
     - port: 80        # 服务访问端口
       targetPort: 80  # 容器端口
