@@ -34,42 +34,98 @@ spec:
           volumeMounts:
             - name: zabbix-server-zabbix-agentd-d
               mountPath: /etc/zabbix/zabbix_agentd.d
+        - name: zabbix-snmptraps
+          image: harbor.freedom.org/zabbix/zabbix-snmptraps:centos-4.0.17
+        - name: zabbix-java-gateway
+          image: harbor.freedom.org/zabbix/zabbix-java-gateway:centos-4.0.17
         - name: zabbix-server
           image: harbor.freedom.org/zabbix/zabbix-server-mysql:centos-4.0.17
-          ports:
-            - containerPort: 10051
-              hostPort: 10051       # zabbix-server时采用hostPort暴露端口，可以使k8s集群外部主机接入监控。
+          resources:
+            requests:
+              memory: "4096M"
+              cpu: "1"
+            limits:
+              memory: "8192M"
+              cpu: "4"
           env:
-            - name: DB_SERVER_HOST
+            - name: ZBX_SERVER_NAME
               valueFrom:
                 configMapKeyRef:
                   name: zabbix-server-vars
-                  key: ZBX_DB_SERVER_HOST
-            - name: DB_SERVER_PORT
+                  key: ZBX_SERVER_NAME
+            - name: ZBX_SERVER_HOST
               valueFrom:
                 configMapKeyRef:
                   name: zabbix-server-vars
-                  key: ZBX_DB_SERVER_PORT
-            - name: ZBX_LISTENIP
+                  key: ZBX_SERVER_HOST
+            - name: ZBX_SERVER_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: zabbix-server-vars
+                  key: ZBX_SERVER_PORT
+            - name: ZBX_SERVER_LISTENIP
               valueFrom:
                 configMapKeyRef:
                   name: zabbix-server-vars
                   key: ZBX_SERVER_LISTENIP
+            - name: DB_SERVER_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: zabbix-server-vars
+                  key: DB_SERVER_HOST
+            - name: DB_SERVER_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: zabbix-server-vars
+                  key: DB_SERVER_PORT
             - name: MYSQL_DATABASE
               valueFrom:
                 configMapKeyRef:
                   name: zabbix-server-vars
-                  key: ZBX_MYSQL_DATABASE
+                  key: MYSQL_DATABASE
             - name: MYSQL_USER
               valueFrom:
                 configMapKeyRef:
                   name: zabbix-server-vars
-                  key: ZBX_MYSQL_USER
+                  key: MYSQL_USER
             - name: MYSQL_PASSWORD
               valueFrom:
                 configMapKeyRef:
                   name: zabbix-server-vars
-                  key: ZBX_MYSQL_PASSWORD
+                  key: MYSQL_PASSWORD
+            - name: ZBX_PHP_TZ
+              valueFrom:
+                configMapKeyRef:
+                  name: zabbix-server-vars
+                  key: ZBX_PHP_TZ
+            - name: ZBX_DEBUGLEVEL
+              valueFrom:
+                configMapKeyRef:
+                  name: zabbix-server-vars
+                  key: ZBX_DEBUGLEVEL
+            - name: ZBX_TIMEOUT
+              valueFrom:
+                configMapKeyRef:
+                  name: zabbix-server-vars
+                  key: ZBX_TIMEOUT
+            - name: ZBX_JAVAGATEWAY_ENABLE
+              valueFrom:
+                configMapKeyRef:
+                  name: zabbix-server-vars
+                  key: ZBX_JAVAGATEWAY_ENABLE
+            - name: ZBX_ENABLE_SNMP_TRAPS
+              valueFrom:
+                configMapKeyRef:
+                  name: zabbix-server-vars
+                  key: ZBX_ENABLE_SNMP_TRAPS
+            - name: ZBX_CACHESIZE
+              valueFrom:
+                configMapKeyRef:
+                  name: zabbix-server-vars
+                  key: ZBX_CACHESIZE
+          ports:
+            - containerPort: 10051
+              hostPort: 10051       # zabbix-server时采用hostPort暴露端口，可以使k8s集群外部主机接入监控。
           volumeMounts:
             - name: zabbix-server-alertscripts
               mountPath: /usr/lib/zabbix/alertscripts
