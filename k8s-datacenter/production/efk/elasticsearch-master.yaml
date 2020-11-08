@@ -59,6 +59,20 @@ spec:
           securityContext:
             privileged: true
       containers:
+        - name: elasticsearch-metricbeat
+          image: harbor.freedom.org/elastic/metricbeat:7.9.2
+          env:
+            - name: "setup.kibana.host"
+              value: "10.110.45.90:5601"  # kibana的nodePort ip。
+            - name: "ELASTICSEARCH_HOSTS"
+              value: '["elasticsearch-master-0.elasticsearch-master.production-elasticsearch.svc.cluster.local:9200", "elasticsearch-master-1.elasticsearch-master.production-elasticsearch.svc.cluster.local:9200", "elasticsearch-master-2.elasticsearch-master.production-elasticsearch.svc.cluster.local:9200"]'
+#        - name: elasticsearch-packetbeat
+#          image: harbor.freedom.org/elastic/packetbeat:7.9.2
+#          env:
+#            - name: "setup.kibana.host"
+#              value: "10.110.45.90:5601"  # kibana的nodePort ip。
+#            - name: "ELASTICSEARCH_HOSTS"
+#              value: '["elasticsearch-master-0.elasticsearch-master.production-elasticsearch.svc.cluster.local:9200", "elasticsearch-master-1.elasticsearch-master.production-elasticsearch.svc.cluster.local:9200", "elasticsearch-master-2.elasticsearch-master.production-elasticsearch.svc.cluster.local:9200"]'
         - name: elasticsearch-master
           image: harbor.freedom.org/elastic/elasticsearch:7.9.2
           imagePullPolicy: IfNotPresent
