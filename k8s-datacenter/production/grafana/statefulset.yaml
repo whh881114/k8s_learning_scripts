@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: grafana
-          image: grafana/grafana:6.7.4
+          image: harbor.freedom.org/grafana/grafana:6.7.4
 #          resources:
 #            requests:
 #              memory: "4096M"
@@ -37,7 +37,7 @@ spec:
     - metadata:
         name: grafana-data
         annotations:
-          volume.beta.kubernetes.io/storage-class: nfs-client-provisioner-public-infra
+          volume.beta.kubernetes.io/storage-class: nfs-client-provisioner-common
       spec:
         accessModes: ["ReadWriteOnce"]
         resources:
@@ -46,7 +46,7 @@ spec:
     - metadata:
         name: grafana-logs
         annotations:
-          volume.beta.kubernetes.io/storage-class: nfs-client-provisioner-public-infra
+          volume.beta.kubernetes.io/storage-class: nfs-client-provisioner-common
       spec:
         accessModes: ["ReadWriteOnce"]
         resources:
