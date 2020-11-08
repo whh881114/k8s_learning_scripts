@@ -33,11 +33,8 @@ bind_zones:
   - freedom.org
   - ceph.freedom.org
   - consul.freedom.org
-  - es.freedom.org
   - k8s.freedom.org
   - test.freedom.org
-  - lvs.freedom.org
-  - haproxy.freedom.org
 
 bind_rev_zones:
   - {ip: "2.168.192", domain_name: "freedom.org"}
