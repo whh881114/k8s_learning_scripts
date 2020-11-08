@@ -141,5 +141,5 @@ spec:
         - name: zabbix-server-externalscripts
           persistentVolumeClaim:
             claimName: zabbix-server-externalscripts
-      nodeSelector:
-        kubernetes.io/hostname: master.k8s.freedom.org
+#      nodeSelector:
+#        kubernetes.io/hostname: master.k8s.freedom.org
