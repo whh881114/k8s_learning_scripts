@@ -30,6 +30,10 @@ http_instances:
     httpchk: "/"
   - service_name: kibana
     http_host_header: ^kibana.freedom.org$
+  - service_name: grafana
+    http_host_header: ^grafana.freedom.org$
+    httpchk_method: GET
+    httpchk: "/"
 
 
 https_instances:
