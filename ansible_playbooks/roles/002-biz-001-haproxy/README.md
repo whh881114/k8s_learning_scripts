@@ -9,8 +9,8 @@
 ## 第二步：生成haproxy所需为pem格式的ssl证书
 ### 1- cd /etc/pki/CA/
 ### 2- openssl genrsa -out haproxy.key 2048
-### 3- openssl req -new -key haproxy.key -out haproxy.csr
-### 4- openssl x509 -req -in haproxy.csr -CA cacert.pem -CAkey private/cakey.pem -CAcreateserial -out haproxy.crt
+### 3- openssl req -new -key haproxy.key -out haproxy.csr -days 35600
+### 4- openssl x509 -req -in haproxy.csr -CA cacert.pem -CAkey private/cakey.pem -CAcreateserial -out haproxy.crt -days 35600
 ### 5- cat haproxy.crt haproxy.key > haproxy.pem
 
 ## 第三步：haproxy.cfg修改，请查看haproxy.cfg即可。
