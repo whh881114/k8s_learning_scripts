@@ -1,6 +1,20 @@
 [zabbix]
 name=Zabbix Official Repository - $basearch
-baseurl=https://mirrors.aliyun.com/zabbix/zabbix/4.0/rhel/7/x86_64/
+baseurl=https://mirrors.aliyun.com/zabbix/zabbix/4.0/rhel/7/$basearch/
 enabled=1
 gpgcheck=0
 gpgkey=https://mirrors.aliyun.com/zabbix/RPM-GPG-KEY-ZABBIX
+
+[zabbix-debuginfo]
+name=Zabbix Official Repository debuginfo - $basearch
+baseurl=http://mirrors.aliyun.com/zabbix/4.0/rhel/7/$basearch/debuginfo/
+enabled=0
+gpgkey=https://mirrors.aliyun.com/zabbix/RPM-GPG-KEY-ZABBIX
+gpgcheck=1
+
+[zabbix-non-supported]
+name=Zabbix Official Repository non-supported - $basearch
+baseurl=http://repo.zabbix.com/non-supported/rhel/7/$basearch/
+enabled=1
+gpgkey=https://mirrors.aliyun.com/zabbix/RPM-GPG-KEY-ZABBIX
+gpgcheck=0

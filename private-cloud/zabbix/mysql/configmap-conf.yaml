@@ -1,0 +1,50 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: zabbix-mysql-conf
+  namespace: production-zabbix
+data:
+  my.cnf: |
+    # For advice on how to change settings please see
+    # http://dev.mysql.com/doc/refman/5.7/en/server-configuration-defaults.html
+
+    [mysqld]
+    #
+    # Remove leading # and set to the amount of RAM for the most important data
+    # cache in MySQL. Start at 70% of total RAM for dedicated server, else 10%.
+    # innodb_buffer_pool_size = 128M
+    #
+    # Remove leading # to turn on a very important data integrity option: logging
+    # changes to the binary log between backups.
+    # log_bin
+    #
+    # Remove leading # to set options mainly useful for reporting servers.
+    # The server defaults are faster for transactions and fast SELECTs.
+    # Adjust sizes as needed, experiment to find the optimal values.
+    # join_buffer_size = 128M
+    # sort_buffer_size = 2M
+    # read_rnd_buffer_size = 2M
+    datadir=/var/lib/mysql
+    socket=/data/mysql.sock
+
+    # Disabling symbolic-links is recommended to prevent assorted security risks
+    symbolic-links=0
+
+    log-error=/data/mysqld.log
+    pid-file=/data/mysqld.pid
+
+    # Roy Wong added those lines. 2020-01-09
+    # character_set_server = utf8mb4
+    # collation_server = utf8mb4_unicode_ci
+    character_set_server = utf8
+
+    log-bin = /data/mysql-bin
+    binlog-format = ROW
+    server_id = 1
+
+    [mysql]
+    default_character_set = utf8
+
+    [client]
+    default_character_set = utf8

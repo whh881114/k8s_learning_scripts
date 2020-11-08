@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: zabbix-agent
-          image: harbor.freedom.org/zabbix/zabbix-agent:centos-4.0.17
+          image: zabbix/zabbix-agent:centos-4.0.17
           ports:
             - containerPort: 10050
           env:
@@ -35,11 +35,11 @@ spec:
             - name: zabbix-server-zabbix-agentd-d
               mountPath: /etc/zabbix/zabbix_agentd.d
         - name: zabbix-snmptraps
-          image: harbor.freedom.org/zabbix/zabbix-snmptraps:centos-4.0.17
+          image: zabbix/zabbix-snmptraps:centos-4.0.17
         - name: zabbix-java-gateway
-          image: harbor.freedom.org/zabbix/zabbix-java-gateway:centos-4.0.17
+          image: zabbix/zabbix-java-gateway:centos-4.0.17
         - name: zabbix-server
-          image: harbor.freedom.org/zabbix/zabbix-server-mysql:centos-4.0.17
+          image: zabbix/zabbix-server-mysql:centos-4.0.17
           resources:
             requests:
               memory: "4096M"
@@ -141,5 +141,3 @@ spec:
         - name: zabbix-server-externalscripts
           persistentVolumeClaim:
             claimName: zabbix-server-externalscripts
-      nodeSelector:
-        kubernetes.io/hostname: master.k8s.freedom.org
