@@ -1,0 +1,33 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: zabbix-server-vars
+  namespace: production-zabbix
+data:
+  # zabbix-server及zabbix-agent端所需变量，此变量应用于运行在POD中的容器。
+  ZBX_SERVER_NAME: "zabbix.freedom.org"
+  ZBX_SERVER_HOST: "zabbix-server.production-zabbix.svc.cluster.local" # 使用zabbix-server的svc作为入口地址。
+  ZBX_SERVER_PORT: "10051"
+  ZBX_SERVER_LISTENIP: "0.0.0.0"
+  ZBX_PHP_TZ: "Asia/Shanghai"
+  ZBX_DEBUGLEVEL: "3"
+  ZBX_TIMEOUT: "30"
+  ZBX_JAVAGATEWAY_ENABLE: "true"
+  ZBX_STARTPOLLERS: "160"
+  ZBX_STARTPOLLERSUNREACHABLE: "80"
+  ZBX_STARTTRAPPERS: "20"
+  ZBX_STARTPINGERS: "100"
+  ZBX_STARTDISCOVERERS: "120"
+  ZBX_VMWARECACHESIZE: "1024M"
+  ZBX_ENABLE_SNMP_TRAPS: "true"
+  ZBX_CACHESIZE: "1024M"
+  ZBX_HISTORYCACHESIZE: "1024M"
+  ZBX_HISTORYINDEXCACHESIZE: "512M"
+
+  # zabbix-server连接数据库变量
+  DB_SERVER_HOST: "zabbix-mysql.production-zabbix.svc.cluster.local"
+  DB_SERVER_PORT: "3306"
+  MYSQL_DATABASE: "zabbix"
+  MYSQL_USER: "zabbix"
+  MYSQL_PASSWORD: "zabbix"
