@@ -32,9 +32,8 @@ haproxy             IN      A       192.168.2.250
 ; harbor从k8s集群中剥离出来，用于在创建k8s集群前准备的docker仓库，主机名为harbor.freedom.org。
 ; harbor-k8s则部署在k8s集群中，这个是用于在rancher里做CICD的功能。
 ; 加-k8s的后缀主要是用于https证书，其泛解析为*.freedom.org。
-harbor                  IN      A       192.168.2.247
-; harbor-k8s              IN      A       192.168.2.250
-
-rancher             IN      A       192.168.2.245
-zabbix              IN      A       192.168.2.245
-kibana              IN      A       192.168.2.245
+harbor              IN      A       192.168.2.247
+harbor-k8s          IN      A       192.168.2.250
+rancher             IN      A       192.168.2.250
+zabbix              IN      A       192.168.2.250
+kibana              IN      A       192.168.2.250
