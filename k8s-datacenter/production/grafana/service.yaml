@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: grafana
+  namespace: production-grafana
+  labels:
+    name: grafana
+spec:
+  type: NodePort
+  ports:
+    - port: 3000        # 服务访问端口
+      targetPort: 3000
+      nodePort: 30215
+  selector:
+    name: grafana

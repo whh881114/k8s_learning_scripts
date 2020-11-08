@@ -1,0 +1,1 @@
+- wanghaohao 2020/10/26，创建rancher目录，使用rancher的storage class：local-path，作为后端存储，单独做了一个目录。
