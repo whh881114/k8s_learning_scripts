@@ -40,13 +40,13 @@ spec:
           image: harbor.freedom.org/zabbix/zabbix-java-gateway:centos-4.0.17
         - name: zabbix-server
           image: harbor.freedom.org/zabbix/zabbix-server-mysql:centos-4.0.17
-          resources:
-            requests:
-              memory: "4096M"
-              cpu: "1"
-            limits:
-              memory: "8192M"
-              cpu: "4"
+#          resources:
+#            requests:
+#              memory: "4096M"
+#              cpu: "1"
+#            limits:
+#              memory: "8192M"
+#              cpu: "4"
           env:
             - name: ZBX_SERVER_NAME
               valueFrom:
