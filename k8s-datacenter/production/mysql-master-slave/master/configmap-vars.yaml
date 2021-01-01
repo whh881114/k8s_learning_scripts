@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: mysql-demo-master
+  name: mysql-demo-master-vars
   namespace: production-mysql
 data:
   # 初始化zabbix-mysql数据库所需变量。

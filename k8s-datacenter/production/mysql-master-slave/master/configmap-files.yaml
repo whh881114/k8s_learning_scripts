@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: mysql-demo-master
+  name: mysql-demo-master-files
   namespace: production-mysql
 data:
   my.cnf: |
