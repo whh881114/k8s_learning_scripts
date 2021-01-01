@@ -1,0 +1,43 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysqld-exporter-sample
+  namespace: production-prometheus
+  labels:
+    name: mysqld-exporter-sample
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: mysqld-exporter-sample
+  template:
+    metadata:
+      labels:
+        name: mysqld-exporter-sample
+    spec:
+      containers:
+        - name: mysqld-exporter-sample
+          image: harbor.freedom.org/docker.io/prom/mysqld-exporter:master
+          ports:
+            - containerPort: 9104
+          env:
+            - name: DATA_SOURCE_NAME
+              value: 'dbcheck:syK81yUhSGsW6hOSsGPn2p3WPkAXTK7q@(replace_mysql_inst_here:3306)/'
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysqld-exporter-sample
+  namespace: production-prometheus
+  labels:
+    name: mysqld-exporter-sample
+spec:
+  type: NodePort
+  ports:
+    - port: 9104
+      targetPort: 9104
+  selector:
+    name: mysqld-exporter-sample
