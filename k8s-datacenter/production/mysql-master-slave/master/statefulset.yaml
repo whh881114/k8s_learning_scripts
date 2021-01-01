@@ -1,0 +1,82 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mysql-demo-master
+  namespace: production-mysql
+  labels:
+    name: mysql-demo-master
+spec:
+  serviceName: mysql-demo-master
+  replicas: 1
+  selector:
+    matchLabels:
+      name: mysql-demo-master
+  template:
+    metadata:
+      labels:
+        name: mysql-demo-master
+    spec:
+      containers:
+        - name: mysql
+          image: harbor.freedom.org/docker.io/mysql:5.7.29
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: mysql-demo-master
+                  key: MYSQL_ROOT_PASSWORD
+            - name: MYSQL_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: mysql-demo-master
+                  key: MYSQL_DATABASE
+            - name: MYSQL_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: mysql-demo-master
+                  key: MYSQL_USER
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: mysql-demo-master
+                  key: MYSQL_PASSWORD
+          ports:
+            - containerPort: 3306
+          resources:
+            limits:
+              cpu: 1000m
+              memory: 2048Mi
+            requests:
+              cpu: 500m
+              memory: 1024Mi
+          volumeMounts:
+            - name: mysql-data
+              mountPath: /var/lib/mysql
+            - name: mysql-logs
+              mountPath: /data
+            - name: mysql-conf
+              mountPath: /etc/mysql/conf.d
+              readOnly: true
+      volumes:
+        - name: mysql-conf
+          configMap:
+            name: mysql-demo-master
+  volumeClaimTemplates:
+    - metadata:
+        name: mysql-data
+        annotations:
+          volume.beta.kubernetes.io/storage-class: nfs-client-provisioner-public-infra
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 50Gi
+    - metadata:
+        name: mysql-logs
+        annotations:
+          volume.beta.kubernetes.io/storage-class: nfs-client-provisioner-public-infra
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 10Gi
