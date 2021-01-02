@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   name: node-exporter
-  namespace: production-prometheus
+  namespace: prometheus
   labels:
     k8s-app: node-exporter
     kubernetes.io/cluster-service: "true"
@@ -21,10 +21,9 @@ spec:
         k8s-app: node-exporter
         version: master
     spec:
-      priorityClassName: system-node-critical
       containers:
         - name: prometheus-node-exporter
-          image: "harbor.freedom.org/docker.io/prom/node-exporter@sha256:11c9860e04fb48879ead22f32f87c83794f8315d374de1f39e7d47efce9d0503"
+          image: "harbor.freedom.org/prom/node-exporter:master"
           imagePullPolicy: "IfNotPresent"
           args:
             - --path.procfs=/host/proc
@@ -42,7 +41,8 @@ spec:
               readOnly: true
           resources:
             limits:
-              memory: 50Mi
+              cpu: 200m
+              memory: 100Mi
             requests:
               cpu: 100m
               memory: 50Mi
