@@ -43,9 +43,9 @@ consul_agent_items:
 # 2020/10/01 -- consul_servers地址改回nodePort的访问方式，本来是可以使用pod的dns的，但是在bind中转发域名解析时一直失败，
 #               现在解决不了，记得昨天是可以的。现在是加了路由，可以直接访问到pod地址。
 consul_servers:
-  - worker01.k8s.freedom.org:32370
-  - worker02.k8s.freedom.org:32370
-  - worker03.k8s.freedom.org:32370
+  - worker01.k8s.freedom.org:17319
+  - worker02.k8s.freedom.org:17319
+  - worker03.k8s.freedom.org:17319
 
 consul_agent_dir: /etc/consul-agent
 consul_agent_log_dir: "{{ consul_agent_dir }}/log"
