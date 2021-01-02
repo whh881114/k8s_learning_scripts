@@ -63,7 +63,7 @@ spec:
     - metadata:
         name: data
         annotations:
-          volume.beta.kubernetes.io/storage-class: nfs-infra
+          volume.beta.kubernetes.io/storage-class: nfs-redis
       spec:
         accessModes: ["ReadWriteOnce"]
         resources:
