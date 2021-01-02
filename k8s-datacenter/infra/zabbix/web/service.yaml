@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: zabbix-web
-  namespace: production-zabbix
+  namespace: zabbix
   labels:
     name: zabbix-web
 spec:
