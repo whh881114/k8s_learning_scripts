@@ -3,7 +3,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: zabbix-agent-vars
-  namespace: production-zabbix
+  namespace: zabbix
 data:
   # zabbix-agent端所需变量，此变量应用于运行在DS状态的容器。
   # 此时需要将原POD中运行的zabbix-server端口通过第三方负载均衡代理出来。

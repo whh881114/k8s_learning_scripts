@@ -4,7 +4,7 @@ metadata:
   labels:
     daemonset: zabbix-agent
   name: zabbix-agent
-  namespace: production-zabbix
+  namespace: zabbix
 spec:
   selector:
     matchLabels:
