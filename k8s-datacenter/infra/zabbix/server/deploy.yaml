@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: zabbix-server
-  namespace: production-zabbix
+  namespace: zabbix
   labels:
     name: zabbix-server
 spec:
@@ -16,37 +16,38 @@ spec:
         name: zabbix-server
     spec:
       containers:
-        - name: zabbix-agent
-          image: harbor.freedom.org/zabbix/zabbix-agent:centos-4.0.17
-          ports:
-            - containerPort: 10050
-          env:
-            - name: ZBX_SERVER_HOST
-              valueFrom:
-                configMapKeyRef:
-                  name: zabbix-server-vars
-                  key: ZBX_SERVER_HOST
-            - name: ZBX_SERVER_PORT
-              valueFrom:
-                configMapKeyRef:
-                  name: zabbix-server-vars
-                  key: ZBX_SERVER_PORT
-          volumeMounts:
-            - name: zabbix-server-zabbix-agentd-d
-              mountPath: /etc/zabbix/zabbix_agentd.d
+        # zabbix-agent用daemonset部署时，这个好像不需要了。
+#        - name: zabbix-agent
+#          image: harbor.freedom.org/zabbix/zabbix-agent:centos-4.0.17
+#          ports:
+#            - containerPort: 10050
+#          env:
+#            - name: ZBX_SERVER_HOST
+#              valueFrom:
+#                configMapKeyRef:
+#                  name: zabbix-server-vars
+#                  key: ZBX_SERVER_HOST
+#            - name: ZBX_SERVER_PORT
+#              valueFrom:
+#                configMapKeyRef:
+#                  name: zabbix-server-vars
+#                  key: ZBX_SERVER_PORT
+#          volumeMounts:
+#            - name: zabbix-server-zabbix-agentd-d
+#              mountPath: /etc/zabbix/zabbix_agentd.d
         - name: zabbix-snmptraps
           image: harbor.freedom.org/zabbix/zabbix-snmptraps:centos-4.0.17
         - name: zabbix-java-gateway
           image: harbor.freedom.org/zabbix/zabbix-java-gateway:centos-4.0.17
         - name: zabbix-server
           image: harbor.freedom.org/zabbix/zabbix-server-mysql:centos-4.0.17
-#          resources:
-#            requests:
-#              memory: "4096M"
-#              cpu: "1"
-#            limits:
-#              memory: "8192M"
-#              cpu: "4"
+          resources:
+            requests:
+              memory: "256M"
+              cpu: 200m
+            limits:
+              memory: "1024M"
+              cpu: 2000m
           env:
             - name: ZBX_SERVER_NAME
               valueFrom:
@@ -132,9 +133,9 @@ spec:
             - name: zabbix-server-externalscripts
               mountPath: /usr/lib/zabbix/externalscripts
       volumes:
-        - name: zabbix-server-zabbix-agentd-d
-          persistentVolumeClaim:
-            claimName: zabbix-server-zabbix-agentd-d
+#        - name: zabbix-server-zabbix-agentd-d
+#          persistentVolumeClaim:
+#            claimName: zabbix-server-zabbix-agentd-d
         - name: zabbix-server-alertscripts
           persistentVolumeClaim:
             claimName: zabbix-server-alertscripts

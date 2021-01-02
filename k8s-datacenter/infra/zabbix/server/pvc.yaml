@@ -2,11 +2,11 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: zabbix-server-alertscripts
-  namespace: production-zabbix
+  namespace: zabbix
   labels:
     name: zabbix-server-alertscripts
   annotations:
-    volume.beta.kubernetes.io/storage-class: nfs-client-provisioner-common
+    volume.beta.kubernetes.io/storage-class: nfs-infra
 spec:
   accessModes:
     - ReadWriteOnce
@@ -19,11 +19,11 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: zabbix-server-externalscripts
-  namespace: production-zabbix
+  namespace: zabbix
   labels:
     name: zabbix-server-externalscripts
   annotations:
-    volume.beta.kubernetes.io/storage-class: nfs-client-provisioner-common
+    volume.beta.kubernetes.io/storage-class: nfs-infra
 spec:
   accessModes:
     - ReadWriteOnce
@@ -31,19 +31,19 @@ spec:
     requests:
       storage: 1Gi
 
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: zabbix-server-zabbix-agentd-d
-  namespace: production-zabbix
-  labels:
-    name: zabbix-server-zabbix-agentd-d
-  annotations:
-    volume.beta.kubernetes.io/storage-class: nfs-client-provisioner-common
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 1Gi
+#---
+#apiVersion: v1
+#kind: PersistentVolumeClaim
+#metadata:
+#  name: zabbix-server-zabbix-agentd-d
+#  namespace: zabbix
+#  labels:
+#    name: zabbix-server-zabbix-agentd-d
+#  annotations:
+#    volume.beta.kubernetes.io/storage-class: nfs-infra
+#spec:
+#  accessModes:
+#    - ReadWriteOnce
+#  resources:
+#    requests:
+#      storage: 1Gi
