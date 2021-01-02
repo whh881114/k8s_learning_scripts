@@ -3,7 +3,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: redis-cluster-common
-  namespace: production-redis-cluster
+  namespace: redis-cluster
 data:
   update_node.sh: |
     #!/bin/bash
@@ -23,6 +23,8 @@ data:
     pidfile redis.pid
     appendfilename appendonly.aof
     protected-mode no
+
+    requirepass absebfz2rer@hbseylpySx6dlQczdylv
 
     timeout 30
     tcp-keepalive 0

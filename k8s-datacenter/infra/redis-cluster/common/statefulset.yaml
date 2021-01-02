@@ -3,7 +3,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: redis-cluster-common
-  namespace: production-redis-cluster
+  namespace: redis-cluster
 spec:
   serviceName: redis-cluster-common
   replicas: 6
@@ -17,19 +17,22 @@ spec:
     spec:
       initContainers:
         - name: sysctl
-          image: registry.freedom.org/docker.io/busybox:1.31.1
+          image: harbor.freedom.org/docker.io/busybox:1.31.1
           command: ["sysctl"]
           args: ["-w", "net.core.somaxconn=65535"]
           securityContext:
             privileged: true
         - name: disable-transparent-hugepage
-          image: registry.freedom.org/docker.io/busybox:1.31.1
-          command: ["echo", "never", ">", "/sys/kernel/mm/transparent_hugepage/enabled"]
+          image: harbor.freedom.org/docker.io/busybox:1.31.1
+          command: ["sh", "-c", "echo never > /host-sys/kernel/mm/transparent_hugepage/enabled"]
           securityContext:
             privileged: true
+          volumeMounts:
+            - name: host-sys
+              mountPath: /host-sys
       containers:
         - name: redis-cluster-common
-          image: registry.freedom.org/docker.io/redis:5.0.7
+          image: harbor.freedom.org/docker.io/redis:5.0.7
           ports:
             - containerPort: 6379
               name: client
@@ -50,8 +53,8 @@ spec:
               readOnly: false
           resources:
             limits:
-              cpu: 200m
-              memory: 128Mi
+              cpu: 500m
+              memory: 1024Mi
             requests:
               cpu: 100m
               memory: 64Mi
@@ -60,13 +63,16 @@ spec:
           configMap:
             name: redis-cluster-common
             defaultMode: 0755
+        - name: host-sys
+          hostPath:
+            path: /sys
   volumeClaimTemplates:
     - metadata:
         name: data
         annotations:
-          volume.beta.kubernetes.io/storage-class: nfs-client-provisioner-common
+          volume.beta.kubernetes.io/storage-class: nfs-redis
       spec:
         accessModes: ["ReadWriteOnce"]
         resources:
           requests:
-            storage: 1Gi
+            storage: 2Gi
