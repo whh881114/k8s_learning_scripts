@@ -2,8 +2,8 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: zabbix-mysql-vars
-  namespace: production-zabbix
+  name: mysql-zabbix-vars
+  namespace: mysql-zabbix
 data:
   # 初始化zabbix-mysql数据库所需变量。
   MYSQL_ROOT_PASSWORD: "IamPassword000..."

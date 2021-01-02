@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: zabbix-mysql
-  namespace: production-zabbix
+  name: mysql-zabbix
+  namespace: mysql-zabbix
   labels:
-    name: zabbix-mysql
+    name: mysql-zabbix
 spec:
   type: NodePort
   clusterIP: 10.98.126.191
@@ -12,4 +12,4 @@ spec:
     - port: 3306        # 服务访问端口
       targetPort: 3306  # 容器端口
   selector:
-    name: zabbix-mysql
+    name: mysql-zabbix
