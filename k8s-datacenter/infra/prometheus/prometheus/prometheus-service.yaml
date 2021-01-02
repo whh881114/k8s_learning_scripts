@@ -2,7 +2,7 @@ kind: Service
 apiVersion: v1
 metadata:
   name: prometheus
-  namespace: production-prometheus
+  namespace: prometheus
   labels:
     kubernetes.io/name: "Prometheus"
     kubernetes.io/cluster-service: "true"

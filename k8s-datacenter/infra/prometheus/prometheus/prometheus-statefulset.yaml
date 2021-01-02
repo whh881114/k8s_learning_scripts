@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: prometheus
-  namespace: production-prometheus
+  namespace: prometheus
   labels:
     k8s-app: prometheus
     kubernetes.io/cluster-service: "true"
@@ -22,7 +22,6 @@ spec:
       labels:
         k8s-app: prometheus
     spec:
-      priorityClassName: system-cluster-critical
       serviceAccountName: prometheus
       initContainers:
       - name: "init-chown-data"
@@ -35,7 +34,7 @@ spec:
           subPath: ""
       containers:
         - name: prometheus-server
-          image: "harbor.freedom.org/docker.io/prom/prometheus:v2.15.2"
+          image: "harbor.freedom.org/prom/prometheus:v2.15.2"
           imagePullPolicy: "IfNotPresent"
           args:
             - --config.file=/etc/config/prometheus.yml
@@ -64,7 +63,7 @@ spec:
               memory: 2048Mi
             requests:
               cpu: 200m
-              memory: 1024Mi
+              memory: 256Mi
           volumeMounts:
             - name: config-volume
               mountPath: /etc/config
@@ -80,7 +79,7 @@ spec:
   - metadata:
       name: prometheus-data
       annotations:
-        volume.beta.kubernetes.io/storage-class: nfs-client-provisioner-common
+        volume.beta.kubernetes.io/storage-class: nfs-infra
     spec:
       accessModes:
         - ReadWriteOnce
