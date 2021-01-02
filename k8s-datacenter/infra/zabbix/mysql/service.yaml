@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: mysql-zabbix
-  namespace: mysql-zabbix
+  namespace: mysql
   labels:
     name: mysql-zabbix
 spec:
