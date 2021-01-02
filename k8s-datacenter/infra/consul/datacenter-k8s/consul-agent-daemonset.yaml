@@ -4,7 +4,7 @@ metadata:
   labels:
     daemonset: consul-agent
   name: consul-agent
-  namespace: production-consul
+  namespace: consul
 spec:
   selector:
     matchLabels:
@@ -16,10 +16,10 @@ spec:
     spec:
       containers:
       - name: consul-agent
-        image: registry.freedom.org/docker.io/consul:1.8.4
+        image: harbor.freedom.org/docker.io/consul:1.9.1
         args:
           - "agent"
-          - "-join=consul-server.$(NAMESPACE).svc.cluster.local" # 容器内部使用方式
+          - "-join=consul-server-k8s.$(NAMESPACE).svc.cluster.local" # 容器内部使用方式
           - "-data-dir=/consul/data"
           - "-config-dir=/consul/conf"
           - "-log-level=info"
@@ -30,7 +30,7 @@ spec:
           - "-advertise=$(PODIP)"
           - "-domain=cluster.local"
           - "-disable-host-node-id"
-          - "-datacenter=k8s-production"
+          - "-datacenter=k8s"
         env:
           - name: PODIP
             valueFrom:

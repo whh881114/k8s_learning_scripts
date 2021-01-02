@@ -1,0 +1,78 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: consul-server-vm
+  namespace: consul
+spec:
+  serviceName: consul-server-vm
+  selector:
+    matchLabels:
+      app: consul-server-vm
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: consul-server-vm
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+        - name: consul-server-vm
+          image: harbor.freedom.org/docker.io/consul:1.9.1
+          args:
+               - "agent"
+               - "-server"
+               - "-bootstrap-expect=2"
+               - "-ui"
+               #- "-data-dir=/consul/data"     # 就算是在虚拟机中使用consul-server集群，也没有使用-data-dir及-config-dir目录，先在yaml中保留。
+               #- "-config-dir=/consul/conf"
+               - "-log-level=info"
+               - "-log-rotate-duration=86400s"
+               - "-log-rotate-max-files=7"
+               - "-bind=0.0.0.0"
+               - "-client=0.0.0.0"
+               - "-datacenter=vm"
+               - "-advertise=$(PODIP)"
+               - "-retry-join=consul-server-vm-0.consul-server-vm.$(NAMESPACE).svc.cluster.local"
+               - "-retry-join=consul-server-vm-1.consul-server-vm.$(NAMESPACE).svc.cluster.local"
+               - "-retry-join=consul-server-vm-2.consul-server-vm.$(NAMESPACE).svc.cluster.local"
+               - "-retry-join-wan=consul-server-k8s-0.consul-server-k8s.$(NAMESPACE).svc.cluster.local"   # -retry-join-wan 多数据中心选项
+               - "-retry-join-wan=consul-server-k8s-1.consul-server-k8s.$(NAMESPACE).svc.cluster.local"
+               - "-retry-join-wan=consul-server-k8s-2.consul-server-k8s.$(NAMESPACE).svc.cluster.local"
+               - "-domain=cluster.local"
+               - "-disable-host-node-id"
+          env:
+            - name: HOSTIP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+            - name: PODIP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+            - name: NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+          ports:
+            - containerPort: 8500
+              name: ui-port
+            - containerPort: 8443
+              name: https-port
+            - containerPort: 8400
+              name: rpc-port
+            - containerPort: 8301
+              name: serflan
+            - containerPort: 8302
+              name: serfwan
+            - containerPort: 8600
+              name: consuldns
+            - containerPort: 8300
+              name: server
+          imagePullPolicy: IfNotPresent
+          resources:
+            limits:
+              cpu: 200m
+              memory: 128Mi
+            requests:
+              cpu: 100m
+              memory: 64Mi
