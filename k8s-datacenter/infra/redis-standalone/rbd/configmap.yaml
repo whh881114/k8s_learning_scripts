@@ -3,7 +3,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: redis-standalone-rbd
-  namespace: production-redis-standalone
+  namespace: redis-standalone
 data:
   redis.conf: |
     # Redis configuration file example.
