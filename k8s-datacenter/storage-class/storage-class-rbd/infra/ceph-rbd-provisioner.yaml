@@ -1,8 +1,8 @@
 kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: rbd-provisioner-common
-  namespace: production-storage-class-rbd
+  name: rbd-infra
+  namespace: storage-class
 rules:
   - apiGroups: [""]
     resources: ["persistentvolumes"]
@@ -26,15 +26,15 @@ rules:
 kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: rbd-provisioner-common
-  namespace: production-storage-class-rbd
+  name: rbd-infra
+  namespace: storage-class
 subjects:
   - kind: ServiceAccount
-    name: rbd-provisioner-common
-    namespace: production-storage-class-rbd
+    name: rbd-infra
+    namespace: storage-class
 roleRef:
   kind: ClusterRole
-  name: rbd-provisioner-common
+  name: rbd-infra
   apiGroup: rbac.authorization.k8s.io
 
 
@@ -42,8 +42,8 @@ roleRef:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
-  name: rbd-provisioner-common
-  namespace: production-storage-class-rbd
+  name: rbd-infra
+  namespace: storage-class
 rules:
 - apiGroups: [""]
   resources: ["secrets"]
@@ -57,48 +57,48 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: rbd-provisioner-common
-  namespace: production-storage-class-rbd
+  name: rbd-infra
+  namespace: storage-class
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
-  name: rbd-provisioner-common
+  name: rbd-infra
 subjects:
   - kind: ServiceAccount
-    name: rbd-provisioner-common
-    namespace: production-storage-class-rbd
+    name: rbd-infra
+    namespace: storage-class
 
 
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: rbd-provisioner-common
-  namespace: production-storage-class-rbd
+  name: rbd-infra
+  namespace: storage-class
 spec:
   selector:
     matchLabels:
-      app: rbd-provisioner-common
+      app: rbd-infra
   replicas: 1
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: rbd-provisioner-common
+        app: rbd-infra
     spec:
       containers:
-      - name: rbd-provisioner-common
-        image: registry.freedom.org/quay.io/external_storage/rbd-provisioner:v2.1.1-k8s1.11
+      - name: rbd-infra
+        image: harbor.freedom.org/quay.io/external_storage/rbd-provisioner:v2.1.1-k8s1.11
         env:
         - name: PROVISIONER_NAME
-          value: ceph.com/production-storage-class-rbd-rbd-provisioner-common
-      serviceAccount: rbd-provisioner-common
+          value: ceph.com/rbd-infra
+      serviceAccount: rbd-infra
 
 
 ---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: rbd-provisioner-common
-  namespace: production-storage-class-rbd
+  name: rbd-infra
+  namespace: storage-class

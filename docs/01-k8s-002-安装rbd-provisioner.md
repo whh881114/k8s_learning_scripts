@@ -5,6 +5,7 @@
 ##1.准备工作
 - 准备ceph集群，其版本最高为mimic，即为13，这是因为quay.io/external_storage/rbd-provisioner:v2.1.1-k8s1.11镜像最高只支持这个版本。
 - 在k8s主机上能进行创建rbd块，格式化，挂载及写入文件的测试。
+- 参考文档：https://blog.51cto.com/fengjicheng/2401702
     
 ##2.安装
 - 创建所需名字空间：`kubectl create namespace production-storage-class-rbd`
@@ -19,7 +20,7 @@
            worker03.k8s.freedom.org'
    # for host in $hosts
     do
-        scp ceph.client.admin.keyring ceph.conf
+        scp ceph.client.admin.keyring ceph.conf $host:/etc/ceph/
     done
     
    # kubectl apply -f ceph-rbd-provisioner.yaml
