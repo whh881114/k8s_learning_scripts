@@ -162,55 +162,15 @@ data:
     - job_name: 'mysql-databases'
       static_configs:
         - targets:
-          - mysqld-exporter-account-dbs3-5-m-0.production-prometheus.svc.cluster.local:9104
-          - mysqld-exporter-account-dbs6-8-m-0.production-prometheus.svc.cluster.local:9104
-          - mysqld-exporter-account-dbs-1-12-m-0.production-prometheus.svc.cluster.local:9104
-          - mysqld-exporter-account-dbs6-8-s-0.production-prometheus.svc.cluster.local:9104
-          - mysqld-exporter-eoms-db1-m-0.production-prometheus.svc.cluster.local:9104
-          - mysqld-exporter-eoms-offline-db1-0.production-prometheus.svc.cluster.local:9104
-          - mysqld-exporter-eoms-offline-db1-s-0.production-prometheus.svc.cluster.local:9104
-          - mysqld-exporter-eshop-db0m-0.production-prometheus.svc.cluster.local:9104
-          - mysqld-exporter-eshop-db1m-0.production-prometheus.svc.cluster.local:9104
-          - mysqld-exporter-eshop-db2m-0.production-prometheus.svc.cluster.local:9104
-          - mysqld-exporter-eshop-db3m-0.production-prometheus.svc.cluster.local:9104
-          - mysqld-exporter-eshop-db4m-0.production-prometheus.svc.cluster.local:9104
-          - mysqld-exporter-eshop-db5m-0.production-prometheus.svc.cluster.local:9104
-          - mysqld-exporter-eshop-db6m-0.production-prometheus.svc.cluster.local:9104
-          - mysqld-exporter-eshop-db7m-0.production-prometheus.svc.cluster.local:9104
-          - mysqld-exporter-global-eshop-db-m-0.production-prometheus.svc.cluster.local:9104
-          - mysqld-exporter-marketing-db-m1-0.production-prometheus.svc.cluster.local:9104
-          - mysqld-exporter-member-1-6-0.production-prometheus.svc.cluster.local:9104
-          - mysqld-exporter-member7-12-0.production-prometheus.svc.cluster.local:9104
-          - mysqld-exporter-mk-activity-db-m1-0.production-prometheus.svc.cluster.local:9104
-          - mysqld-exporter-ro-eoms-db1-s1-0.production-prometheus.svc.cluster.local:9104
-          - mysqld-exporter-ro-eoms-db1-s2-0.production-prometheus.svc.cluster.local:9104
-          - mysqld-exporter-ro-eoms-db1-s3-0.production-prometheus.svc.cluster.local:9104
-          - mysqld-exporter-ro-eoms-db1-s4-0.production-prometheus.svc.cluster.local:9104
-          - mysqld-exporter-ro-eoms-db1-s5-0.production-prometheus.svc.cluster.local:9104
-          - mysqld-exporter-ro-eshop-db0-s1-0.production-prometheus.svc.cluster.local:9104
-          - mysqld-exporter-ro-eshop-db0-s2-0.production-prometheus.svc.cluster.local:9104
-          - mysqld-exporter-ro-eshop-db1-s1-0.production-prometheus.svc.cluster.local:9104
-          - mysqld-exporter-ro-eshop-db1-s2-0.production-prometheus.svc.cluster.local:9104
-          - mysqld-exporter-ro-eshop-db2-s1-0.production-prometheus.svc.cluster.local:9104
-          - mysqld-exporter-ro-eshop-db2-s2-0.production-prometheus.svc.cluster.local:9104
-          - mysqld-exporter-ro-eshop-db3-s1-0.production-prometheus.svc.cluster.local:9104
-          - mysqld-exporter-ro-eshop-db3-s2-0.production-prometheus.svc.cluster.local:9104
-          - mysqld-exporter-ro-eshop-db4-s1-0.production-prometheus.svc.cluster.local:9104
-          - mysqld-exporter-ro-eshop-db4-s2-0.production-prometheus.svc.cluster.local:9104
-          - mysqld-exporter-ro-eshop-db5-s1-0.production-prometheus.svc.cluster.local:9104
-          - mysqld-exporter-ro-eshop-db5-s2-0.production-prometheus.svc.cluster.local:9104
-          - mysqld-exporter-ro-eshop-db6-s1-0.production-prometheus.svc.cluster.local:9104
-          - mysqld-exporter-ro-eshop-db6-s2-0.production-prometheus.svc.cluster.local:9104
-          - mysqld-exporter-ro-eshop-db7-s1-0.production-prometheus.svc.cluster.local:9104
-          - mysqld-exporter-ro-eshop-db7-s2-0.production-prometheus.svc.cluster.local:9104
-          - mysqld-exporter-ro-global-eshop-db-s1-0.production-prometheus.svc.cluster.local:9104
-          - mysqld-exporter-ro-global-eshop-db-s2-0.production-prometheus.svc.cluster.local:9104
-          - mysqld-exporter-ro-member1-6-0.production-prometheus.svc.cluster.local:9104
-          - mysqld-exporter-ro-member7-12-0.production-prometheus.svc.cluster.local:9104
-          - mysqld-exporter-tc-mix2-db-m1-0.production-prometheus.svc.cluster.local:9104
-          - mysqld-exporter-tc-mix2-db-s1-0.production-prometheus.svc.cluster.local:9104
-          - mysqld-exporter-tc-mix2-db-s2-0.production-prometheus.svc.cluster.local:9104
-          - mysqld-exporter-trade-account-dbs1-2-m-0.production-prometheus.svc.cluster.local:9104
+          - mysqld-exporter-mysql-zabbix.prometheus.svc.cluster.local:9104
+
+    - job_name: 'kubernetes-nodes'
+      static_configs:
+        - targets:
+          - master.k8s.freedom.org:9100
+          - worker01.k8s.freedom.org:9100
+          - worker02.k8s.freedom.org:9100
+          - worker03.k8s.freedom.org:9100
 
 
     alerting:

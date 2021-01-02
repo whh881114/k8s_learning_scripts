@@ -1,17 +1,17 @@
 #!/bin/bash
 
-namespace=db-drill
+namespace=mysql
 db_pods=`kubectl get pods -n $namespace | grep -v '^NAME' | awk '{print $1}'`
 
 for db_pod in $db_pods
 do
-  sed -e "s/mysqld-exporter-sample/mysqld-exporter-$db_pod/g" -e "s/replace_mysql_inst_here/${db_pod/-0/}-raw.$namespace.svc.cluster.local/g" sample.yaml >  $db_pod.yaml
+  sed -e "s/mysqld-exporter-sample/mysqld-exporter-${db_pod/-0/}/g" -e "s/replace_mysql_inst_here/${db_pod/-0/}.$namespace.svc.cluster.local/g" sample.yaml >  ${db_pod/-0/}.yaml
 done
 
-db_pod_svcs=`kubectl get svc -n production-prometheus | grep -v 'NAME' | awk '{print $1}'`
+db_pod_svcs=`kubectl get svc -n prometheus | grep -v 'NAME' | awk '{print $1}'`
 for db_pod_svc in $db_pod_svcs
 do
-  echo "- $db_pod_svc.production-prometheus.svc.cluster.local:9104"
+  echo "- $db_pod_svc.prometheus.svc.cluster.local:9104"
 done
 
 
@@ -38,7 +38,7 @@ done
 #
 #for db in $db_instances
 #do
-#  mysql -h $db -uroot -p"MyPassword007." -e "GRANT PROCESS, REPLICATION CLIENT ON *.* TO 'dbcheck'@'10.%';"
-#  mysql -h $db -uroot -p"MyPassword007." -e "GRANT SELECT ON performance_schema.* TO 'dbcheck'@'10.%';"
+#  mysql -h $db -uroot -p"MyPassword007." -e "GRANT PROCESS, REPLICATION CLIENT ON *.* TO 'dbcheck'@'%' IDENTIFIED BY 'zuwllczEh35mjvavarGpnhyjzut[hpir';"
+#  mysql -h $db -uroot -p"MyPassword007." -e "GRANT SELECT ON performance_schema.* TO 'dbcheck'@'%';"
 #  mysql -h $db -uroot -p"MyPassword007." -e "FLUSH PRIVILEGES;"
 #done

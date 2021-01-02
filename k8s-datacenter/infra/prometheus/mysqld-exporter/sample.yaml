@@ -3,7 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mysqld-exporter-sample
-  namespace: production-prometheus
+  namespace: prometheus
   labels:
     name: mysqld-exporter-sample
 spec:
@@ -18,12 +18,12 @@ spec:
     spec:
       containers:
         - name: mysqld-exporter-sample
-          image: harbor.freedom.org/docker.io/prom/mysqld-exporter:master
+          image: harbor.freedom.org/prom/mysqld-exporter:master
           ports:
             - containerPort: 9104
           env:
             - name: DATA_SOURCE_NAME
-              value: 'dbcheck:syK81yUhSGsW6hOSsGPn2p3WPkAXTK7q@(replace_mysql_inst_here:3306)/'
+              value: 'dbcheck:zuwllczEh35mjvavarGpnhyjzut[hpir@(replace_mysql_inst_here:3306)/'
 
 
 ---
@@ -31,7 +31,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: mysqld-exporter-sample
-  namespace: production-prometheus
+  namespace: prometheus
   labels:
     name: mysqld-exporter-sample
 spec:
