@@ -1,0 +1,122 @@
+global
+    log         127.0.0.1 local2 info
+    chroot      /var/lib/haproxy
+    pidfile     /var/run/haproxy.pid
+    maxconn     65535
+    user        haproxy
+    group       haproxy
+    daemon
+    stats       socket /var/lib/haproxy/stats
+    tune.ssl.default-dh-param   2048
+
+defaults
+    mode                    http
+    log                     global
+    option                  httplog
+    option                  dontlognull
+    option                  http-server-close
+    option                  forwardfor  except 127.0.0.0/8
+    option                  redispatch
+    retries                 3
+    timeout http-request    10s
+    timeout queue           1m
+    timeout connect         10s
+    timeout client          1m
+    timeout server          1m
+    timeout http-keep-alive 10s
+    timeout check           3s
+    maxconn                 65535
+    compression algo gzip
+    compression type text/html text/plain text/css application/javascript application/json application/xml
+
+# 2020/09/27 -- 监听stats，设置为固定即可。
+listen tcp-stats
+    bind 0.0.0.0:5001
+    mode http
+    log global
+    stats refresh 30s
+    stats uri /stats
+    stats realm Private lands
+    stats auth freedom:Haproxy007@freedom.org
+    stats hide-version
+
+# 2020/09/27 -- 因docker-distribution使用的是443端口，所以rancher改用为8443。这是在rancher为443端口时，使用docker push镜像
+#               时报错了，最后去掉此配置就正常了。
+# 2020/10/01 -- 当使用docker pull拉取镜像时，默认会走https端口，当不存在时就走http端口，所以最开始时使用443转rancher时就会与
+#               docker registry服务起冲突，而采用集群方式安装rancher时要进行转发时要用到TCP模式，所以最终决定使用TCP转发rancher
+#               和docker registry服务。
+# 2020/10/01 -- 经测试发现，此转registry的服务还不通使用TCP，必须要用到HTTP，也就是说要用http转https，当haproxy返回时就是https协议，
+#               所以443端口就能用来转发了。这个理解应该是不对的，先留下来。
+{% for item in tcp_instances %}
+listen tcp-[[ item.listen_name ]]
+    mode tcp
+    option tcplog
+{% for arg in item.args %}
+    [[ arg ]]
+{% endfor %}
+    {{range service "[[ item.service_name ]]"}}
+    server {{.Node}} {{.Address}}:{{.Port}} check{{end}}
+
+
+{% endfor %}
+
+
+frontend  http-frontend
+    bind *:80
+{% for item in http_instances %}
+{# 前端规则产生：acl [frontend_name] hdr_reg(host) -i [http_host_header] #}
+{# 后端实例列表：use_backend [backend_name] if [frontend_name] #}
+    acl acl-[[ item.service_name ]] hdr_reg(host) -i [[ item.http_host_header ]]
+    use_backend http-backend-[[ item.service_name ]] if acl-[[ item.service_name ]]
+
+{% endfor %}
+
+{% for item in http_instances %}
+backend http-backend-[[ item.service_name ]]
+    balance   leastconn
+{% if item.httpchk_method is defined %}
+    option    httpchk [[ item.httpchk_method ]] [[ item.httpchk ]]
+{% endif %}
+    #rspadd    Access-Control-Allow-Origin:\ *
+    #rspadd    Access-Control-Max-Age:\ 31536000
+    #rspadd    Access-Control-Allow-Credentials:\ true
+    #rspadd    Access-Control-Allow-Headers:\ Accept,\ Authorization,\ Cache-Control,\ Content-Type,\ Content-Md5,\ DNT,\ If-Modified-Since,\ Keep-Alive,\ Origin,\ User-Agent,\ X-Mx-ReqToken,\ X-Requested-With,\ X-Amz-Date,\ X-Amz-User-Agent,\ X-Amz-Acl,\ X-Amz-Copy-Source
+    #rspadd    Access-Control-Allow-Methods:\ POST,\ GET,\ OPTIONS,\ PUT,\ DELETE
+    {{range service "[[ item.service_name ]]"}}
+    server {{.Node}} {{.Address}}:{{.Port}} check cookie {{.Node}} weight 1 check inter 1000 rise 2 fall 3{{end}}
+
+
+{% endfor %}
+
+
+
+frontend  https-frontend
+    bind *:443 ssl crt /etc/ssl/certs/haproxy.crt
+    mode http
+    option httpclose
+    option forwardfor
+    reqadd X-Forwarded-Proto:\ https
+{% for item in https_instances %}
+{# 前端规则产生：acl [frontend_name] hdr_reg(host) -i [http_host_header] #}
+{# 后端实例列表：use_backend [backend_name] if [frontend_name] #}
+    acl acl-[[ item.service_name ]] hdr_reg(host) -i [[ item.http_host_header ]]
+    use_backend https-backend-[[ item.service_name ]] if acl-[[ item.service_name ]]
+
+{% endfor %}
+
+{% for item in https_instances %}
+backend https-backend-[[ item.service_name ]]
+    balance   leastconn
+{% if item.httpchk_method is defined %}
+    option    httpchk [[ item.httpchk_method ]] [[ item.httpchk ]]
+{% endif %}
+    #rspadd    Access-Control-Allow-Origin:\ *
+    #rspadd    Access-Control-Max-Age:\ 31536000
+    #rspadd    Access-Control-Allow-Credentials:\ true
+    #rspadd    Access-Control-Allow-Headers:\ Accept,\ Authorization,\ Cache-Control,\ Content-Type,\ Content-Md5,\ DNT,\ If-Modified-Since,\ Keep-Alive,\ Origin,\ User-Agent,\ X-Mx-ReqToken,\ X-Requested-With,\ X-Amz-Date,\ X-Amz-User-Agent,\ X-Amz-Acl,\ X-Amz-Copy-Source
+    #rspadd    Access-Control-Allow-Methods:\ POST,\ GET,\ OPTIONS,\ PUT,\ DELETE
+    {{range service "[[ item.service_name ]]"}}
+    server {{.Node}} {{.Address}}:{{.Port}} check cookie {{.Node}} weight 1 check inter 1000 rise 2 fall 3{{end}}
+
+
+{% endfor %}
