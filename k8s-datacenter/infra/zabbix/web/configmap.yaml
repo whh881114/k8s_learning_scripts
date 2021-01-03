@@ -6,11 +6,11 @@ metadata:
   namespace: zabbix
 data:
   # zabbix-server及zabbix-agent端所需变量，此变量应用于运行在POD中的容器。
-  ZBX_SERVER_NAME: "zabbix.freedom.org"
-  ZBX_SERVER_HOST: "zabbix-server.zabbix.svc.cluster.local" # 使用zabbix-server的svc作为入口地址。
+  ZBX_SERVER_NAME: "zabbix.k8s.freedom.org"
+  ZBX_SERVER_HOST: "zabbix-server.zabbix.svc.cluster.local." # 使用zabbix-server的svc作为入口地址。
   ZBX_SERVER_PORT: "10051"
   ZBX_SERVER_LISTENIP: "0.0.0.0"
-  ZBX_DB_SERVER_HOST: "mysql-zabbix.mysql.svc.cluster.local"
+  ZBX_DB_SERVER_HOST: "mysql-zabbix.mysql.svc.cluster.local."
   ZBX_DB_SERVER_PORT: "3306"
   ZBX_MYSQL_DATABASE: "zabbix"
   ZBX_MYSQL_USER: "zabbix"
