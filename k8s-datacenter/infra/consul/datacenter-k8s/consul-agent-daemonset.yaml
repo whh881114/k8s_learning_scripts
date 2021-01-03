@@ -19,7 +19,7 @@ spec:
         image: harbor.freedom.org/docker.io/consul:1.9.1
         args:
           - "agent"
-          - "-join=consul-server-k8s.$(NAMESPACE).svc.cluster.local" # 容器内部使用方式
+          - "-join=consul-server-k8s.$(NAMESPACE).svc.cluster.local." # 容器内部使用方式
           - "-data-dir=/consul/data"
           - "-config-dir=/consul/conf"
           - "-log-level=info"

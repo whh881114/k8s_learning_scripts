@@ -32,12 +32,12 @@ spec:
                - "-client=0.0.0.0"
                - "-datacenter=vm"
                - "-advertise=$(PODIP)"
-               - "-retry-join=consul-server-vm-0.consul-server-vm.$(NAMESPACE).svc.cluster.local"
-               - "-retry-join=consul-server-vm-1.consul-server-vm.$(NAMESPACE).svc.cluster.local"
-               - "-retry-join=consul-server-vm-2.consul-server-vm.$(NAMESPACE).svc.cluster.local"
-               - "-retry-join-wan=consul-server-k8s-0.consul-server-k8s.$(NAMESPACE).svc.cluster.local"   # -retry-join-wan 多数据中心选项
-               - "-retry-join-wan=consul-server-k8s-1.consul-server-k8s.$(NAMESPACE).svc.cluster.local"
-               - "-retry-join-wan=consul-server-k8s-2.consul-server-k8s.$(NAMESPACE).svc.cluster.local"
+               - "-retry-join=consul-server-vm-0.consul-server-vm.$(NAMESPACE).svc.cluster.local."
+               - "-retry-join=consul-server-vm-1.consul-server-vm.$(NAMESPACE).svc.cluster.local."
+               - "-retry-join=consul-server-vm-2.consul-server-vm.$(NAMESPACE).svc.cluster.local."
+               - "-retry-join-wan=consul-server-k8s-0.consul-server-k8s.$(NAMESPACE).svc.cluster.local."   # -retry-join-wan 多数据中心选项
+               - "-retry-join-wan=consul-server-k8s-1.consul-server-k8s.$(NAMESPACE).svc.cluster.local."
+               - "-retry-join-wan=consul-server-k8s-2.consul-server-k8s.$(NAMESPACE).svc.cluster.local."
                - "-domain=cluster.local"
                - "-disable-host-node-id"
           env:
