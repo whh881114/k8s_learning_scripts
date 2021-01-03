@@ -40,25 +40,24 @@ listen tcp-stats
     stats auth freedom:Haproxy007@freedom.org
     stats hide-version
 
-listen tcp-80-rancher
+listen tcp-80-ingress-nginx
     mode tcp
     option tcplog
     bind 0.0.0.0:80
     balance source
-    server master.k8s.freedom.org 192.168.2.4:22146 check
-    server worker03.k8s.freedom.org 192.168.2.4:22146 check
-    server worker03.k8s.freedom.org 192.168.2.4:22146 check
-    server worker03.k8s.freedom.org 192.168.2.4:22146 check
+    server master.k8s.freedom.org master.k8s.freedom.org:30573 check
+    server worker01.k8s.freedom.org worker01.k8s.freedom.org:30573 check
+    server worker02.k8s.freedom.org worker02.k8s.freedom.org:30573 check
+    server worker03.k8s.freedom.org worker03.k8s.freedom.org:30573 check
 
-
-listen tcp-443-rancher
+listen tcp-443-ingress-nginx
     mode tcp
     option tcplog
     bind 0.0.0.0:443
     balance source
-    server master.k8s.freedom.org 192.168.2.4:30235 check
-    server worker03.k8s.freedom.org 192.168.2.4:30235 check
-    server worker03.k8s.freedom.org 192.168.2.4:30235 check
-    server worker03.k8s.freedom.org 192.168.2.4:30235 check
+    server master.k8s.freedom.org master.k8s.freedom.org:31933 check
+    server worker01.k8s.freedom.org worker01.k8s.freedom.org:31933 check
+    server worker02.k8s.freedom.org worker02.k8s.freedom.org:31933 check
+    server worker03.k8s.freedom.org worker03.k8s.freedom.org:31933 check
 
 
