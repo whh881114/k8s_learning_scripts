@@ -16,22 +16,21 @@ spec:
         name: zabbix-server
     spec:
       containers:
-        # zabbix-agent用daemonset部署时，这个好像不需要了。
-#        - name: zabbix-agent
-#          image: harbor.freedom.org/zabbix/zabbix-agent:centos-4.0.17
-#          ports:
-#            - containerPort: 10050
-#          env:
-#            - name: ZBX_SERVER_HOST
-#              valueFrom:
-#                configMapKeyRef:
-#                  name: zabbix-server-vars
-#                  key: ZBX_SERVER_HOST
-#            - name: ZBX_SERVER_PORT
-#              valueFrom:
-#                configMapKeyRef:
-#                  name: zabbix-server-vars
-#                  key: ZBX_SERVER_PORT
+        - name: zabbix-agent
+          image: harbor.freedom.org/zabbix/zabbix-agent:centos-4.0.17
+          ports:
+            - containerPort: 10050
+          env:
+            - name: ZBX_SERVER_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: zabbix-server-vars
+                  key: ZBX_SERVER_HOST
+            - name: ZBX_SERVER_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: zabbix-server-vars
+                  key: ZBX_SERVER_PORT
 #          volumeMounts:
 #            - name: zabbix-server-zabbix-agentd-d
 #              mountPath: /etc/zabbix/zabbix_agentd.d
