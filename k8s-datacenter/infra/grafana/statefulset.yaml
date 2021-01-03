@@ -2,7 +2,7 @@ kind: StatefulSet
 apiVersion: apps/v1
 metadata:
   name: grafana
-  namespace: production-grafana
+  namespace: grafana
   labels:
     name: grafana
 spec:
@@ -18,14 +18,14 @@ spec:
     spec:
       containers:
         - name: grafana
-          image: harbor.freedom.org/grafana/grafana:6.7.4
-#          resources:
-#            requests:
-#              memory: "4096M"
-#              cpu: "1"
-#            limits:
-#              memory: "8192M"
-#              cpu: "4"
+          image: harbor.freedom.org/grafana/grafana:7.3.6
+          resources:
+            requests:
+              memory: 256M
+              cpu: 200m
+            limits:
+              memory: 4096M
+              cpu: 1000m
           ports:
             - containerPort: 3000
           volumeMounts:
@@ -37,18 +37,18 @@ spec:
     - metadata:
         name: grafana-data
         annotations:
-          volume.beta.kubernetes.io/storage-class: nfs-client-provisioner-common
+          volume.beta.kubernetes.io/storage-class: nfs-infra
       spec:
         accessModes: ["ReadWriteOnce"]
         resources:
           requests:
-            storage: 100Gi
+            storage: 50Gi
     - metadata:
         name: grafana-logs
         annotations:
-          volume.beta.kubernetes.io/storage-class: nfs-client-provisioner-common
+          volume.beta.kubernetes.io/storage-class: nfs-infra
       spec:
         accessModes: ["ReadWriteOnce"]
         resources:
           requests:
-            storage: 10Gi
+            storage: 1Gi

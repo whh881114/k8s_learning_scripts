@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: grafana
-  namespace: production-grafana
+  namespace: grafana
   labels:
     name: grafana
 spec:
