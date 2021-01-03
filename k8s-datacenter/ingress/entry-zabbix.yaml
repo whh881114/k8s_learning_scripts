@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: zabbix-web
+  namespace: zabbix
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+    - host: zabbix.k8s.freedom.org
+      http:
+        paths:
+        - path: /
+          backend:
+            serviceName: zabbix-web
+            servicePort: 80
