@@ -12,8 +12,14 @@ spec:
     - name: http
       port: 80        # 服务访问端口
       targetPort: 80  # 容器端口
+      nodePort: 30573
     - name: https
       port: 443        # 服务访问端口
       targetPort: 443  # 容器端口
+      nodePort: 31933
   selector:
     app.kubernetes.io/name: ingress-nginx # 调用ingress-nginx名字空间下的nginx-ingress-controller容器。
+
+
+# 如果将ingress的nodePort值改为80和443，要想去访问各个服务的ingress入口，那么将域名指向集群中的其中一个地址就可以了。
+# 虽然这样可以省掉一个haproxy，但是这样还是会将k8s集群暴露在外面，并且没有负载能力（即使使用dns轮询也达不到比较好的效果）
