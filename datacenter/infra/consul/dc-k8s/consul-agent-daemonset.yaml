@@ -32,6 +32,8 @@ spec:
           - "-disable-host-node-id"
           - "-datacenter=k8s"
         env:
+          - name: TZ
+            value: Asia/Shanghai
           - name: PODIP
             valueFrom:
               fieldRef:

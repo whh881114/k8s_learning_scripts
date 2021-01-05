@@ -22,6 +22,8 @@ spec:
           ports:
             - containerPort: 9104
           env:
+            - name: TZ
+              value: Asia/Shanghai
             - name: DATA_SOURCE_NAME
               value: 'dbcheck:zuwllczEh35mjvavarGpnhyjzut[hpir@(replace_mysql_inst_here:3306)/'
 

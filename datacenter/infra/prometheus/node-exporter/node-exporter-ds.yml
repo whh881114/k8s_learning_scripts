@@ -25,6 +25,9 @@ spec:
         - name: prometheus-node-exporter
           image: "harbor.freedom.org/prom/node-exporter:master"
           imagePullPolicy: "IfNotPresent"
+          env:
+            - name: TZ
+              value: Asia/Shanghai
           args:
             - --path.procfs=/host/proc
             - --path.sysfs=/host/sys

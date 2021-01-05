@@ -19,6 +19,9 @@ spec:
     spec:
       containers:
       - image: harbor.freedom.org/quay.io/coreos/kube-state-metrics:v2.0.0-alpha.3
+        env:
+          - name: TZ
+            value: Asia/Shanghai
         livenessProbe:
           httpGet:
             path: /healthz

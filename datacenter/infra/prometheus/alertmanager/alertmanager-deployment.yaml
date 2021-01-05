@@ -25,6 +25,9 @@ spec:
         - name: prometheus-alertmanager
           image: "prom/alertmanager:v0.14.0"
           imagePullPolicy: "IfNotPresent"
+          env:
+            - name: TZ
+              value: Asia/Shanghai
           args:
             - --config.file=/etc/config/alertmanager.yml
             - --storage.path=/data

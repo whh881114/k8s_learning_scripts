@@ -20,6 +20,8 @@ spec:
         - name: mysql
           image: harbor.freedom.org/docker.io/mysql:5.7.29
           env:
+            - name: TZ
+              value: Asia/Shanghai
             - name: MYSQL_ROOT_PASSWORD
               valueFrom:
                 configMapKeyRef:
