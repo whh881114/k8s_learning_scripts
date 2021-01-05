@@ -68,3 +68,8 @@ spec:
                 configMapKeyRef:
                   name: zabbix-web-vars
                   key: ZBX_PHP_TZ
+            - name: ZBX_MEMORYLIMIT
+              valueFrom:
+                configMapKeyRef:
+                  name: zabbix-web-vars
+                  key: ZBX_MEMORYLIMIT

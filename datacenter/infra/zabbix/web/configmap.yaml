@@ -16,3 +16,4 @@ data:
   ZBX_MYSQL_USER: "zabbix"
   ZBX_MYSQL_PASSWORD: "zabbix"
   ZBX_PHP_TZ: "Asia/Shanghai"
+  ZBX_MEMORYLIMIT: "2048M"
