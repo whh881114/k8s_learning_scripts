@@ -21,6 +21,8 @@ spec:
           ports:
             - containerPort: 80
           env:
+            - name: TZ
+              value: Asia/Shanghai
             - name: ZBX_SERVER_NAME
               valueFrom:
                 configMapKeyRef:

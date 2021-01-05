@@ -33,6 +33,9 @@ spec:
               containerPort: 2888
             - name: leader-election
               containerPort: 3888
+          env:
+            - name: TZ
+              value: Asia/Shanghai
           resources:
             limits:
               cpu: 2000m

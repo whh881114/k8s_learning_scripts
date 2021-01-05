@@ -35,6 +35,9 @@ spec:
       containers:
         - name: redis-standalone-rbd
           image: harbor.freedom.org/docker.io/redis:5.0.7
+          env:
+            - name: TZ
+              value: Asia/Shanghai
           resources:
             requests:
               cpu: 100m

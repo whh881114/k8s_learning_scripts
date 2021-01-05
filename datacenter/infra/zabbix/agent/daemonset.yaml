@@ -17,6 +17,8 @@ spec:
       containers:
         - name: zabbix-agent
           env:
+            - name: TZ
+              value: Asia/Shanghai
             - name: ZBX_HOSTNAME
               valueFrom:
                 fieldRef:

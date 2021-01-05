@@ -21,6 +21,8 @@ spec:
           ports:
             - containerPort: 10050
           env:
+            - name: TZ
+              value: Asia/Shanghai
             - name: ZBX_SERVER_HOST
               valueFrom:
                 configMapKeyRef:
@@ -48,6 +50,8 @@ spec:
               memory: "1024M"
               cpu: 2000m
           env:
+            - name: TZ
+              value: Asia/Shanghai
             - name: ZBX_SERVER_NAME
               valueFrom:
                 configMapKeyRef:
