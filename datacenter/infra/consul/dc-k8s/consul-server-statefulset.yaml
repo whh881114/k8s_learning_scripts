@@ -38,6 +38,8 @@ spec:
                - "-domain=cluster.local"
                - "-disable-host-node-id"
           env:
+            - name: TZ
+              value: Asia/Shanghai
             - name: HOSTIP
               valueFrom:
                 fieldRef:
