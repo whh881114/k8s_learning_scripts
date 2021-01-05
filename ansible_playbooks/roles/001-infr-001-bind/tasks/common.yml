@@ -1,7 +1,0 @@
----
-- name: install bind and bind-utils packages
-  package:
-    pkg: "{{ item }}"
-    state: present
-  with_items:
-    - "{{ bind_packages }}"

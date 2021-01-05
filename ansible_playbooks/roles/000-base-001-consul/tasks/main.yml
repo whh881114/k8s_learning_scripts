@@ -1,9 +1,0 @@
----
-- include: server.yml
-  when: consul_server_role
-
-- include: agent.yml
-  when: consul_agent_role
-
-- include: template.yml
-  when: consul_template_role

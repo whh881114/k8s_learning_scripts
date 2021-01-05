@@ -1,6 +1,0 @@
----
-- include: docker.yml
-
-- include: dl_k8s_imgs.yml
-
-- include: dl_offical_imgs.yml

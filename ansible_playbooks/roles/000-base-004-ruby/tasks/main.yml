@@ -1,6 +1,0 @@
----
-- include: install.yml
-  when: is_install_ruby
-
-- include: install_gem_pkgs.yml
-  when: is_install_gem_pkgs

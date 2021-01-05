@@ -1,8 +1,0 @@
----
-- include: common.yml
-
-- include: common-k8s.yml
-  when: is_k8s_host
-
-- include: sysctl-redis.yml
-  when: is_redis_host

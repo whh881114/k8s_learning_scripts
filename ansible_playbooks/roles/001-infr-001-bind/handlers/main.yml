@@ -1,6 +1,0 @@
----
-- name: restart bind
-  service:
-    name: "{{ bind_service }}"
-    state: restarted
-    enabled: yes

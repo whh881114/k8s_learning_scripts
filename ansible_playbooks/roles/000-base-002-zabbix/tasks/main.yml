@@ -1,3 +1,0 @@
----
-- include: agent.yml
-  when: zabbix_agent_role

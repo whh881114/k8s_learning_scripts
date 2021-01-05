@@ -1,3 +1,0 @@
----
-- include: puppet_agent.yml
-  when: puppet_agent_role
