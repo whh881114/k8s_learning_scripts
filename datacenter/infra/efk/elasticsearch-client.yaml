@@ -61,6 +61,8 @@ spec:
       - name: elasticsearch-client
         image: harbor.freedom.org/elastic/elasticsearch:7.9.2
         env:
+          - name: TZ
+            value: Asia/Shanghai
           - name: "ES_JAVA_OPTS"
             value: "-Xms512m -Xmx512m"
           - name: "cluster.name"

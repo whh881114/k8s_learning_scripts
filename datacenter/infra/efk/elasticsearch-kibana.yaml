@@ -56,6 +56,9 @@ spec:
       containers:
         - name: elasticsearch-kibana
           image: harbor.freedom.org/elastic/kibana@sha256:ef7a30c372d9fa9cedcfe5b93bfb0940f287e756a0e06a16baf9d65189409fa1
+          env:
+            - name: TZ
+              value: Asia/Shanghai
           resources:
             limits:
               cpu: 1
