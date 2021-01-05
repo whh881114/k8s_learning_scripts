@@ -19,6 +19,9 @@ spec:
       containers:
         - name: grafana
           image: harbor.freedom.org/grafana/grafana:7.3.6
+          env:
+            - name: TZ
+              value: Asia/Shanghai
           resources:
             requests:
               memory: 256M
