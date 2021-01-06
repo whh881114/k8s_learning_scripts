@@ -1,0 +1,57 @@
+# 全局变量
+global_vars:
+    # namespace，表示在k8s中创建的名字空间，默认为mysql。
+    - namespace: mysql
+
+    # deploy_mysql_type，mysql部署模式：只支持standalone和master-slave两种模式。
+    - deploy_mysql_type: standalone|master-slave
+
+    # mysql_image，指定mysql的docker镜像地址。
+    - mysql_image: harbor.freedom.org/docker.io/mysql:5.7.32
+
+    # mysql_conf_file，mysql的配置文件，将些文件做成configmap然后挂到mysql容器中。
+    - mysql_conf_file: common-my.cnf
+
+    # mysql_password，mysql实例的密码，全局指定所有实例的密码，可以在mysql_instances被覆盖。
+    - mysql_pasword: IamPassword007....
+
+    # mysql_slave_name和mysql_slave_password，用于主从同步的数据库。
+    - mysql_slave_name: slave
+    - mysql_slave_password: slave
+
+    # storage_class，部署时选用后端存储类型，使用storage-class是为了方便自动创建pvc。
+    - storage_class:
+        provisor: nfs-infra
+        data_capacity: 50G
+        log_capacity: 50G
+
+    # 容器资源限制
+    resources:
+      limits:
+        cpu: 1000m
+        memory: 2048Mi
+      requests:
+        cpu: 500m
+        memory: 1024Mi
+
+
+# mysql master实例清单
+mysql_master_instances:
+    - name: wanghaohao-mysql-master
+      mysql_password: mtwgghi79ioDpnk#Dn
+      bind_host: worker01.k8s.freedom.org   # 将容器绑定在哪个主机运行pod，当使用rancher提供的本地存储卷时就要用到这样，用于资源协调。
+
+
+# mysql slave实例清单
+mysql_slave_instances:
+    - name: wanghaohao-mysql-slave-0
+      mysql_password: mtwgghi79ioDpnk#Dn
+      bind_host: worker02.k8s.freedom.org
+
+    - name: wanghaohao-mysql-slave-1
+      mysql_password: mtwgghi79ioDpnk#Dn
+      bind_host: worker03.k8s.freedom.org
+
+    - name: wanghaohao-mysql-slave-2
+      mysql_password: mtwgghi79ioDpnk#Dn
+      bind_host: worker03.k8s.freedom.org
