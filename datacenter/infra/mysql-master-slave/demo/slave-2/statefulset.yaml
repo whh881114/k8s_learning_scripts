@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: slave-2
+  namespace: mysql-master-slave
+  labels:
+    name: slave-2
+spec:
+  serviceName: slave-2
+  replicas: 1
+  selector:
+    matchLabels:
+      name: slave-2
+  template:
+    metadata:
+      labels:
+        name: slave-2
+    spec:
+      containers:
+        - name: slave-2
+          image: harbor.freedom.org/docker.io/mysql:5.7.29
+          env:
+            - name: TZ
+              value: Asia/Shanghai
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: slave-2-vars
+                  key: MYSQL_ROOT_PASSWORD
+          ports:
+            - containerPort: 3306
+          resources:
+            limits:
+              cpu: 1000m
+              memory: 2048Mi
+            requests:
+              cpu: 500m
+              memory: 1024Mi
+          volumeMounts:
+            - name: slave-2-data
+              mountPath: /var/lib/mysql
+            - name: slave-2-conf
+              mountPath: /etc/mysql/conf.d
+              readOnly: true
+      volumes:
+        - name: slave-2-conf
+          configMap:
+            name: slave-2-conf
+      nodeSelector:
+        kubernetes.io/hostname: worker02.k8s.freedom.org
+  volumeClaimTemplates:
+    - metadata:
+        name: slave-2-data
+        annotations:
+          volume.beta.kubernetes.io/storage-class: local-path
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 50Gi
