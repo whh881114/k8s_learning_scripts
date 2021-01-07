@@ -37,21 +37,25 @@ global_vars:
 
 # mysql master实例清单
 mysql_master_instances:
-    - name: wanghaohao-mysql-master
-      mysql_password: mtwgghi79ioDpnk#Dn
-      bind_host: worker01.k8s.freedom.org   # 将容器绑定在哪个主机运行pod，当使用rancher提供的本地存储卷时就要用到这样，用于资源协调。
+  - id: 1
+    name: wanghaohao-mysql-master
+    mysql_password: mtwgghi79ioDpnk#Dn
+    bind_host: worker01.k8s.freedom.org   # 将容器绑定在哪个主机运行pod，当使用rancher提供的本地存储卷时就要用到这样，用于资源协调。
 
 
 # mysql slave实例清单
 mysql_slave_instances:
-    - name: wanghaohao-mysql-slave-0
-      mysql_password: mtwgghi79ioDpnk#Dn
-      bind_host: worker02.k8s.freedom.org
+  - id: 2
+    name: wanghaohao-mysql-slave-0
+    mysql_password: mtwgghi79ioDpnk#Dn
+    bind_host: worker02.k8s.freedom.org
 
-    - name: wanghaohao-mysql-slave-1
-      mysql_password: mtwgghi79ioDpnk#Dn
-      bind_host: worker03.k8s.freedom.org
+  - id: 3
+    name: wanghaohao-mysql-slave-1
+    mysql_password: mtwgghi79ioDpnk#Dn
+    bind_host: worker03.k8s.freedom.org
 
-    - name: wanghaohao-mysql-slave-2
-      mysql_password: mtwgghi79ioDpnk#Dn
-      bind_host: worker03.k8s.freedom.org
+  - id: 4
+    name: wanghaohao-mysql-slave-2
+    mysql_password: mtwgghi79ioDpnk#Dn
+    bind_host: worker03.k8s.freedom.org
