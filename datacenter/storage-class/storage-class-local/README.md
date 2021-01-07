@@ -1,0 +1,1 @@
+- 使用rancher提供的动态存储，具体查看官网地址：https://github.com/rancher/local-path-provisioner。
