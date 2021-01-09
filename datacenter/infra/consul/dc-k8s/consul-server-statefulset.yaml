@@ -21,7 +21,7 @@ spec:
           args:
                - "agent"
                - "-server"
-               - "-bootstrap-expect=2"
+               - "-bootstrap-expect=3"
                - "-ui"
                #- "-data-dir=/consul/data"     # 就算是在虚拟机中使用consul-server集群，也没有使用-data-dir及-config-dir目录，先在yaml中保留。
                #- "-config-dir=/consul/conf"
