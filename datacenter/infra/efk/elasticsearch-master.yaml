@@ -3,7 +3,7 @@ kind: ServiceAccount
 apiVersion: v1
 metadata:
   name: elasticsearch-master
-  namespace: production-elasticsearch
+  namespace: elasticsearch
   labels:
     app: elasticsearch-master
 
@@ -13,7 +13,7 @@ kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: elasticsearch-master
-  namespace: production-elasticsearch
+  namespace: elasticsearch
   labels:
     app: elasticsearch-master
 roleRef:
@@ -23,7 +23,7 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: elasticsearch-master
-    namespace: production-elasticsearch
+    namespace: elasticsearch
 
 
 ---
@@ -31,7 +31,7 @@ kind: StatefulSet
 apiVersion: apps/v1
 metadata:
   name: elasticsearch-master
-  namespace: production-elasticsearch
+  namespace: elasticsearch
   labels:
     component: elasticsearch
     role: master
@@ -59,20 +59,6 @@ spec:
           securityContext:
             privileged: true
       containers:
-        - name: elasticsearch-metricbeat
-          image: harbor.freedom.org/elastic/metricbeat:7.9.2
-          env:
-            - name: "setup.kibana.host"
-              value: "10.110.45.90:5601"  # kibana的nodePort ip。
-            - name: "ELASTICSEARCH_HOSTS"
-              value: '["elasticsearch-master-0.elasticsearch-master.production-elasticsearch.svc.cluster.local:9200", "elasticsearch-master-1.elasticsearch-master.production-elasticsearch.svc.cluster.local:9200", "elasticsearch-master-2.elasticsearch-master.production-elasticsearch.svc.cluster.local:9200"]'
-#        - name: elasticsearch-packetbeat
-#          image: harbor.freedom.org/elastic/packetbeat:7.9.2
-#          env:
-#            - name: "setup.kibana.host"
-#              value: "10.110.45.90:5601"  # kibana的nodePort ip。
-#            - name: "ELASTICSEARCH_HOSTS"
-#              value: '["elasticsearch-master-0.elasticsearch-master.production-elasticsearch.svc.cluster.local:9200", "elasticsearch-master-1.elasticsearch-master.production-elasticsearch.svc.cluster.local:9200", "elasticsearch-master-2.elasticsearch-master.production-elasticsearch.svc.cluster.local:9200"]'
         - name: elasticsearch-master
           image: harbor.freedom.org/elastic/elasticsearch:7.9.2
           imagePullPolicy: IfNotPresent
@@ -82,7 +68,7 @@ spec:
             - name: "ES_JAVA_OPTS"
               value: "-Xms512m -Xmx512m"
             - name: "cluster.name"
-              value: "production-elasticsearch"
+              value: "elasticsearch"
             - name: "discovery.seed_hosts"        # 这里用服务发现
               value: "elasticsearch-master"
             - name: "cluster.initial_master_nodes"  # 这里要使用statefulset的pod名称，不要使用服务发现。
@@ -115,7 +101,7 @@ spec:
     - metadata:
         name: elasticsearch-master
         annotations:
-          volume.beta.kubernetes.io/storage-class: nfs-client-provisioner-common
+          volume.beta.kubernetes.io/storage-class: nfs-infra
       spec:
         accessModes: ["ReadWriteOnce"]
         resources:
@@ -128,7 +114,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: elasticsearch-master
-  namespace: production-elasticsearch
+  namespace: elasticsearch
   labels:
     component: elasticsearch
     role: master

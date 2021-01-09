@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: elasticsearch-kibana
+  namespace: elasticsearch
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+    - host: kibana.k8s.freedom.org
+      http:
+        paths:
+        - path: /
+          backend:
+            serviceName: elasticsearch-kibana
+            servicePort: 5601

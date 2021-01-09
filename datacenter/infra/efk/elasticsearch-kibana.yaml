@@ -3,12 +3,12 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: elasticsearch-kibana-configmap
-  namespace: production-elasticsearch
+  namespace: elasticsearch
 data:
   kibana.yml: |
     server.name: kibana
     server.host: "0.0.0.0"
-    elasticsearch.hosts: ["http://elasticsearch-client.production-elasticsearch.svc.cluster.local:9200"]
+    elasticsearch.hosts: ["http://elasticsearch-client-0.elasticsearch-client.elasticsearch.svc.cluster.local:9200"]
     monitoring.ui.container.elasticsearch.enabled: true
 
 ---
@@ -16,7 +16,7 @@ kind: Service
 apiVersion: v1
 metadata:
   name: elasticsearch-kibana
-  namespace: production-elasticsearch
+  namespace: elasticsearch
   labels:
     component: elasticsearch
     role: kibana
@@ -37,7 +37,7 @@ kind: Deployment
 apiVersion: apps/v1
 metadata:
   name: elasticsearch-kibana
-  namespace: production-elasticsearch
+  namespace: elasticsearch
   labels:
     component: elasticsearch
     role: kibana
@@ -55,7 +55,7 @@ spec:
     spec:
       containers:
         - name: elasticsearch-kibana
-          image: harbor.freedom.org/elastic/kibana@sha256:ef7a30c372d9fa9cedcfe5b93bfb0940f287e756a0e06a16baf9d65189409fa1
+          image: harbor.freedom.org/elastic/kibana:7.9.2
           env:
             - name: TZ
               value: Asia/Shanghai

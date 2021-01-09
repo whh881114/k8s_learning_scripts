@@ -1,0 +1,59 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: elasticsearch-metricbeat-conf
+  namespace: elasticsearch
+data:
+  elasticsearch-xpack.yml: |
+    # Module: elasticsearch
+    # Docs: https://www.elastic.co/guide/en/beats/metricbeat/7.9/metricbeat-module-elasticsearch.html
+
+    - module: elasticsearch
+      xpack.enabled: true
+      period: 10s
+      hosts: ["http://elasticsearch-master-0.elasticsearch-master.elasticsearch.svc.cluster.local:9200", "http://elasticsearch-master-1.elasticsearch-master.elasticsearch.svc.cluster.local:9200", "http://elasticsearch-master-2.elasticsearch-master.elasticsearch.svc.cluster.local:9200", "http://elasticsearch-data-0.elasticsearch-data.elasticsearch.svc.cluster.local:9200", "http://elasticsearch-data-1.elasticsearch-data.elasticsearch.svc.cluster.local:9200", "http://elasticsearch-data-2.elasticsearch-data.elasticsearch.svc.cluster.local:9200", "http://elasticsearch-client-0.elasticsearch-client.elasticsearch.svc.cluster.local:9200"]
+      #username: "user"
+      #password: "secret"
+
+
+---
+kind: StatefulSet
+apiVersion: apps/v1
+metadata:
+  name: elasticsearch-metricbeat
+  namespace: elasticsearch
+  labels:
+    component: elasticsearch
+    role: metricbeat
+spec:
+  serviceName: elasticsearch-metricbeat
+  replicas: 1
+  selector:
+    matchLabels:
+      component: elasticsearch
+      role: metricbeat
+  template:
+    metadata:
+      labels:
+        component: elasticsearch
+        role: metricbeat
+    spec:
+      containers:
+        - name: elasticsearch-metricbeat
+          image: elastic/metricbeat:7.9.2
+          env:
+            - name: TZ
+              value: Asia/Shanghai
+          command: ["sh", "-c", "/usr/share/metricbeat/metricbeat -E setup.kibana.host=elasticsearch-kibana.elasticsearch.svc.cluster.local.:5601 -E output.elasticsearch.hosts=['elasticsearch-master.elasticsearch.svc.cluster.local.:9200']"]
+          volumeMounts:
+            - name: elasticsearch-metricbeat-conf
+              mountPath: /usr/share/metricbeat/modules.d/elasticsearch-xpack.yml
+              subPath: elasticsearch-xpack.yml
+              readOnly: true
+      volumes:
+        - name: elasticsearch-metricbeat-conf
+          configMap:
+            name: elasticsearch-metricbeat-conf
+
+
