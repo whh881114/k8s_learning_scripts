@@ -16,6 +16,10 @@ spec:
         name: zabbix-server
     spec:
       containers:
+        - name: zabbix-snmptraps
+          image: harbor.freedom.org/zabbix/zabbix-snmptraps:centos-4.0.17
+        - name: zabbix-java-gateway
+          image: harbor.freedom.org/zabbix/zabbix-java-gateway:centos-4.0.17
         - name: zabbix-agent
           image: harbor.freedom.org/zabbix/zabbix-agent:centos-4.0.17
           ports:
@@ -33,13 +37,6 @@ spec:
                 configMapKeyRef:
                   name: zabbix-server-vars
                   key: ZBX_SERVER_PORT
-#          volumeMounts:
-#            - name: zabbix-server-zabbix-agentd-d
-#              mountPath: /etc/zabbix/zabbix_agentd.d
-        - name: zabbix-snmptraps
-          image: harbor.freedom.org/zabbix/zabbix-snmptraps:centos-4.0.17
-        - name: zabbix-java-gateway
-          image: harbor.freedom.org/zabbix/zabbix-java-gateway:centos-4.0.17
         - name: zabbix-server
           image: harbor.freedom.org/zabbix/zabbix-server-mysql:centos-4.0.17
           resources:
@@ -136,14 +133,9 @@ spec:
             - name: zabbix-server-externalscripts
               mountPath: /usr/lib/zabbix/externalscripts
       volumes:
-#        - name: zabbix-server-zabbix-agentd-d
-#          persistentVolumeClaim:
-#            claimName: zabbix-server-zabbix-agentd-d
         - name: zabbix-server-alertscripts
           persistentVolumeClaim:
             claimName: zabbix-server-alertscripts
         - name: zabbix-server-externalscripts
           persistentVolumeClaim:
             claimName: zabbix-server-externalscripts
-#      nodeSelector:
-#        kubernetes.io/hostname: master.k8s.freedom.org

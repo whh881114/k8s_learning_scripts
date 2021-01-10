@@ -30,20 +30,3 @@ spec:
   resources:
     requests:
       storage: 1Gi
-
-#---
-#apiVersion: v1
-#kind: PersistentVolumeClaim
-#metadata:
-#  name: zabbix-server-zabbix-agentd-d
-#  namespace: zabbix
-#  labels:
-#    name: zabbix-server-zabbix-agentd-d
-#  annotations:
-#    volume.beta.kubernetes.io/storage-class: nfs-infra
-#spec:
-#  accessModes:
-#    - ReadWriteOnce
-#  resources:
-#    requests:
-#      storage: 1Gi
