@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: slave-1
-  namespace: mysql-master-slave
+  name: master
+  namespace: mysql
   labels:
-    name: slave-1
+    name: master
 spec:
-  serviceName: slave-1
+  serviceName: master
   replicas: 1
   selector:
     matchLabels:
-      name: slave-1
+      name: master
   template:
     metadata:
       labels:
-        name: slave-1
+        name: master
     spec:
       containers:
-        - name: slave-1
+        - name: master
           image: harbor.freedom.org/docker.io/mysql:5.7.29
           env:
             - name: TZ
@@ -25,7 +25,7 @@ spec:
             - name: MYSQL_ROOT_PASSWORD
               valueFrom:
                 configMapKeyRef:
-                  name: slave-1-vars
+                  name: master-vars
                   key: MYSQL_ROOT_PASSWORD
           ports:
             - containerPort: 3306
@@ -37,20 +37,20 @@ spec:
               cpu: 500m
               memory: 1024Mi
           volumeMounts:
-            - name: slave-1-data
+            - name: master-data
               mountPath: /var/lib/mysql
-            - name: slave-1-conf
+            - name: master-conf
               mountPath: /etc/mysql/conf.d
               readOnly: true
       volumes:
-        - name: slave-1-conf
+        - name: master-conf
           configMap:
-            name: slave-1-conf
+            name: master-conf
       nodeSelector:
-        kubernetes.io/hostname: worker01.k8s.freedom.org
+        kubernetes.io/hostname: master.k8s.freedom.org
   volumeClaimTemplates:
     - metadata:
-        name: slave-1-data
+        name: master-data
         annotations:
           volume.beta.kubernetes.io/storage-class: local-path
       spec:

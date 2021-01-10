@@ -1,14 +1,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: slave-1
-  namespace: mysql-master-slave
+  name: slave-2
+  namespace: mysql
   labels:
-    name: slave-1
+    name: slave-2
 spec:
   type: NodePort
   ports:
     - port: 3306        # 服务访问端口
       targetPort: 3306  # 容器端口
   selector:
-    name: slave-1
+    name: slave-2
