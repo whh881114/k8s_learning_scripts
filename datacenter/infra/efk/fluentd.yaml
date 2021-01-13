@@ -66,7 +66,7 @@ spec:
         effect: NoSchedule
       containers:
       - name: fluentd
-        image: fluent/fluentd-kubernetes-daemonset:v1.11.5-debian-elasticsearch7-1.2
+        image: harbor.freedom.org/fluent/fluentd-kubernetes-daemonset:v1.11.5-debian-elasticsearch7-1.2
         env:
           - name:  FLUENT_ELASTICSEARCH_HOST
             value: "elasticsearch-master.elasticsearch.svc.cluster.local."
@@ -88,6 +88,8 @@ spec:
           #  value: "elastic"
           #- name: FLUENT_ELASTICSEARCH_PASSWORD
           #  value: "changeme"
+          - name: FLUENTD_SYSTEMD_CONF
+            value: "disable"
         resources:
           limits:
             cpu: 1000m
