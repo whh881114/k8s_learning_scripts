@@ -128,3 +128,26 @@ spec:
     - name: transport
       port: 9300
       protocol: TCP
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: elasticsearch-master-nodeport
+  namespace: elasticsearch
+  labels:
+    component: elasticsearch
+    role: master
+spec:
+  type: NodePort
+  selector:
+    component: elasticsearch
+    role: master
+  ports:
+    - name: http
+      prot: 9200
+      protocol: TCP
+    - name: transport
+      port: 9300
+      protocol: TCP
