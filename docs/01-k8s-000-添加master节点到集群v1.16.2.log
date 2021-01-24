@@ -1,0 +1,134 @@
+[root@master02.k8s.freedom.org ~ 17:11]# 1>   kubeadm join 192.168.2.250:6443 --token 5cfvmx.00kdqk2zyayh24do \
+    --control-plane --certificate-key 1dee38e14d7ee5595502bd16802753611e36e4c40e0e969e0e096ecffb0875d4>     --discovery-token-ca-cert-hash sha256:aa3099577444d404be8713e65baddada764bd5609510ac8fc6b53b48d3229099 \
+>     --control-plane --certificate-key 1dee38e14d7ee5595502bd16802753611e36e4c40e0e969e0e096ecffb0875d4
+[preflight] Running pre-flight checks
+        [WARNING IsDockerSystemdCheck]: detected "cgroupfs" as the Docker cgroup driver. The recommended driver is "systemd". Please follow the guide at https://kubernetes.io/docs/setup/cri/
+[preflight] Reading configuration from the cluster...
+[preflight] FYI: You can look at this config file with 'kubectl -n kube-system get cm kubeadm-config -oyaml'
+[preflight] Running pre-flight checks before initializing the new control plane instance
+[preflight] Pulling images required for setting up a Kubernetes cluster
+[preflight] This might take a minute or two, depending on the speed of your internet connection
+[preflight] You can also perform this action in beforehand using 'kubeadm config images pull'
+[download-certs] Downloading the certificates in Secret "kubeadm-certs" in the "kube-system" Namespace
+[certs] Using certificateDir folder "/etc/kubernetes/pki"
+[certs] Generating "etcd/peer" certificate and key
+[certs] etcd/peer serving cert is signed for DNS names [master02.k8s.freedom.org localhost] and IPs [192.168.2.2 127.0.0.1 ::1]
+[certs] Generating "apiserver-etcd-client" certificate and key
+[certs] Generating "etcd/server" certificate and key
+[certs] etcd/server serving cert is signed for DNS names [master02.k8s.freedom.org localhost] and IPs [192.168.2.2 127.0.0.1 ::1]
+[certs] Generating "etcd/healthcheck-client" certificate and key
+[certs] Generating "apiserver" certificate and key
+[certs] apiserver serving cert is signed for DNS names [master02.k8s.freedom.org kubernetes kubernetes.default kubernetes.default.svc kubernetes.default.svc.cluster.local] and IPs [10.96.0.1 192.168.2.2 192.168.2.250]
+[certs] Generating "apiserver-kubelet-client" certificate and key
+[certs] Generating "front-proxy-client" certificate and key
+[certs] Valid certificates and keys now exist in "/etc/kubernetes/pki"
+[certs] Using the existing "sa" key
+[kubeconfig] Generating kubeconfig files
+[kubeconfig] Using kubeconfig folder "/etc/kubernetes"
+[kubeconfig] Writing "admin.conf" kubeconfig file
+[kubeconfig] Writing "controller-manager.conf" kubeconfig file
+[kubeconfig] Writing "scheduler.conf" kubeconfig file
+[control-plane] Using manifest folder "/etc/kubernetes/manifests"
+[control-plane] Creating static Pod manifest for "kube-apiserver"
+[control-plane] Creating static Pod manifest for "kube-controller-manager"
+[control-plane] Creating static Pod manifest for "kube-scheduler"
+[check-etcd] Checking that the etcd cluster is healthy
+[kubelet-start] Downloading configuration for the kubelet from the "kubelet-config-1.16" ConfigMap in the kube-system namespace
+[kubelet-start] Writing kubelet configuration to file "/var/lib/kubelet/config.yaml"
+[kubelet-start] Writing kubelet environment file with flags to file "/var/lib/kubelet/kubeadm-flags.env"
+[kubelet-start] Activating the kubelet service
+[kubelet-start] Waiting for the kubelet to perform the TLS Bootstrap...
+[etcd] Announced new etcd member joining to the existing etcd cluster
+[etcd] Creating static Pod manifest for "etcd"
+[etcd] Waiting for the new etcd member to join the cluster. This can take up to 40s
+{"level":"warn","ts":"2021-01-24T17:17:40.347+0800","caller":"clientv3/retry_interceptor.go:61","msg":"retrying of unary invoker failed","target":"passthrough:///https://192.168.2.2:2379","attempt":0,"error":"rpc error: code = DeadlineExceeded desc = context deadline exceeded"}
+[upload-config] Storing the configuration used in ConfigMap "kubeadm-config" in the "kube-system" Namespace
+[mark-control-plane] Marking the node master02.k8s.freedom.org as control-plane by adding the label "node-role.kubernetes.io/master=''"
+[mark-control-plane] Marking the node master02.k8s.freedom.org as control-plane by adding the taints [node-role.kubernetes.io/master:NoSchedule]
+
+This node has joined the cluster and a new control plane instance was created:
+
+* Certificate signing request was sent to apiserver and approval was received.
+* The Kubelet was informed of the new secure connection details.
+* Control plane (master) label and taint were applied to the new node.
+* The Kubernetes control plane instances scaled up.
+* A new etcd member was added to the local/stacked etcd cluster.
+
+To start administering your cluster from this node, you need to run the following as a regular user:
+
+        mkdir -p $HOME/.kube
+        sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+        sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+Run 'kubectl get nodes' to see this node join the cluster.
+
+[root@master02.k8s.freedom.org ~ 17:17]# 2>
+
+
+
+
+
+[root@master03.k8s.freedom.org ~ 17:19]# 1>   kubeadm join 192.168.2.250:6443 --token 5cfvmx.00kdqk2zyayh24do \
+>     --discovery-token-ca-cert-hash sha256:aa3099577444d404be8713e65baddada764bd5609510ac8fc6b53b48d3229099 \
+>     --control-plane --certificate-key 1dee38e14d7ee5595502bd16802753611e36e4c40e0e969e0e096ecffb0875d4
+[preflight] Running pre-flight checks
+        [WARNING IsDockerSystemdCheck]: detected "cgroupfs" as the Docker cgroup driver. The recommended driver is "systemd". Please follow the guide at https://kubernetes.io/docs/setup/cri/
+[preflight] Reading configuration from the cluster...
+[preflight] FYI: You can look at this config file with 'kubectl -n kube-system get cm kubeadm-config -oyaml'
+[preflight] Running pre-flight checks before initializing the new control plane instance
+[preflight] Pulling images required for setting up a Kubernetes cluster
+[preflight] This might take a minute or two, depending on the speed of your internet connection
+[preflight] You can also perform this action in beforehand using 'kubeadm config images pull'
+[download-certs] Downloading the certificates in Secret "kubeadm-certs" in the "kube-system" Namespace
+[certs] Using certificateDir folder "/etc/kubernetes/pki"
+[certs] Generating "apiserver" certificate and key
+[certs] apiserver serving cert is signed for DNS names [master03.k8s.freedom.org kubernetes kubernetes.default kubernetes.default.svc kubernetes.default.svc.cluster.local] and IPs [10.96.0.1 192.168.2.3 192.168.2.250]
+[certs] Generating "apiserver-kubelet-client" certificate and key
+[certs] Generating "front-proxy-client" certificate and key
+[certs] Generating "etcd/server" certificate and key
+[certs] etcd/server serving cert is signed for DNS names [master03.k8s.freedom.org localhost] and IPs [192.168.2.3 127.0.0.1 ::1]
+[certs] Generating "apiserver-etcd-client" certificate and key
+[certs] Generating "etcd/peer" certificate and key
+[certs] etcd/peer serving cert is signed for DNS names [master03.k8s.freedom.org localhost] and IPs [192.168.2.3 127.0.0.1 ::1]
+[certs] Generating "etcd/healthcheck-client" certificate and key
+[certs] Valid certificates and keys now exist in "/etc/kubernetes/pki"
+[certs] Using the existing "sa" key
+[kubeconfig] Generating kubeconfig files
+[kubeconfig] Using kubeconfig folder "/etc/kubernetes"
+[kubeconfig] Writing "admin.conf" kubeconfig file
+[kubeconfig] Writing "controller-manager.conf" kubeconfig file
+[kubeconfig] Writing "scheduler.conf" kubeconfig file
+[control-plane] Using manifest folder "/etc/kubernetes/manifests"
+[control-plane] Creating static Pod manifest for "kube-apiserver"
+[control-plane] Creating static Pod manifest for "kube-controller-manager"
+[control-plane] Creating static Pod manifest for "kube-scheduler"
+[check-etcd] Checking that the etcd cluster is healthy
+[kubelet-start] Downloading configuration for the kubelet from the "kubelet-config-1.16" ConfigMap in the kube-system namespace
+[kubelet-start] Writing kubelet configuration to file "/var/lib/kubelet/config.yaml"
+[kubelet-start] Writing kubelet environment file with flags to file "/var/lib/kubelet/kubeadm-flags.env"
+[kubelet-start] Activating the kubelet service
+[kubelet-start] Waiting for the kubelet to perform the TLS Bootstrap...
+[etcd] Announced new etcd member joining to the existing etcd cluster
+[etcd] Creating static Pod manifest for "etcd"
+[etcd] Waiting for the new etcd member to join the cluster. This can take up to 40s
+[upload-config] Storing the configuration used in ConfigMap "kubeadm-config" in the "kube-system" Namespace
+[mark-control-plane] Marking the node master03.k8s.freedom.org as control-plane by adding the label "node-role.kubernetes.io/master=''"
+[mark-control-plane] Marking the node master03.k8s.freedom.org as control-plane by adding the taints [node-role.kubernetes.io/master:NoSchedule]
+
+This node has joined the cluster and a new control plane instance was created:
+
+* Certificate signing request was sent to apiserver and approval was received.
+* The Kubelet was informed of the new secure connection details.
+* Control plane (master) label and taint were applied to the new node.
+* The Kubernetes control plane instances scaled up.
+* A new etcd member was added to the local/stacked etcd cluster.
+
+To start administering your cluster from this node, you need to run the following as a regular user:
+
+        mkdir -p $HOME/.kube
+        sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+        sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+Run 'kubectl get nodes' to see this node join the cluster.
+
+[root@master03.k8s.freedom.org ~ 17:20]# 2>
