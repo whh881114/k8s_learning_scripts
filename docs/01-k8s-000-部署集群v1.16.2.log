@@ -1,5 +1,7 @@
 [init] Using Kubernetes version: v1.16.2
 [preflight] Running pre-flight checks
+        [WARNING IsDockerSystemdCheck]: detected "cgroupfs" as the Docker cgroup driver. The recommended driver is "systemd". Please follow the guide at https://kubernetes.io/docs/setup/cri/
+        [WARNING SystemVerification]: this Docker version is not on the list of validated versions: 20.10.2. Latest validated version: 18.09
         [WARNING Service-Kubelet]: kubelet service is not enabled, please run 'systemctl enable kubelet.service'
 [preflight] Pulling images required for setting up a Kubernetes cluster
 [preflight] This might take a minute or two, depending on the speed of your internet connection
@@ -10,15 +12,15 @@
 [certs] Using certificateDir folder "/etc/kubernetes/pki"
 [certs] Generating "ca" certificate and key
 [certs] Generating "apiserver" certificate and key
-[certs] apiserver serving cert is signed for DNS names [master.k8s.example.com kubernetes kubernetes.default kubernetes.default.svc kubernetes.default.svc.cluster.local] and IPs [10.96.0.1 192.168.255.211]
+[certs] apiserver serving cert is signed for DNS names [master01.k8s.freedom.org kubernetes kubernetes.default kubernetes.default.svc kubernetes.default.svc.cluster.local] and IPs [10.96.0.1 192.168.2.1]
 [certs] Generating "apiserver-kubelet-client" certificate and key
 [certs] Generating "front-proxy-ca" certificate and key
 [certs] Generating "front-proxy-client" certificate and key
 [certs] Generating "etcd/ca" certificate and key
 [certs] Generating "etcd/server" certificate and key
-[certs] etcd/server serving cert is signed for DNS names [master.k8s.example.com localhost] and IPs [192.168.255.211 127.0.0.1 ::1]
+[certs] etcd/server serving cert is signed for DNS names [master01.k8s.freedom.org localhost] and IPs [192.168.2.1 127.0.0.1 ::1]
 [certs] Generating "etcd/peer" certificate and key
-[certs] etcd/peer serving cert is signed for DNS names [master.k8s.example.com localhost] and IPs [192.168.255.211 127.0.0.1 ::1]
+[certs] etcd/peer serving cert is signed for DNS names [master01.k8s.freedom.org localhost] and IPs [192.168.2.1 127.0.0.1 ::1]
 [certs] Generating "etcd/healthcheck-client" certificate and key
 [certs] Generating "apiserver-etcd-client" certificate and key
 [certs] Generating "sa" key and public key
@@ -33,13 +35,13 @@
 [control-plane] Creating static Pod manifest for "kube-scheduler"
 [etcd] Creating static Pod manifest for local etcd in "/etc/kubernetes/manifests"
 [wait-control-plane] Waiting for the kubelet to boot up the control plane as static Pods from directory "/etc/kubernetes/manifests". This can take up to 4m0s
-[apiclient] All control plane components are healthy after 22.170139 seconds
+[apiclient] All control plane components are healthy after 35.504453 seconds
 [upload-config] Storing the configuration used in ConfigMap "kubeadm-config" in the "kube-system" Namespace
 [kubelet] Creating a ConfigMap "kubelet-config-1.16" in namespace kube-system with the configuration for the kubelets in the cluster
 [upload-certs] Skipping phase. Please see --upload-certs
-[mark-control-plane] Marking the node master.k8s.example.com as control-plane by adding the label "node-role.kubernetes.io/master=''"
-[mark-control-plane] Marking the node master.k8s.example.com as control-plane by adding the taints [node-role.kubernetes.io/master:NoSchedule]
-[bootstrap-token] Using token: aipr2y.ldy5bd52q5v1e5it
+[mark-control-plane] Marking the node master01.k8s.freedom.org as control-plane by adding the label "node-role.kubernetes.io/master=''"
+[mark-control-plane] Marking the node master01.k8s.freedom.org as control-plane by adding the taints [node-role.kubernetes.io/master:NoSchedule]
+[bootstrap-token] Using token: o3vv6f.23sxxo682f9dsbwc
 [bootstrap-token] Configuring bootstrap tokens, cluster-info ConfigMap, RBAC Roles
 [bootstrap-token] configured RBAC rules to allow Node Bootstrap tokens to post CSRs in order for nodes to get long term certificate credentials
 [bootstrap-token] configured RBAC rules to allow the csrapprover controller automatically approve CSRs from a Node Bootstrap Token
@@ -62,5 +64,5 @@ Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
 
 Then you can join any number of worker nodes by running the following on each as root:
 
-kubeadm join 192.168.255.211:6443 --token aipr2y.ldy5bd52q5v1e5it \
-    --discovery-token-ca-cert-hash sha256:30a4a062e6ae37e1cb8217891d88912a9d763307bcf22f183ddda681344468ab
+kubeadm join 192.168.2.1:6443 --token o3vv6f.23sxxo682f9dsbwc \
+    --discovery-token-ca-cert-hash sha256:0151c52ebed53ddc630b35fbeb7a1f4b2c5e940e07a6340d6abc5fafdad15919
