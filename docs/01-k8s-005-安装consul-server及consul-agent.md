@@ -9,15 +9,14 @@
     ```shell
     kubectl create namespace consul
     
-    cd k8s-datacenter/production/consul
-    kubectl apply -f statefulset.yaml
-    kubectl apply -f service.yaml
+    cd datacenter/infra/consul/dc-k8s
+    kubectl apply -f consul-server-statefulset.yaml
+    kubectl apply -f consul-server-service.yaml
     ```
 
 - consul-agent安装
     ```shell
-    cd k8s-datacenter/production/consul
-    kubectl apply -f daemonset.yaml
+    kubectl apply -f consul-agent-daemonset.yaml
     ```
     
 ## 2. 导流（映射WEB服务）
