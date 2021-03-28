@@ -24,3 +24,5 @@
     vi values.yaml 
     helm install ingress-nginx . -n ingress-nginx
     ``` 
+
+- 回过头，去重新配置下haproxy负载均衡，配置80/443的tcp转发到ingress的nodePort端口。
