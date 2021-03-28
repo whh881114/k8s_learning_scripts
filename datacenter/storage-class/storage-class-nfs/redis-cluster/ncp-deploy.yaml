@@ -1,7 +1,7 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: nfs-redis
+  name: nfs-redis-cluster
   namespace: storage-class
 spec:
   replicas: 1
@@ -9,28 +9,28 @@ spec:
     type: Recreate
   selector:
     matchLabels:
-      app: nfs-redis
+      app: nfs-redis-cluster
   template:
     metadata:
       labels:
-        app: nfs-redis
+        app: nfs-redis-cluster
     spec:
-      serviceAccountName: nfs-redis
+      serviceAccountName: nfs-redis-cluster
       containers:
-        - name: nfs-redis
+        - name: nfs-redis-cluster
           image: harbor.freedom.org/quay.io/external_storage/nfs-client-provisioner:v3.1.0-k8s1.11
           volumeMounts:
             - name: nfs-client-root
               mountPath: /persistentvolumes
           env:
             - name: PROVISIONER_NAME
-              value: fuseim.pri/nfs-redis
+              value: fuseim.pri/nfs-redis-cluster
             - name: NFS_SERVER
               value: nfs.freedom.org
             - name: NFS_PATH
-              value: /data/k8s-nfs-pvc/redis
+              value: /data/k8s-nfs-pvc/redis-cluster
       volumes:
         - name: nfs-client-root
           nfs:
             server: nfs.freedom.org
-            path: /data/k8s-nfs-pvc/redis
+            path: /data/k8s-nfs-pvc/redis-cluster

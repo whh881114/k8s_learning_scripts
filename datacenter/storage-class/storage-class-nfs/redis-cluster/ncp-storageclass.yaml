@@ -1,6 +1,6 @@
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  name: nfs-redis
+  name: nfs-redis-cluster
   namespace: storage-class
-provisioner: fuseim.pri/nfs-redis
+provisioner: fuseim.pri/nfs-redis-cluster

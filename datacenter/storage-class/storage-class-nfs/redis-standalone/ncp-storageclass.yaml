@@ -1,0 +1,6 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: nfs-redis-standalone
+  namespace: storage-class
+provisioner: fuseim.pri/nfs-redis-standalone
