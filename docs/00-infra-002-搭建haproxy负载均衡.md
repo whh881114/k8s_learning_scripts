@@ -5,4 +5,5 @@
 
 ## 部署
 - `cd ansible_playbooks && ansible-playbook deploy-haproxy.yml`进行部署即可，所有的配置都在`002-biz-001-haproxy`此角色中。
-- 此时haproxy作为k8s集群的负载均衡地址，这里仅做tcp的转发，80/443转发到后端的nginx-ingress，6443转至后端master节点即可。
+- 配置k8s apiserver的tcp转发，将6443转至后端master节点即可。
+- 之后在k8s集群中安装好了ingress-nginx后，再配置80/443的tcp的转发。
