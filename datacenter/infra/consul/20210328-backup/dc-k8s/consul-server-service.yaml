@@ -1,0 +1,60 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: consul-server-k8s
+  namespace: consul
+  labels:
+    name: consul-server-k8s
+spec:
+  selector:
+    app: consul-server-k8s
+  type: NodePort
+  ports:
+    - name: http
+      port: 8500
+      targetPort: 8500
+      nodePort: 18091
+
+    - name: https
+      port: 8443
+      targetPort: 8443
+      nodePort: 19118
+
+    - name: rpc
+      port: 8400
+      targetPort: 8400
+      nodePort: 19008
+
+    - name: serflan-tcp
+      protocol: "TCP"
+      port: 8301
+      targetPort: 8301
+      nodePort: 27425
+
+    - name: serflan-udp
+      protocol: "UDP"
+      port: 8301
+      targetPort: 8301
+      nodePort: 27425
+
+    - name: serfwan-tcp
+      protocol: "TCP"
+      port: 8302
+      targetPort: 8302
+      nodePort: 39403
+
+    - name: serfwan-udp
+      protocol: "UDP"
+      port: 8302
+      targetPort: 8302
+      nodePort: 39403
+
+    - name: server
+      port: 8300
+      targetPort: 8300
+      nodePort: 1839
+
+    - name: consuldns
+      port: 8600
+      targetPort: 8600
+      nodePort: 52431
