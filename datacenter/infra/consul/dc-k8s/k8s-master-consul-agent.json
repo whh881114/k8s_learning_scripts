@@ -1,0 +1,12 @@
+{
+    "services": [
+        {
+            "name": "k8s-consul-agent",
+            "port": 8500
+        },
+        {
+            "name": "k8s-master",
+            "port": 6443
+        }
+    ]
+}

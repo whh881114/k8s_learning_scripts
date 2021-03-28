@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  labels:
+    daemonset: consul-agent
+  name: consul-agent
+  namespace: consul
+spec:
+  selector:
+    matchLabels:
+      daemonset: consul-agent
+  template:
+    metadata:
+      labels:
+        daemonset: consul-agent
+    spec:
+      containers:
+      - name: consul-agent
+        image: harbor.freedom.org/docker.io/consul:1.9.1
+        args:
+          - "agent"
+          - "-join=consul-server-k8s.$(NAMESPACE).svc.cluster.local." # 容器内部使用方式
+          - "-data-dir=/consul/data"
+          - "-config-dir=/consul/conf"
+          - "-log-level=info"
+          - "-log-rotate-duration=86400s"
+          - "-log-rotate-max-files=7"
+          - "-bind=0.0.0.0"
+          - "-client=0.0.0.0"
+          - "-advertise=$(PODIP)"
+          - "-domain=cluster.local"
+          - "-disable-host-node-id"
+          - "-datacenter=k8s"
+        env:
+          - name: TZ
+            value: Asia/Shanghai
+          - name: PODIP
+            valueFrom:
+              fieldRef:
+                fieldPath: status.podIP
+          - name: NAMESPACE
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.namespace
+        imagePullPolicy: IfNotPresent
+        resources:
+          limits:
+            cpu: 100m
+            memory: 128Mi
+          requests:
+            cpu: 50m
+            memory: 64Mi
+        volumeMounts:
+          - name: data
+            mountPath: /consul/data
+          - name: conf
+            mountPath: /consul/conf
+      volumes:
+        - name: data
+          hostPath:
+            path: /etc/consul-agent/data
+        - name: conf
+          hostPath:
+            path: /etc/consul-agent/conf
+      hostNetwork: true
+      dnsPolicy: ClusterFirstWithHostNet
