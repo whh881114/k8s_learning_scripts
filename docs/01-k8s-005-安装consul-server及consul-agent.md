@@ -7,7 +7,7 @@
 ## 1. 安装步骤
 - consul-server集群安装
     ```shell
-    kubectl create namespace production-consul
+    kubectl create namespace consul
     
     cd k8s-datacenter/production/consul
     kubectl apply -f statefulset.yaml
