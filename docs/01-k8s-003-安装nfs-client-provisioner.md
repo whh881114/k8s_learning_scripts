@@ -23,11 +23,11 @@
 - 创建所需名字空间：`kubectl create namespace nfs-client-provisioner`
 - 安装命令：
     ```
-    cd public-infra/nfs-client-provisioner
+    cd datacenter/storage-class/storage-class-nfs
     
-    kubectl apply -f cattle-prometheus/
-    kubectl apply -f efk/
-    kubectl apply -f laboratory/
-    kubectl apply -f public-infra/
+    kubectl apply -f infra/
+    kubectl apply -f mysql/
+    kubectl apply -f redis-cluster/
+    kubectl apply -f redis-standalone/
     ```
 - 查看pod状态：`kubectl get pods -o wide --all-namespaces`
