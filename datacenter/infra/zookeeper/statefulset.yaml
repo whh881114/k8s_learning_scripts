@@ -25,7 +25,7 @@ spec:
           command:
             - sh
             - -c
-            - /tmp/generate-myid.sh && zkServer.sh start-foreground #改写command参数，启动服务前生成myid文件。
+            - /root/generate-myid.sh && zkServer.sh start-foreground #改写command参数，启动服务前生成myid文件。
           ports:
             - name: client
               containerPort: 2181
@@ -51,7 +51,7 @@ spec:
             - name: zookeeper-conf
               mountPath: /conf
             - name: zookeeper-script
-              mountPath: /tmp
+              mountPath: /root
       volumes:
         - name: zookeeper-conf
           configMap:
