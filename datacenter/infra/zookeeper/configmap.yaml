@@ -12,9 +12,9 @@ data:
     dataDir=/data
     dataLogDir=/datalog
     clientPort=2181
-    server.1=zookeeper-0.zookeeper.zookeeper.svc.cluster.local:2888:3888
-    server.2=zookeeper-1.zookeeper.zookeeper.svc.cluster.local:2888:3888
-    server.3=zookeeper-2.zookeeper.zookeeper.svc.cluster.local:2888:3888
+    server.1=zookeeper-0.zookeeper.zookeeper.svc.cluster.local.:2888:3888
+    server.2=zookeeper-1.zookeeper.zookeeper.svc.cluster.local.:2888:3888
+    server.3=zookeeper-2.zookeeper.zookeeper.svc.cluster.local.:2888:3888
 
 ---
 apiVersion: v1
