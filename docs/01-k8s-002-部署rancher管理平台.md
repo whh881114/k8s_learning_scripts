@@ -14,7 +14,7 @@
     
 - 记录安装过程。
 
-    - rancher的域名为：rancher.k8s.freedom.org。
+    - rancher的域名为：rancher.ingress-nginx.freedom.org。
 
     - 命令：安装证书管理。
     ```
@@ -26,8 +26,8 @@
     
     helm upgrade --install cert-manager jetstack/cert-manager \
       --namespace cert-manager --version v0.15.2 \
-      --set http_proxy=http://rancher.k8s.freedom.org \
-      --set https_proxy=http://rancher.k8s.freedom.org \
+      --set http_proxy=http://rancher.ingress-nginx.freedom.org \
+      --set https_proxy=http://rancher.ingress-nginx.freedom.org \
       --set no_proxy=127.0.0.0/8\\,10.0.0.0/8\\,cattle-system.svc\\,172.16.0.0/12\\,192.168.0.0/16\\,.svc\\,.cluster.local
     ```
    
@@ -39,9 +39,9 @@
    
    helm upgrade --install rancher rancher-latest/rancher \
    --namespace cattle-system \
-   --set hostname=rancher.k8s.freedom.org \
-   --set proxy=http://rancher.k8s.freedom.org \
+   --set hostname=rancher.ingress-nginx.freedom.org \
+   --set proxy=http://rancher.ingress-nginx.freedom.org \
    --set no_proxy=127.0.0.0/8\\,10.0.0.0/8\\,cattle-system.svc\\,172.16.0.0/12\\,192.168.0.0/16\\,.svc\\,.cluster.local
    ```
    
-   - 访问：本地配置好hosts记录，然后访问https://rancher.k8s.freedom.org。
+   - 访问：本地配置好hosts记录，然后访问https://rancher.ingress-nginx.freedom.org。
