@@ -2,23 +2,40 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: zookeeper
+  name: zookeeper-nodeport
   namespace: zookeeper
 spec:
   type: NodePort
-  clusterIP: 10.109.45.71
   ports:
     - name: client
       port: 2181
       targetPort: 2181
-      nodePort: 1135
     - name: server
       port: 2888
       targetPort: 2888
-      nodePort: 25921
     - name: leader-election
       port: 3888
       targetPort: 3888
-      nodePort: 18083
+  selector:
+    k8s-app: zookeeper
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: zookeeper-clusterip
+  namespace: zookeeper
+spec:
+  type: ClusterIP
+  ports:
+    - name: client
+      port: 2181
+      targetPort: 2181
+    - name: server
+      port: 2888
+      targetPort: 2888
+    - name: leader-election
+      port: 3888
+      targetPort: 3888
   selector:
     k8s-app: zookeeper
