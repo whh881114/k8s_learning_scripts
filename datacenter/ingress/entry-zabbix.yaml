@@ -7,7 +7,7 @@ metadata:
     kubernetes.io/ingress.class: "nginx"
 spec:
   rules:
-    - host: zabbix.k8s.freedom.org
+    - host: zabbix.ingress-nginx.freedom.org
       http:
         paths:
         - path: /

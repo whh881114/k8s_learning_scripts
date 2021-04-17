@@ -7,7 +7,7 @@ metadata:
     kubernetes.io/ingress.class: "nginx"
 spec:
   rules:
-    - host: grafana.k8s.freedom.org
+    - host: grafana.ingress-nginx.freedom.org
       http:
         paths:
         - path: /
