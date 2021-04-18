@@ -1,59 +1,59 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: consul-server-vm
+  name: consul-server-bj
   namespace: consul
   labels:
-    name: consul-server-vm
+    name: consul-server-bj
 spec:
   selector:
-    app: consul-server-vm
+    app: consul-server-bj
   type: NodePort
   ports:
     - name: http
       port: 8500
       targetPort: 8500
-      nodePort: 29133
+      nodePort: 32000
 
     - name: https
       port: 8443
       targetPort: 8443
-      nodePort: 50632
+      nodePort: 32001
 
     - name: rpc
       port: 8400
       targetPort: 8400
-      nodePort: 26005
+      nodePort: 32002
 
     - name: serflan-tcp
       protocol: "TCP"
       port: 8301
-      nodePort: 17319
+      nodePort: 32003
 
     - name: serflan-udp
       protocol: "UDP"
       port: 8301
       targetPort: 8301
-      nodePort: 17319
+      nodePort: 32003
 
     - name: serfwan-tcp
       protocol: "TCP"
       port: 8302
       targetPort: 8302
-      nodePort: 17819
+      nodePort: 32004
 
     - name: serfwan-udp
       protocol: "UDP"
       port: 8302
       targetPort: 8302
-      nodePort: 17819
+      nodePort: 32004
 
     - name: server
       port: 8300
       targetPort: 8300
-      nodePort: 52372
+      nodePort: 32005
 
     - name: consuldns
       port: 8600
       targetPort: 8600
-      nodePort: 64474
+      nodePort: 32006

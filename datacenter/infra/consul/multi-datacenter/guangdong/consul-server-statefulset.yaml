@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: consul-server-k8s
+  name: consul-server-gd
   namespace: consul
 spec:
-  serviceName: consul-server-k8s
+  serviceName: consul-server-gd
   selector:
     matchLabels:
-      app: consul-server-k8s
+      app: consul-server-gd
   replicas: 3
   template:
     metadata:
       labels:
-        app: consul-server-k8s
+        app: consul-server-gd
     spec:
       terminationGracePeriodSeconds: 10
       containers:
@@ -30,11 +30,11 @@ spec:
                - "-log-rotate-max-files=7"
                - "-bind=0.0.0.0"
                - "-client=0.0.0.0"
-               - "-datacenter=k8s"
+               - "-datacenter=guangdong"
                - "-advertise=$(PODIP)"
-               - "-retry-join=consul-server-k8s-0.consul-server-k8s.$(NAMESPACE).svc.cluster.local"
-               - "-retry-join=consul-server-k8s-1.consul-server-k8s.$(NAMESPACE).svc.cluster.local"
-               - "-retry-join=consul-server-k8s-2.consul-server-k8s.$(NAMESPACE).svc.cluster.local"
+               - "-retry-join=consul-server-gd-0.consul-server-gd.$(NAMESPACE).svc.cluster.local"
+               - "-retry-join=consul-server-gd-1.consul-server-gd.$(NAMESPACE).svc.cluster.local"
+               - "-retry-join=consul-server-gd-2.consul-server-gd.$(NAMESPACE).svc.cluster.local"
                - "-domain=cluster.local"
                - "-disable-host-node-id"
           env:

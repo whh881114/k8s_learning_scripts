@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: consul-server-k8s
+  name: consul-server
   namespace: consul
   labels:
-    name: consul-server-k8s
+    name: consul-server
 spec:
   selector:
-    app: consul-server-k8s
+    app: consul-server
   type: NodePort
   ports:
     - name: http

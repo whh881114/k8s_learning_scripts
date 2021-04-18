@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: consul-server-vm
+  name: consul-server
   namespace: consul
 spec:
-  serviceName: consul-server-vm
+  serviceName: consul-server
   selector:
     matchLabels:
-      app: consul-server-vm
+      app: consul-server
   replicas: 3
   template:
     metadata:
       labels:
-        app: consul-server-vm
+        app: consul-server
     spec:
       terminationGracePeriodSeconds: 10
       containers:
-        - name: consul-server-vm
+        - name: consul-server
           image: harbor.freedom.org/docker.io/consul:1.9.1
           args:
                - "agent"
@@ -30,14 +30,11 @@ spec:
                - "-log-rotate-max-files=7"
                - "-bind=0.0.0.0"
                - "-client=0.0.0.0"
-               - "-datacenter=vm"
+               - "-datacenter=k8s"
                - "-advertise=$(PODIP)"
-               - "-retry-join=consul-server-vm-0.consul-server-vm.$(NAMESPACE).svc.cluster.local"
-               - "-retry-join=consul-server-vm-1.consul-server-vm.$(NAMESPACE).svc.cluster.local"
-               - "-retry-join=consul-server-vm-2.consul-server-vm.$(NAMESPACE).svc.cluster.local"
-               - "-retry-join-wan=consul-server-k8s-0.consul-server-k8s.$(NAMESPACE).svc.cluster.local"   # -retry-join-wan 多数据中心选项
-               - "-retry-join-wan=consul-server-k8s-1.consul-server-k8s.$(NAMESPACE).svc.cluster.local"
-               - "-retry-join-wan=consul-server-k8s-2.consul-server-k8s.$(NAMESPACE).svc.cluster.local"
+               - "-retry-join=consul-server-0.consul-server.$(NAMESPACE).svc.cluster.local"
+               - "-retry-join=consul-server-1.consul-server.$(NAMESPACE).svc.cluster.local"
+               - "-retry-join=consul-server-2.consul-server.$(NAMESPACE).svc.cluster.local"
                - "-domain=cluster.local"
                - "-disable-host-node-id"
           env:
