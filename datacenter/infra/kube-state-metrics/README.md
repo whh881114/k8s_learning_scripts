@@ -1,2 +1,3 @@
 - 官方地址：https://github.com/kubernetes/kube-state-metrics/tree/master/examples/standard
 - 修改配置文件中的镜像地址：harbor.freedom.org/quay.io/coreos/kube-state-metrics:v2.0.0-rc.0
+- 为了在集群外部署prometheus集群，需要参考`ansible_playbooks`仓库中的笔记。
