@@ -7,6 +7,10 @@
         {
             "name": "k8s-worker",
             "port": 10250
+        },
+        {
+            "name": "node-exporter",
+            "port": 9100
         }
     ]
 }

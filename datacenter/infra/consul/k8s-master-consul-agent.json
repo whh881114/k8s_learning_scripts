@@ -7,6 +7,10 @@
         {
             "name": "k8s-master",
             "port": 6443
+        },
+        {
+            "name": "node-exporter",
+            "port": 9100
         }
     ]
 }
