@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   name: node-exporter
-  namespace: prometheus
+  namespace: node-exporter
   labels:
     k8s-app: node-exporter
     kubernetes.io/cluster-service: "true"
@@ -22,7 +22,7 @@ spec:
         version: master
     spec:
       containers:
-        - name: prometheus-node-exporter
+        - name: node-exporter
           image: "harbor.freedom.org/prom/node-exporter:master"
           imagePullPolicy: "IfNotPresent"
           env:
