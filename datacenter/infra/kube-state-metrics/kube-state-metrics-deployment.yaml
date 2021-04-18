@@ -5,7 +5,7 @@ metadata:
     app.kubernetes.io/name: kube-state-metrics
     app.kubernetes.io/version: 2.0.0-alpha.3
   name: kube-state-metrics
-  namespace: prometheus
+  namespace: kube-system
 spec:
   replicas: 1
   selector:
@@ -18,7 +18,7 @@ spec:
         app.kubernetes.io/version: 2.0.0-alpha.3
     spec:
       containers:
-      - image: harbor.freedom.org/quay.io/coreos/kube-state-metrics:v2.0.0-alpha.3
+      - image: harbor.freedom.org/quay.io/coreos/kube-state-metrics:v2.0.0-rc.0
         env:
           - name: TZ
             value: Asia/Shanghai
