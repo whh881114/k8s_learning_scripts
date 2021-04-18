@@ -21,6 +21,10 @@ rules:
   - persistentvolumes
   - namespaces
   - endpoints
+  - nodes/proxy
+  - services/proxy
+  - endpoints/proxy
+  - pods/proxy
   verbs:
   - list
   - watch
