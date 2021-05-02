@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: alertmanager
-  namespace: kube-system
+  namespace: prometheus
   labels:
     k8s-app: alertmanager
     kubernetes.io/cluster-service: "true"
@@ -23,8 +23,8 @@ spec:
       priorityClassName: system-cluster-critical
       containers:
         - name: prometheus-alertmanager
-          image: "prom/alertmanager:v0.14.0"
-          imagePullPolicy: "IfNotPresent"
+          image: "docker pull harbor.freedom.org/docker.io/prom/alertmanager:master"
+          imagePullPolicy: "Always"
           env:
             - name: TZ
               value: Asia/Shanghai
