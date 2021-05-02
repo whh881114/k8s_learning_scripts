@@ -31,7 +31,7 @@ spec:
           args:
             - --config.file=/etc/config/alertmanager.yml
             - --storage.path=/data
-            - --web.external-url=/
+            # - --web.external-url=/
           ports:
             - containerPort: 9093
           readinessProbe:
@@ -48,8 +48,8 @@ spec:
               subPath: ""
           resources:
             limits:
-              cpu: 10m
-              memory: 50Mi
+              cpu: 1000m
+              memory: 2048Mi
             requests:
               cpu: 10m
               memory: 50Mi
@@ -65,11 +65,11 @@ spec:
               readOnly: true
           resources:
             limits:
-              cpu: 10m
-              memory: 10Mi
+              cpu: 100m
+              memory: 128Mi
             requests:
-              cpu: 10m
-              memory: 10Mi
+              cpu: 50m
+              memory: 64Mi
       volumes:
         - name: config-volume
           configMap:
