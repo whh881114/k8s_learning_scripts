@@ -8,11 +8,29 @@ metadata:
     addonmanager.kubernetes.io/mode: EnsureExists
 data:
   alertmanager.yml: |
-    global: null
-    receivers:
-    - name: default-receiver
+    global:
+      resolve_timeout: 5m
+      smtp_smarthost: "smtp.163.com:465"
+      smtp_from: "roy_wong_20210324@163.com"
+      smtp_auth_username: "roy_wong_20210324@163.com"
+      smtp_auth_password: "Iam1234567890."
+      smtp_require_tls: false
+
     route:
-      group_interval: 5m
+      group_by: ["alertname"]
       group_wait: 10s
-      receiver: default-receiver
-      repeat_interval: 3h
+      group_interval: 10s
+      repeat_interval: 1h
+      receiver: "email"
+
+    receivers:
+      - name: "email"
+        email_configs:
+          - to: "roy_wong_20210324@163.com"
+
+    inhibit_rules:
+      - source_match:
+          severity: "critical"
+        target_match:
+          severity: "warning"
+        equal: ['alertname', 'dev', 'instance']
