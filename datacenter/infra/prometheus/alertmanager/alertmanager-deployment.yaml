@@ -23,7 +23,7 @@ spec:
       priorityClassName: system-cluster-critical
       containers:
         - name: prometheus-alertmanager
-          image: "docker pull harbor.freedom.org/docker.io/prom/alertmanager:master"
+          image: "harbor.freedom.org/docker.io/prom/alertmanager:master"
           imagePullPolicy: "Always"
           env:
             - name: TZ
