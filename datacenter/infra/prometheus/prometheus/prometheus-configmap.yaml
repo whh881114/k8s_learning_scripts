@@ -167,7 +167,9 @@ data:
     - job_name: 'kubernetes-nodes'
       static_configs:
         - targets:
-          - master.k8s.freedom.org:9100
+          - master01.k8s.freedom.org:9100
+          - master02.k8s.freedom.org:9100
+          - master03.k8s.freedom.org:9100
           - worker01.k8s.freedom.org:9100
           - worker02.k8s.freedom.org:9100
           - worker03.k8s.freedom.org:9100
