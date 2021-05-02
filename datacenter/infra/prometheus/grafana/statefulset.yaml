@@ -2,7 +2,7 @@ kind: StatefulSet
 apiVersion: apps/v1
 metadata:
   name: grafana
-  namespace: grafana
+  namespace: prometheus
   labels:
     name: grafana
 spec:
