@@ -34,7 +34,7 @@ spec:
           subPath: ""
       containers:
         - name: prometheus-server
-          image: "harbor.freedom.org/prom/prometheus:v2.15.2"
+          image: "harbor.freedom.org/docker.io/prom/prometheus:v2.25.2"
           imagePullPolicy: "IfNotPresent"
           env:
             - name: TZ
