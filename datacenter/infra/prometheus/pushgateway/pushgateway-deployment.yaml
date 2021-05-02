@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pushgateway
+  namespace: prometheus
+  labels:
+    k8s-app: pushgateway
+    kubernetes.io/cluster-service: "true"
+    addonmanager.kubernetes.io/mode: Reconcile
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      k8s-app: pushgateway
+  template:
+    metadata:
+      labels:
+        k8s-app: pushgateway
+    spec:
+      priorityClassName: system-cluster-critical
+      containers:
+        - name: prometheus-pushgateway
+          image: "harbor.freedom.org/docker.io/prom/pushgateway:master"
+          imagePullPolicy: "Always"
+          env:
+            - name: TZ
+              value: Asia/Shanghai
+          ports:
+            - containerPort: 9091
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 9091
+            initialDelaySeconds: 30
+            timeoutSeconds: 30
+          resources:
+            limits:
+              cpu: 1000m
+              memory: 2048Mi
+            requests:
+              cpu: 10m
+              memory: 50Mi

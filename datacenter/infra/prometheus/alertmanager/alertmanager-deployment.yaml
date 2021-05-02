@@ -22,7 +22,7 @@ spec:
     spec:
       priorityClassName: system-cluster-critical
       containers:
-        - name: prometheus-alertmanager
+        - name: alertmanager
           image: "harbor.freedom.org/docker.io/prom/alertmanager:master"
           imagePullPolicy: "Always"
           env:
@@ -30,8 +30,7 @@ spec:
               value: Asia/Shanghai
           args:
             - --config.file=/etc/config/alertmanager.yml
-            - --storage.path=/data
-            # - --web.external-url=/
+            - --storage.path=/alertmanager
           ports:
             - containerPort: 9093
           readinessProbe:
@@ -44,8 +43,7 @@ spec:
             - name: config-volume
               mountPath: /etc/config
             - name: storage-volume
-              mountPath: "/data"
-              subPath: ""
+              mountPath: "/alertmanager"
           resources:
             limits:
               cpu: 1000m
@@ -53,23 +51,6 @@ spec:
             requests:
               cpu: 10m
               memory: 50Mi
-        - name: prometheus-alertmanager-configmap-reload
-          image: "jimmidyson/configmap-reload:v0.1"
-          imagePullPolicy: "IfNotPresent"
-          args:
-            - --volume-dir=/etc/config
-            - --webhook-url=http://localhost:9093/-/reload
-          volumeMounts:
-            - name: config-volume
-              mountPath: /etc/config
-              readOnly: true
-          resources:
-            limits:
-              cpu: 100m
-              memory: 128Mi
-            requests:
-              cpu: 50m
-              memory: 64Mi
       volumes:
         - name: config-volume
           configMap:
