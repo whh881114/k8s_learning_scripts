@@ -45,8 +45,7 @@ data:
           - targets:
             - pushgateway:9091
 
-
-      # 自动发现配置
+      # consul自动发现配置
       - job_name: consul_sd_node_exporter
         consul_sd_configs:
           - server: http://consul.ingress-nginx.freedom.org
@@ -57,7 +56,7 @@ data:
               - __meta_consul_node
             target_label: hostname
 
-      # 从istio-1.9.4中copy出来的配置
+      # k8s自动发现配置：https://blog.51cto.com/u_14143894/2438026
       - bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
         job_name: kubernetes-apiservers
         kubernetes_sd_configs:
