@@ -7,7 +7,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: zookeeper
-  namespace: zookeeper
+  namespace: infra
 spec:
   serviceName: zookeeper
   replicas: 3
@@ -46,8 +46,6 @@ spec:
           volumeMounts:
             - name: zookeeper-data
               mountPath: /data
-            - name: zookeeper-datalog
-              mountPath: /datalog
             - name: zookeeper-conf
               mountPath: /conf
             - name: zookeeper-script
@@ -70,12 +68,3 @@ spec:
         resources:
           requests:
             storage: 10Gi
-    - metadata:
-        name: zookeeper-datalog
-        annotations:
-          volume.beta.kubernetes.io/storage-class: nfs-infra
-      spec:
-        accessModes: ["ReadWriteOnce"]
-        resources:
-          requests:
-            storage: 5Gi
