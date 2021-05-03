@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: redis-standalone-common
+  name: common
   namespace: redis-standalone
 data:
   redis.conf: |

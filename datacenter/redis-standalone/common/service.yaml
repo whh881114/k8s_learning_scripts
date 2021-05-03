@@ -2,16 +2,15 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: redis-standalone-common
+  name: common
   namespace: redis-standalone
   labels:
-    name: redis-standalone-common
+    name: common
 spec:
   type: NodePort
   clusterIP: 10.97.72.57
   ports:
     - port: 6379        # 服务访问端口
       targetPort: 6379  # 容器端口
-      nodePort: 32652
   selector:
-    name: redis-standalone-common
+    name: common

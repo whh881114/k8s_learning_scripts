@@ -2,20 +2,20 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: redis-standalone-common
+  name: common
   namespace: redis-standalone
   labels:
-    name: redis-standalone-common
+    name: common
 spec:
-  serviceName: redis-standalone-common
+  serviceName: common
   replicas: 1
   selector:
     matchLabels:
-      name: redis-standalone-common
+      name: common
   template:
     metadata:
       labels:
-        name: redis-standalone-common
+        name: common
     spec:
       initContainers:
         - name: sysctl
@@ -33,7 +33,7 @@ spec:
             - name: host-sys
               mountPath: /host-sys
       containers:
-        - name: redis-standalone-common
+        - name: common
           image: harbor.freedom.org/docker.io/redis:5.0.7
           env:
             - name: TZ
@@ -58,7 +58,7 @@ spec:
       volumes:
         - name: conf
           configMap:
-            name: redis-standalone-common
+            name: common
         - name: host-sys
           hostPath:
             path: /sys
@@ -66,7 +66,7 @@ spec:
     - metadata:
         name: data
         annotations:
-          volume.beta.kubernetes.io/storage-class: nfs-redis
+          volume.beta.kubernetes.io/storage-class: nfs-redis-standalone
       spec:
         accessModes: ["ReadWriteOnce"]
         resources:
