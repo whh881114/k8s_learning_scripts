@@ -2,18 +2,18 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: redis-cluster-common
+  name: common
   namespace: redis-cluster
 spec:
-  serviceName: redis-cluster-common
+  serviceName: common
   replicas: 6
   selector:
     matchLabels:
-      app: redis-cluster-common
+      app: common
   template:
     metadata:
       labels:
-        app: redis-cluster-common
+        app: common
     spec:
       initContainers:
         - name: sysctl
@@ -31,7 +31,7 @@ spec:
             - name: host-sys
               mountPath: /host-sys
       containers:
-        - name: redis-cluster-common
+        - name: common
           image: harbor.freedom.org/docker.io/redis:5.0.7
           ports:
             - containerPort: 6379
@@ -55,15 +55,15 @@ spec:
               readOnly: false
           resources:
             limits:
-              cpu: 500m
-              memory: 1024Mi
+              cpu: 2000m
+              memory: 4096Mi
             requests:
               cpu: 100m
               memory: 64Mi
       volumes:
         - name: conf
           configMap:
-            name: redis-cluster-common
+            name: common
             defaultMode: 0755
         - name: host-sys
           hostPath:
@@ -72,9 +72,9 @@ spec:
     - metadata:
         name: data
         annotations:
-          volume.beta.kubernetes.io/storage-class: nfs-redis
+          volume.beta.kubernetes.io/storage-class: nfs-redis-cluster
       spec:
         accessModes: ["ReadWriteOnce"]
         resources:
           requests:
-            storage: 2Gi
+            storage: 10Gi
