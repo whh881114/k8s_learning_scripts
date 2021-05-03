@@ -1,0 +1,49 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: jenkins
+  namespace: infra
+spec:
+  serviceName: jenkins
+  replicas: 1
+  selector:
+    matchLabels:
+      k8s-app: jenkins
+  template:
+    metadata:
+      labels:
+        k8s-app: jenkins
+    spec:
+      containers:
+        - name: jenkins
+          image: harbor.freedom.org/docker.io/jenkins/jenkins:2.277.3-lts-centos7
+          imagePullPolicy: Always
+          ports:
+            - name: tcp8080
+              containerPort: 8080
+            - name: tcp50000
+              containerPort: 50000
+          env:
+            - name: TZ
+              value: Asia/Shanghai
+          resources:
+            limits:
+              cpu: 2000m
+              memory: 4096Mi
+            requests:
+              cpu: 1000m
+              memory: 1024Mi
+          volumeMounts:
+            - name: jenkins-data
+              mountPath: /var/jenkins_home
+  volumeClaimTemplates:
+    - metadata:
+        name: jenkins-data
+        annotations:
+          volume.beta.kubernetes.io/storage-class: nfs-infra
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 50Gi

@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: jenkins
+  namespace: infra
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+    - host: jenkins.ingress-nginx.freedom.org
+      http:
+        paths:
+        - path: /
+          backend:
+            serviceName: jenkins
+            servicePort: 8080
