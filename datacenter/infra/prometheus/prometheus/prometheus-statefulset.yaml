@@ -22,7 +22,7 @@ spec:
       labels:
         k8s-app: prometheus
     spec:
-      serviceAccountName: prometheus
+      serviceAccountName: prometheus-k8s
       initContainers:
       - name: "init-chown-data"
         image: "harbor.freedom.org/docker.io/busybox:1.31.1"
@@ -69,7 +69,8 @@ spec:
               memory: 256Mi
           volumeMounts:
             - name: config-volume
-              mountPath: /etc/config
+              mountPath: /etc/config/prometheus.yml
+              subPath: prometheus.yml
             - name: prometheus-data
               mountPath: /data
               subPath: ""

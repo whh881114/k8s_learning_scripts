@@ -1,8 +1,8 @@
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: prometheus
-  namespace: default
+  name: prometheus-k8s
+  namespace: prometheus
   labels:
     kubernetes.io/cluster-service: "true"
     addonmanager.kubernetes.io/mode: Reconcile
@@ -12,7 +12,7 @@ metadata:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: prometheus
+  name: prometheus-k8s
   labels:
     kubernetes.io/cluster-service: "true"
     addonmanager.kubernetes.io/mode: Reconcile
@@ -22,6 +22,7 @@ rules:
     resources:    # resources定义的是资源，像nodes/services/endpoints/pods，后面的proxy也要授权，重中之中。
       - nodes
       - nodes/proxy
+      - nodes/metrics
       - services
       - services/proxy
       - endpoints
@@ -48,15 +49,15 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: prometheus
+  name: prometheus-k8s
   labels:
     kubernetes.io/cluster-service: "true"
     addonmanager.kubernetes.io/mode: Reconcile
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: prometheus
+  name: prometheus-k8s
 subjects:
 - kind: ServiceAccount
-  name: prometheus
-  namespace: default
+  name: prometheus-k8s
+  namespace: prometheus

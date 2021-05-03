@@ -56,109 +56,47 @@ data:
               - __meta_consul_node
             target_label: hostname
 
-      # k8s自动发现配置：https://github.com/prometheus/prometheus/blob/release-2.25/documentation/examples/prometheus-kubernetes.yml
-      - job_name: 'kubernetes-apiservers'
+      # k8s自动发现配置：
+      # https://github.com/prometheus/prometheus/blob/release-2.25/documentation/examples/prometheus-kubernetes.yml
+      # https://blog.51cto.com/u_14143894/2438026
+      - job_name: kubernetes-apiservers
         kubernetes_sd_configs:
         - role: endpoints
-        scheme: https
-        tls_config:
-          ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
-          insecure_skip_verify: true
-        bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
         relabel_configs:
-        - source_labels: [__meta_kubernetes_namespace, __meta_kubernetes_service_name, __meta_kubernetes_endpoint_port_name]
-          action: keep
+        - action: keep
           regex: default;kubernetes;https
-
-      - job_name: 'kubernetes-nodes'
+          source_labels:
+          - __meta_kubernetes_namespace
+          - __meta_kubernetes_service_name
+          - __meta_kubernetes_endpoint_port_name
         scheme: https
         tls_config:
           ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
           insecure_skip_verify: true
         bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+
+      - job_name: kubernetes-nodes-kubelet
         kubernetes_sd_configs:
         - role: node
         relabel_configs:
         - action: labelmap
           regex: __meta_kubernetes_node_label_(.+)
-
-      - job_name: 'kubernetes-cadvisor'
         scheme: https
-        metrics_path: /metrics/cadvisor
         tls_config:
           ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
           insecure_skip_verify: true
         bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+
+      - job_name: kubernetes-nodes-cadvisor
         kubernetes_sd_configs:
         - role: node
         relabel_configs:
         - action: labelmap
           regex: __meta_kubernetes_node_label_(.+)
-
-      - job_name: 'kubernetes-service-endpoints'
-        kubernetes_sd_configs:
-        - role: endpoints
-        relabel_configs:
-        - action: labelmap
-          regex: __meta_kubernetes_service_label_(.+)
-        - source_labels: [__meta_kubernetes_namespace]
-          action: replace
-          target_label: kubernetes_namespace
-        - source_labels: [__meta_kubernetes_service_name]
-          action: replace
-          target_label: kubernetes_name
-
-      - job_name: 'kubernetes-services'
-        metrics_path: /probe
-        params:
-          module: [http_2xx]
-        kubernetes_sd_configs:
-        - role: service
-        relabel_configs:
-        - source_labels: [__address__]
-          target_label: __param_target
-        - target_label: __address__
-          replacement: blackbox-exporter.example.com:9115
-        - source_labels: [__param_target]
-          target_label: instance
-        - action: labelmap
-          regex: __meta_kubernetes_service_label_(.+)
-        - source_labels: [__meta_kubernetes_namespace]
-          target_label: kubernetes_namespace
-        - source_labels: [__meta_kubernetes_service_name]
-          target_label: kubernetes_name
-
-      - job_name: 'kubernetes-ingresses'
-        metrics_path: /probe
-        params:
-          module: [http_2xx]
-        kubernetes_sd_configs:
-        - role: ingress
-        relabel_configs:
-        - source_labels: [__meta_kubernetes_ingress_scheme,__address__,__meta_kubernetes_ingress_path]
-          regex: (.+);(.+);(.+)
-          replacement: ${1}://${2}${3}
-          target_label: __param_target
-        - target_label: __address__
-          replacement: blackbox-exporter.example.com:9115
-        - source_labels: [__param_target]
-          target_label: instance
-        - action: labelmap
-          regex: __meta_kubernetes_ingress_label_(.+)
-        - source_labels: [__meta_kubernetes_namespace]
-          target_label: kubernetes_namespace
-        - source_labels: [__meta_kubernetes_ingress_name]
-          target_label: kubernetes_name
-
-      - job_name: 'kubernetes-pods'
-        kubernetes_sd_configs:
-        - role: pod
-        relabel_configs:
-        - action: labelmap
-          regex: __meta_kubernetes_pod_label_(.+)
-        - source_labels: [__meta_kubernetes_namespace]
-          action: replace
-          target_label: kubernetes_namespace
-        - source_labels: [__meta_kubernetes_pod_name]
-          action: replace
-          target_label: kubernetes_pod_name
+        - target_label: __metrics_path__
+          replacement: /metrics/cadvisor
+        scheme: https
+        tls_config:
+          ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+          insecure_skip_verify: true
+        bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
