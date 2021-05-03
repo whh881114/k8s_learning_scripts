@@ -29,7 +29,6 @@ spec:
     - name: kibana
       port: 5601
       protocol: TCP
-      nodePort: 62732
 
 
 ---

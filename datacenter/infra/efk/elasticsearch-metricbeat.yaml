@@ -41,7 +41,7 @@ spec:
     spec:
       containers:
         - name: elasticsearch-metricbeat
-          image: elastic/metricbeat:7.9.2
+          image: harbor.freedom.org/elastic/metricbeat:7.9.2
           env:
             - name: TZ
               value: Asia/Shanghai

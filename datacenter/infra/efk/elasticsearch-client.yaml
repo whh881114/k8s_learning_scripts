@@ -60,7 +60,7 @@ spec:
           privileged: true
       containers:
       - name: elasticsearch-client
-        image: elastic/elasticsearch:7.9.2
+        image: harbor.freedom.org/elastic/elasticsearch:7.9.2
         env:
           - name: TZ
             value: Asia/Shanghai
