@@ -3,7 +3,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: jenkins-nodeport
-  namespace: infra
+  namespace: jenkins
 spec:
   type: NodePort
   ports:
@@ -21,7 +21,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: jenkins-clusterip
-  namespace: infra
+  namespace: jenkins
 spec:
   type: ClusterIP
   ports:
@@ -39,7 +39,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: jenkins
-  namespace: infra
+  namespace: jenkins
 spec:
   type: ClusterIP
   ports:
