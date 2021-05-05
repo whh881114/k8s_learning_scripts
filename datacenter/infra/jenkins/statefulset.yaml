@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: jenkins
-          image: harbor.freedom.org/docker.io/jenkins/jenkins:2.277.3-lts-centos7
+          image: harbor.freedom.org/roy/jenkins-centos7:latest
           imagePullPolicy: Always
           ports:
             - name: tcp8080
@@ -36,7 +36,15 @@ spec:
               memory: 1024Mi
           volumeMounts:
             - name: jenkins-data
-              mountPath: /var/jenkins_home
+              mountPath: /data
+            # `docker run docker`配置。
+            - name: docker-socket
+              mountPath: /var/run/docker.sock
+              readOnly: true
+      volumes:
+        - name: docker-socket
+          hostPath:
+            path: /var/run/docker.sock
   volumeClaimTemplates:
     - metadata:
         name: jenkins-data
