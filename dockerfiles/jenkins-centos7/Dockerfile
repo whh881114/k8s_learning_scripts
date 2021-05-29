@@ -2,7 +2,7 @@ FROM harbor.freedom.org/roy/common-centos7:latest
 
 LABEL AUTHOR="Wanghaohao"
 
-RUN rm -rf /etc/yum.repos.d/*
+RUN set -eux && rm -rf /etc/yum.repos.d/*
 
 ADD repos /etc/yum.repos.d/
 
