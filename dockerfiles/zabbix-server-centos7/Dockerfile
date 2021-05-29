@@ -7,6 +7,7 @@ USER 0
 # 增加告警脚本
 WORKDIR /usr/lib/zabbix/alertscripts
 ADD files/alertscripts .
-
 RUN set -eux && \
     chmod 755 /usr/lib/zabbix/alertscripts/*.sh
+
+WORKDIR /root
