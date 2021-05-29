@@ -22,8 +22,6 @@ spec:
           image: harbor.freedom.org/zabbix/zabbix-java-gateway:centos-4.0.17
         - name: zabbix-agent
           image: harbor.freedom.org/zabbix/zabbix-agent:centos-4.0.17
-          ports:
-            - containerPort: 10050
           env:
             - name: TZ
               value: Asia/Shanghai
