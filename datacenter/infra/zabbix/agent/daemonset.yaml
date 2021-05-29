@@ -31,7 +31,7 @@ spec:
               value: "zabbix-server.zabbix.svc.cluster.local.,192.168.2.0/24"
             - name: ZBX_TIMEOUT
               value: "30"
-            - name: ZBX_METADATAITEM
+            - name: ZBX_METADATA
               value: "system.uname"
           image: harbor.freedom.org/roy/zabbix-agent:4.0-centos-latest
           imagePullPolicy: Always
