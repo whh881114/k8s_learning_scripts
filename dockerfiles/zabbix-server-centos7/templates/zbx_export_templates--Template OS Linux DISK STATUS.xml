@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>4.0</version>
-    <date>2021-05-29T12:35:26Z</date>
+    <date>2021-05-29T13:02:21Z</date>
     <groups>
         <group>
             <name>Templates/Operating systems</name>
@@ -57,7 +57,7 @@
                     <description/>
                     <item_prototypes>
                         <item_prototype>
-                            <name>avgqu-sz</name>
+                            <name>平均每次设备I/O操作的数据大小 (扇区)</name>
                             <type>0</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -117,7 +117,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>avgrq-sz</name>
+                            <name>平均I/O队列长度</name>
                             <type>0</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -177,7 +177,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>await</name>
+                            <name>平均每次设备I/O操作的等待时间 (毫秒)</name>
                             <type>0</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -237,71 +237,11 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>r/s</name>
+                            <name>每秒读M字节数</name>
                             <type>0</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>disk.status[{#DISK_NAME}, r/s]</key>
-                            <delay>30s</delay>
-                            <history>90d</history>
-                            <trends>365d</trends>
-                            <status>0</status>
-                            <value_type>3</value_type>
-                            <allowed_hosts/>
-                            <units/>
-                            <snmpv3_contextname/>
-                            <snmpv3_securityname/>
-                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
-                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
-                            <snmpv3_authpassphrase/>
-                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
-                            <snmpv3_privpassphrase/>
-                            <params/>
-                            <ipmi_sensor/>
-                            <authtype>0</authtype>
-                            <username/>
-                            <password/>
-                            <publickey/>
-                            <privatekey/>
-                            <port/>
-                            <description/>
-                            <inventory_link>0</inventory_link>
-                            <applications>
-                                <application>
-                                    <name>DISK_STATUS</name>
-                                </application>
-                            </applications>
-                            <valuemap/>
-                            <logtimefmt/>
-                            <preprocessing/>
-                            <jmx_endpoint/>
-                            <timeout>3s</timeout>
-                            <url/>
-                            <query_fields/>
-                            <posts/>
-                            <status_codes>200</status_codes>
-                            <follow_redirects>1</follow_redirects>
-                            <post_type>0</post_type>
-                            <http_proxy/>
-                            <headers/>
-                            <retrieve_mode>0</retrieve_mode>
-                            <request_method>0</request_method>
-                            <output_format>0</output_format>
-                            <allow_traps>0</allow_traps>
-                            <ssl_cert_file/>
-                            <ssl_key_file/>
-                            <ssl_key_password/>
-                            <verify_peer>0</verify_peer>
-                            <verify_host>0</verify_host>
-                            <application_prototypes/>
-                            <master_item/>
-                        </item_prototype>
-                        <item_prototype>
-                            <name>rMB/s</name>
-                            <type>0</type>
-                            <snmp_community/>
-                            <snmp_oid/>
-                            <key>disk.status[{#DISK_NAME}, rMB/s]</key>
+                            <key>disk.status[{#DISK_NAME}, rMBps]</key>
                             <delay>30s</delay>
                             <history>90d</history>
                             <trends>365d</trends>
@@ -357,11 +297,71 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>rrqm/s</name>
+                            <name>每秒完成的读 I/O设备次数</name>
                             <type>0</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>disk.status[{#DISK_NAME}, rrqm/s]</key>
+                            <key>disk.status[{#DISK_NAME}, rps]</key>
+                            <delay>30s</delay>
+                            <history>90d</history>
+                            <trends>365d</trends>
+                            <status>0</status>
+                            <value_type>0</value_type>
+                            <allowed_hosts/>
+                            <units/>
+                            <snmpv3_contextname/>
+                            <snmpv3_securityname/>
+                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                            <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                            <snmpv3_privpassphrase/>
+                            <params/>
+                            <ipmi_sensor/>
+                            <authtype>0</authtype>
+                            <username/>
+                            <password/>
+                            <publickey/>
+                            <privatekey/>
+                            <port/>
+                            <description/>
+                            <inventory_link>0</inventory_link>
+                            <applications>
+                                <application>
+                                    <name>DISK_STATUS</name>
+                                </application>
+                            </applications>
+                            <valuemap/>
+                            <logtimefmt/>
+                            <preprocessing/>
+                            <jmx_endpoint/>
+                            <timeout>3s</timeout>
+                            <url/>
+                            <query_fields/>
+                            <posts/>
+                            <status_codes>200</status_codes>
+                            <follow_redirects>1</follow_redirects>
+                            <post_type>0</post_type>
+                            <http_proxy/>
+                            <headers/>
+                            <retrieve_mode>0</retrieve_mode>
+                            <request_method>0</request_method>
+                            <output_format>0</output_format>
+                            <allow_traps>0</allow_traps>
+                            <ssl_cert_file/>
+                            <ssl_key_file/>
+                            <ssl_key_password/>
+                            <verify_peer>0</verify_peer>
+                            <verify_host>0</verify_host>
+                            <application_prototypes/>
+                            <master_item/>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>每秒进行merge的读操作数目</name>
+                            <type>0</type>
+                            <snmp_community/>
+                            <snmp_oid/>
+                            <key>disk.status[{#DISK_NAME}, rrqmps]</key>
                             <delay>30s</delay>
                             <history>90d</history>
                             <trends>365d</trends>
@@ -417,7 +417,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>r_await</name>
+                            <name>平均每次设备I/O操作的读等待时间 (毫秒)</name>
                             <type>0</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -477,7 +477,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>svctm</name>
+                            <name>平均每次设备I/O操作的服务时间 (毫秒)</name>
                             <type>0</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -537,7 +537,7 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>util</name>
+                            <name>一秒中有百分之多少的时间用于I/O操作</name>
                             <type>0</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -597,71 +597,11 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>w/s</name>
+                            <name>每秒写M字节数</name>
                             <type>0</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>disk.status[{#DISK_NAME}, w/s]</key>
-                            <delay>30s</delay>
-                            <history>90d</history>
-                            <trends>365d</trends>
-                            <status>0</status>
-                            <value_type>3</value_type>
-                            <allowed_hosts/>
-                            <units/>
-                            <snmpv3_contextname/>
-                            <snmpv3_securityname/>
-                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
-                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
-                            <snmpv3_authpassphrase/>
-                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
-                            <snmpv3_privpassphrase/>
-                            <params/>
-                            <ipmi_sensor/>
-                            <authtype>0</authtype>
-                            <username/>
-                            <password/>
-                            <publickey/>
-                            <privatekey/>
-                            <port/>
-                            <description/>
-                            <inventory_link>0</inventory_link>
-                            <applications>
-                                <application>
-                                    <name>DISK_STATUS</name>
-                                </application>
-                            </applications>
-                            <valuemap/>
-                            <logtimefmt/>
-                            <preprocessing/>
-                            <jmx_endpoint/>
-                            <timeout>3s</timeout>
-                            <url/>
-                            <query_fields/>
-                            <posts/>
-                            <status_codes>200</status_codes>
-                            <follow_redirects>1</follow_redirects>
-                            <post_type>0</post_type>
-                            <http_proxy/>
-                            <headers/>
-                            <retrieve_mode>0</retrieve_mode>
-                            <request_method>0</request_method>
-                            <output_format>0</output_format>
-                            <allow_traps>0</allow_traps>
-                            <ssl_cert_file/>
-                            <ssl_key_file/>
-                            <ssl_key_password/>
-                            <verify_peer>0</verify_peer>
-                            <verify_host>0</verify_host>
-                            <application_prototypes/>
-                            <master_item/>
-                        </item_prototype>
-                        <item_prototype>
-                            <name>wMB/s</name>
-                            <type>0</type>
-                            <snmp_community/>
-                            <snmp_oid/>
-                            <key>disk.status[{#DISK_NAME}, wMB/s]</key>
+                            <key>disk.status[{#DISK_NAME}, wMBps]</key>
                             <delay>30s</delay>
                             <history>90d</history>
                             <trends>365d</trends>
@@ -717,11 +657,11 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>wrqm/s</name>
+                            <name>每秒完成的写I/O设备次数</name>
                             <type>0</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>disk.status[{#DISK_NAME}, wrqm/s]</key>
+                            <key>disk.status[{#DISK_NAME}, wps]</key>
                             <delay>30s</delay>
                             <history>90d</history>
                             <trends>365d</trends>
@@ -777,7 +717,67 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>w_await</name>
+                            <name>每秒进行merge的写操作数目</name>
+                            <type>0</type>
+                            <snmp_community/>
+                            <snmp_oid/>
+                            <key>disk.status[{#DISK_NAME}, wrqmps]</key>
+                            <delay>30s</delay>
+                            <history>90d</history>
+                            <trends>365d</trends>
+                            <status>0</status>
+                            <value_type>3</value_type>
+                            <allowed_hosts/>
+                            <units/>
+                            <snmpv3_contextname/>
+                            <snmpv3_securityname/>
+                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                            <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                            <snmpv3_privpassphrase/>
+                            <params/>
+                            <ipmi_sensor/>
+                            <authtype>0</authtype>
+                            <username/>
+                            <password/>
+                            <publickey/>
+                            <privatekey/>
+                            <port/>
+                            <description/>
+                            <inventory_link>0</inventory_link>
+                            <applications>
+                                <application>
+                                    <name>DISK_STATUS</name>
+                                </application>
+                            </applications>
+                            <valuemap/>
+                            <logtimefmt/>
+                            <preprocessing/>
+                            <jmx_endpoint/>
+                            <timeout>3s</timeout>
+                            <url/>
+                            <query_fields/>
+                            <posts/>
+                            <status_codes>200</status_codes>
+                            <follow_redirects>1</follow_redirects>
+                            <post_type>0</post_type>
+                            <http_proxy/>
+                            <headers/>
+                            <retrieve_mode>0</retrieve_mode>
+                            <request_method>0</request_method>
+                            <output_format>0</output_format>
+                            <allow_traps>0</allow_traps>
+                            <ssl_cert_file/>
+                            <ssl_key_file/>
+                            <ssl_key_password/>
+                            <verify_peer>0</verify_peer>
+                            <verify_host>0</verify_host>
+                            <application_prototypes/>
+                            <master_item/>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>平均每次设备I/O操作的写等待时间 (毫秒)</name>
                             <type>0</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -967,7 +967,7 @@
                                     <type>0</type>
                                     <item>
                                         <host>Template OS Linux Disk Status</host>
-                                        <key>disk.status[{#DISK_NAME}, wMB/s]</key>
+                                        <key>disk.status[{#DISK_NAME}, wMBps]</key>
                                     </item>
                                 </graph_item>
                                 <graph_item>
@@ -979,7 +979,7 @@
                                     <type>0</type>
                                     <item>
                                         <host>Template OS Linux Disk Status</host>
-                                        <key>disk.status[{#DISK_NAME}, w/s]</key>
+                                        <key>disk.status[{#DISK_NAME}, wps]</key>
                                     </item>
                                 </graph_item>
                                 <graph_item>
@@ -991,7 +991,7 @@
                                     <type>0</type>
                                     <item>
                                         <host>Template OS Linux Disk Status</host>
-                                        <key>disk.status[{#DISK_NAME}, r/s]</key>
+                                        <key>disk.status[{#DISK_NAME}, rps]</key>
                                     </item>
                                 </graph_item>
                                 <graph_item>
@@ -1003,7 +1003,7 @@
                                     <type>0</type>
                                     <item>
                                         <host>Template OS Linux Disk Status</host>
-                                        <key>disk.status[{#DISK_NAME}, rMB/s]</key>
+                                        <key>disk.status[{#DISK_NAME}, rMBps]</key>
                                     </item>
                                 </graph_item>
                                 <graph_item>
@@ -1015,7 +1015,7 @@
                                     <type>0</type>
                                     <item>
                                         <host>Template OS Linux Disk Status</host>
-                                        <key>disk.status[{#DISK_NAME}, wrqm/s]</key>
+                                        <key>disk.status[{#DISK_NAME}, wrqmps]</key>
                                     </item>
                                 </graph_item>
                                 <graph_item>
@@ -1027,7 +1027,7 @@
                                     <type>0</type>
                                     <item>
                                         <host>Template OS Linux Disk Status</host>
-                                        <key>disk.status[{#DISK_NAME}, rrqm/s]</key>
+                                        <key>disk.status[{#DISK_NAME}, rrqmps]</key>
                                     </item>
                                 </graph_item>
                             </graph_items>
