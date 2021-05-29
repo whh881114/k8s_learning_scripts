@@ -32,22 +32,22 @@
 Device=$1
 METRIC=$2
 case $METRIC in
-         rrqm/s)
+         rrqmps)
             iostat -xmt | grep "\b$Device\b" | awk '{print $2}'
             ;;
-         wrqm/s)
+         wrqmps)
             iostat -xmt | grep "\b$Device\b" | awk '{print $3}'
             ;;
-          r/s)
+          rps)
             iostat -xmt | grep "\b$Device\b" | awk '{print $4}'
             ;;
-          w/s)
+          wps)
             iostat -xmt | grep "\b$Device\b" | awk '{print $5}'
             ;;
-        rMB/s)
+        rMBps)
             iostat -xmt | grep "\b$Device\b" | awk '{print $6}'
             ;;
-        wMB/s)
+        wMBps)
             iostat -xmt | grep "\b$Device\b" | awk '{print $7}'
             ;;
         avgrq-sz)
