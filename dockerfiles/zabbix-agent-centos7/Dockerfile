@@ -12,4 +12,6 @@ RUN set -eux && \
 
 RUN set -eux && \
     yum -y install iproute \
-                   net-tools
+                   net-tools \
+                   telnet \
+                   nc
