@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>4.0</version>
-    <date>2021-01-04T09:33:20Z</date>
+    <date>2021-05-29T12:35:26Z</date>
     <groups>
         <group>
             <name>Templates/Operating systems</name>
@@ -9,8 +9,8 @@
     </groups>
     <templates>
         <template>
-            <template>Template OS Linux DISK STATUS</template>
-            <name>Template OS Linux DISK STATUS</name>
+            <template>Template OS Linux Disk Status</template>
+            <name>Template OS Linux Disk Status</name>
             <description/>
             <groups>
                 <group>
@@ -237,71 +237,11 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>rKBps</name>
+                            <name>r/s</name>
                             <type>0</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>disk.status[{#DISK_NAME}, rKBps]</key>
-                            <delay>30s</delay>
-                            <history>90d</history>
-                            <trends>365d</trends>
-                            <status>0</status>
-                            <value_type>0</value_type>
-                            <allowed_hosts/>
-                            <units>KBps</units>
-                            <snmpv3_contextname/>
-                            <snmpv3_securityname/>
-                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
-                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
-                            <snmpv3_authpassphrase/>
-                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
-                            <snmpv3_privpassphrase/>
-                            <params/>
-                            <ipmi_sensor/>
-                            <authtype>0</authtype>
-                            <username/>
-                            <password/>
-                            <publickey/>
-                            <privatekey/>
-                            <port/>
-                            <description/>
-                            <inventory_link>0</inventory_link>
-                            <applications>
-                                <application>
-                                    <name>DISK_STATUS</name>
-                                </application>
-                            </applications>
-                            <valuemap/>
-                            <logtimefmt/>
-                            <preprocessing/>
-                            <jmx_endpoint/>
-                            <timeout>3s</timeout>
-                            <url/>
-                            <query_fields/>
-                            <posts/>
-                            <status_codes>200</status_codes>
-                            <follow_redirects>1</follow_redirects>
-                            <post_type>0</post_type>
-                            <http_proxy/>
-                            <headers/>
-                            <retrieve_mode>0</retrieve_mode>
-                            <request_method>0</request_method>
-                            <output_format>0</output_format>
-                            <allow_traps>0</allow_traps>
-                            <ssl_cert_file/>
-                            <ssl_key_file/>
-                            <ssl_key_password/>
-                            <verify_peer>0</verify_peer>
-                            <verify_host>0</verify_host>
-                            <application_prototypes/>
-                            <master_item/>
-                        </item_prototype>
-                        <item_prototype>
-                            <name>rps</name>
-                            <type>0</type>
-                            <snmp_community/>
-                            <snmp_oid/>
-                            <key>disk.status[{#DISK_NAME}, rps]</key>
+                            <key>disk.status[{#DISK_NAME}, r/s]</key>
                             <delay>30s</delay>
                             <history>90d</history>
                             <trends>365d</trends>
@@ -357,16 +297,76 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>rrqm</name>
+                            <name>rMB/s</name>
                             <type>0</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>disk.status[{#DISK_NAME}, rrqm]</key>
+                            <key>disk.status[{#DISK_NAME}, rMB/s]</key>
                             <delay>30s</delay>
                             <history>90d</history>
                             <trends>365d</trends>
                             <status>0</status>
                             <value_type>0</value_type>
+                            <allowed_hosts/>
+                            <units>MB/s</units>
+                            <snmpv3_contextname/>
+                            <snmpv3_securityname/>
+                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                            <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                            <snmpv3_privpassphrase/>
+                            <params/>
+                            <ipmi_sensor/>
+                            <authtype>0</authtype>
+                            <username/>
+                            <password/>
+                            <publickey/>
+                            <privatekey/>
+                            <port/>
+                            <description/>
+                            <inventory_link>0</inventory_link>
+                            <applications>
+                                <application>
+                                    <name>DISK_STATUS</name>
+                                </application>
+                            </applications>
+                            <valuemap/>
+                            <logtimefmt/>
+                            <preprocessing/>
+                            <jmx_endpoint/>
+                            <timeout>3s</timeout>
+                            <url/>
+                            <query_fields/>
+                            <posts/>
+                            <status_codes>200</status_codes>
+                            <follow_redirects>1</follow_redirects>
+                            <post_type>0</post_type>
+                            <http_proxy/>
+                            <headers/>
+                            <retrieve_mode>0</retrieve_mode>
+                            <request_method>0</request_method>
+                            <output_format>0</output_format>
+                            <allow_traps>0</allow_traps>
+                            <ssl_cert_file/>
+                            <ssl_key_file/>
+                            <ssl_key_password/>
+                            <verify_peer>0</verify_peer>
+                            <verify_host>0</verify_host>
+                            <application_prototypes/>
+                            <master_item/>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>rrqm/s</name>
+                            <type>0</type>
+                            <snmp_community/>
+                            <snmp_oid/>
+                            <key>disk.status[{#DISK_NAME}, rrqm/s]</key>
+                            <delay>30s</delay>
+                            <history>90d</history>
+                            <trends>365d</trends>
+                            <status>0</status>
+                            <value_type>3</value_type>
                             <allowed_hosts/>
                             <units/>
                             <snmpv3_contextname/>
@@ -597,71 +597,11 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>wKBps</name>
+                            <name>w/s</name>
                             <type>0</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>disk.status[{#DISK_NAME}, wKBps]</key>
-                            <delay>30s</delay>
-                            <history>90d</history>
-                            <trends>365d</trends>
-                            <status>0</status>
-                            <value_type>0</value_type>
-                            <allowed_hosts/>
-                            <units>KBps</units>
-                            <snmpv3_contextname/>
-                            <snmpv3_securityname/>
-                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
-                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
-                            <snmpv3_authpassphrase/>
-                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
-                            <snmpv3_privpassphrase/>
-                            <params/>
-                            <ipmi_sensor/>
-                            <authtype>0</authtype>
-                            <username/>
-                            <password/>
-                            <publickey/>
-                            <privatekey/>
-                            <port/>
-                            <description/>
-                            <inventory_link>0</inventory_link>
-                            <applications>
-                                <application>
-                                    <name>DISK_STATUS</name>
-                                </application>
-                            </applications>
-                            <valuemap/>
-                            <logtimefmt/>
-                            <preprocessing/>
-                            <jmx_endpoint/>
-                            <timeout>3s</timeout>
-                            <url/>
-                            <query_fields/>
-                            <posts/>
-                            <status_codes>200</status_codes>
-                            <follow_redirects>1</follow_redirects>
-                            <post_type>0</post_type>
-                            <http_proxy/>
-                            <headers/>
-                            <retrieve_mode>0</retrieve_mode>
-                            <request_method>0</request_method>
-                            <output_format>0</output_format>
-                            <allow_traps>0</allow_traps>
-                            <ssl_cert_file/>
-                            <ssl_key_file/>
-                            <ssl_key_password/>
-                            <verify_peer>0</verify_peer>
-                            <verify_host>0</verify_host>
-                            <application_prototypes/>
-                            <master_item/>
-                        </item_prototype>
-                        <item_prototype>
-                            <name>wps</name>
-                            <type>0</type>
-                            <snmp_community/>
-                            <snmp_oid/>
-                            <key>disk.status[{#DISK_NAME}, wps]</key>
+                            <key>disk.status[{#DISK_NAME}, w/s]</key>
                             <delay>30s</delay>
                             <history>90d</history>
                             <trends>365d</trends>
@@ -717,16 +657,76 @@
                             <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>wrqm</name>
+                            <name>wMB/s</name>
                             <type>0</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>disk.status[{#DISK_NAME}, wrqm]</key>
+                            <key>disk.status[{#DISK_NAME}, wMB/s]</key>
                             <delay>30s</delay>
                             <history>90d</history>
                             <trends>365d</trends>
                             <status>0</status>
                             <value_type>0</value_type>
+                            <allowed_hosts/>
+                            <units>MB/s</units>
+                            <snmpv3_contextname/>
+                            <snmpv3_securityname/>
+                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                            <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                            <snmpv3_privpassphrase/>
+                            <params/>
+                            <ipmi_sensor/>
+                            <authtype>0</authtype>
+                            <username/>
+                            <password/>
+                            <publickey/>
+                            <privatekey/>
+                            <port/>
+                            <description/>
+                            <inventory_link>0</inventory_link>
+                            <applications>
+                                <application>
+                                    <name>DISK_STATUS</name>
+                                </application>
+                            </applications>
+                            <valuemap/>
+                            <logtimefmt/>
+                            <preprocessing/>
+                            <jmx_endpoint/>
+                            <timeout>3s</timeout>
+                            <url/>
+                            <query_fields/>
+                            <posts/>
+                            <status_codes>200</status_codes>
+                            <follow_redirects>1</follow_redirects>
+                            <post_type>0</post_type>
+                            <http_proxy/>
+                            <headers/>
+                            <retrieve_mode>0</retrieve_mode>
+                            <request_method>0</request_method>
+                            <output_format>0</output_format>
+                            <allow_traps>0</allow_traps>
+                            <ssl_cert_file/>
+                            <ssl_key_file/>
+                            <ssl_key_password/>
+                            <verify_peer>0</verify_peer>
+                            <verify_host>0</verify_host>
+                            <application_prototypes/>
+                            <master_item/>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>wrqm/s</name>
+                            <type>0</type>
+                            <snmp_community/>
+                            <snmp_oid/>
+                            <key>disk.status[{#DISK_NAME}, wrqm/s]</key>
+                            <delay>30s</delay>
+                            <history>90d</history>
+                            <trends>365d</trends>
+                            <status>0</status>
+                            <value_type>3</value_type>
                             <allowed_hosts/>
                             <units/>
                             <snmpv3_contextname/>
@@ -839,7 +839,7 @@
                     </item_prototypes>
                     <trigger_prototypes>
                         <trigger_prototype>
-                            <expression>{Template OS Linux DISK STATUS:disk.status[{#DISK_NAME}, util].last(#1,3)}&gt;=80</expression>
+                            <expression>{Template OS Linux Disk Status:disk.status[{#DISK_NAME}, util].last(#1,3)}&gt;=80</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>Too busy on {#DISK_NAME} disk of {HOST.NAME}.</name>
@@ -882,7 +882,7 @@
                                     <calc_fnc>2</calc_fnc>
                                     <type>0</type>
                                     <item>
-                                        <host>Template OS Linux DISK STATUS</host>
+                                        <host>Template OS Linux Disk Status</host>
                                         <key>disk.status[{#DISK_NAME}, util]</key>
                                     </item>
                                 </graph_item>
@@ -894,7 +894,7 @@
                                     <calc_fnc>2</calc_fnc>
                                     <type>0</type>
                                     <item>
-                                        <host>Template OS Linux DISK STATUS</host>
+                                        <host>Template OS Linux Disk Status</host>
                                         <key>disk.status[{#DISK_NAME}, avgqu-sz]</key>
                                     </item>
                                 </graph_item>
@@ -906,7 +906,7 @@
                                     <calc_fnc>2</calc_fnc>
                                     <type>0</type>
                                     <item>
-                                        <host>Template OS Linux DISK STATUS</host>
+                                        <host>Template OS Linux Disk Status</host>
                                         <key>disk.status[{#DISK_NAME}, w_await]</key>
                                     </item>
                                 </graph_item>
@@ -918,7 +918,7 @@
                                     <calc_fnc>2</calc_fnc>
                                     <type>0</type>
                                     <item>
-                                        <host>Template OS Linux DISK STATUS</host>
+                                        <host>Template OS Linux Disk Status</host>
                                         <key>disk.status[{#DISK_NAME}, avgrq-sz]</key>
                                     </item>
                                 </graph_item>
@@ -930,7 +930,7 @@
                                     <calc_fnc>2</calc_fnc>
                                     <type>0</type>
                                     <item>
-                                        <host>Template OS Linux DISK STATUS</host>
+                                        <host>Template OS Linux Disk Status</host>
                                         <key>disk.status[{#DISK_NAME}, svctm]</key>
                                     </item>
                                 </graph_item>
@@ -942,7 +942,7 @@
                                     <calc_fnc>2</calc_fnc>
                                     <type>0</type>
                                     <item>
-                                        <host>Template OS Linux DISK STATUS</host>
+                                        <host>Template OS Linux Disk Status</host>
                                         <key>disk.status[{#DISK_NAME}, await]</key>
                                     </item>
                                 </graph_item>
@@ -954,7 +954,7 @@
                                     <calc_fnc>2</calc_fnc>
                                     <type>0</type>
                                     <item>
-                                        <host>Template OS Linux DISK STATUS</host>
+                                        <host>Template OS Linux Disk Status</host>
                                         <key>disk.status[{#DISK_NAME}, r_await]</key>
                                     </item>
                                 </graph_item>
@@ -966,8 +966,8 @@
                                     <calc_fnc>2</calc_fnc>
                                     <type>0</type>
                                     <item>
-                                        <host>Template OS Linux DISK STATUS</host>
-                                        <key>disk.status[{#DISK_NAME}, wKBps]</key>
+                                        <host>Template OS Linux Disk Status</host>
+                                        <key>disk.status[{#DISK_NAME}, wMB/s]</key>
                                     </item>
                                 </graph_item>
                                 <graph_item>
@@ -978,8 +978,8 @@
                                     <calc_fnc>2</calc_fnc>
                                     <type>0</type>
                                     <item>
-                                        <host>Template OS Linux DISK STATUS</host>
-                                        <key>disk.status[{#DISK_NAME}, wps]</key>
+                                        <host>Template OS Linux Disk Status</host>
+                                        <key>disk.status[{#DISK_NAME}, w/s]</key>
                                     </item>
                                 </graph_item>
                                 <graph_item>
@@ -990,8 +990,8 @@
                                     <calc_fnc>2</calc_fnc>
                                     <type>0</type>
                                     <item>
-                                        <host>Template OS Linux DISK STATUS</host>
-                                        <key>disk.status[{#DISK_NAME}, rps]</key>
+                                        <host>Template OS Linux Disk Status</host>
+                                        <key>disk.status[{#DISK_NAME}, r/s]</key>
                                     </item>
                                 </graph_item>
                                 <graph_item>
@@ -1002,8 +1002,8 @@
                                     <calc_fnc>2</calc_fnc>
                                     <type>0</type>
                                     <item>
-                                        <host>Template OS Linux DISK STATUS</host>
-                                        <key>disk.status[{#DISK_NAME}, rKBps]</key>
+                                        <host>Template OS Linux Disk Status</host>
+                                        <key>disk.status[{#DISK_NAME}, rMB/s]</key>
                                     </item>
                                 </graph_item>
                                 <graph_item>
@@ -1014,8 +1014,8 @@
                                     <calc_fnc>2</calc_fnc>
                                     <type>0</type>
                                     <item>
-                                        <host>Template OS Linux DISK STATUS</host>
-                                        <key>disk.status[{#DISK_NAME}, wrqm]</key>
+                                        <host>Template OS Linux Disk Status</host>
+                                        <key>disk.status[{#DISK_NAME}, wrqm/s]</key>
                                     </item>
                                 </graph_item>
                                 <graph_item>
@@ -1026,8 +1026,8 @@
                                     <calc_fnc>2</calc_fnc>
                                     <type>0</type>
                                     <item>
-                                        <host>Template OS Linux DISK STATUS</host>
-                                        <key>disk.status[{#DISK_NAME}, rrqm]</key>
+                                        <host>Template OS Linux Disk Status</host>
+                                        <key>disk.status[{#DISK_NAME}, rrqm/s]</key>
                                     </item>
                                 </graph_item>
                             </graph_items>
