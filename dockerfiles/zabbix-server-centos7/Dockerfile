@@ -8,6 +8,6 @@ USER 0
 WORKDIR /usr/lib/zabbix/alertscripts
 ADD files/alertscripts .
 RUN set -eux && \
-    chmod 755 /usr/lib/zabbix/alertscripts/*.sh
+    chmod 755 /usr/lib/zabbix/alertscripts/personal_cloud_robot.sh
 
 WORKDIR /root
