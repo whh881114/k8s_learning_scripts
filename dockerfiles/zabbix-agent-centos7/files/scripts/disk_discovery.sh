@@ -1,6 +1,6 @@
 #!/bin/bash
 
-diskarray=(`cat /proc/diskstats |grep -E "\bsd[a-z]\b|\bxvd[a-z]\b|\bvd[a-z]\b"|awk '{print $3}'|sort|uniq  2>/dev/null`)
+diskarray=(`cat /proc/diskstats | grep -E "\bsd[a-z]\b|\bxvd[a-z]\b|\bvd[a-z]\b" | awk '{print $3}' | sort | uniq  2>/dev/null`)
 length=${#diskarray[@]}
 
 printf "{\n"
