@@ -19,4 +19,5 @@ RUN set -eux && \
                    vim \
                    dos2unix \
                    unix2dos \
-                   tree
+                   tree \
+                   git
