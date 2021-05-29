@@ -68,7 +68,7 @@ case $METRIC in
         svctm)
             iostat -xmt | grep "\b$Device\b" | awk '{print $13}'
             ;;
-        %util)
+        util)
             iostat -xmt | grep "\b$Device\b" | awk '{print $14}'
             ;;
 esac
