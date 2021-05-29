@@ -45,17 +45,5 @@ spec:
             requests:
               cpu: 100m
               memory: 50Mi
-          volumeMounts:
-            - name: zabbix-agent-conf
-              mountPath: /etc/zabbix/zabbix_agentd.d
-            - name: zabbix-agent-scripts
-              mountPath: /etc/zabbix/scripts
-      volumes:
-        - name: zabbix-agent-conf
-          configMap:
-            name: zabbix-agent-conf
-        - name: zabbix-agent-scripts
-          configMap:
-            name: zabbix-agent-scripts
       hostNetwork: true
       dnsPolicy: ClusterFirstWithHostNet
