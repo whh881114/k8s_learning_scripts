@@ -33,15 +33,15 @@ spec:
               value: "30"
             - name: ZBX_METADATAITEM
               value: "system.uname"
-          image: harbor.freedom.org/lab/zabbix/zabbix-agent-centos7:4.0.27
+          image: harbor.freedom.org/roy/zabbix-agent:4.0-centos-latest
           imagePullPolicy: Always
           ports:
             - containerPort: 10050 #使用hostport方式暴露地址
               hostPort: 10050
           resources:
             limits:
-              cpu: 200m
-              memory: 100Mi
+              cpu: 500m
+              memory: 512Mi
             requests:
               cpu: 100m
               memory: 50Mi
