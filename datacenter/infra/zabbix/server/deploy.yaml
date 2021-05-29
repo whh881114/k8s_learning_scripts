@@ -20,21 +20,21 @@ spec:
           image: harbor.freedom.org/zabbix/zabbix-snmptraps:centos-4.0.17
         - name: zabbix-java-gateway
           image: harbor.freedom.org/zabbix/zabbix-java-gateway:centos-4.0.17
-        - name: zabbix-agent
-          image: harbor.freedom.org/zabbix/zabbix-agent:centos-4.0.17
-          env:
-            - name: TZ
-              value: Asia/Shanghai
-            - name: ZBX_SERVER_HOST
-              valueFrom:
-                configMapKeyRef:
-                  name: zabbix-server-vars
-                  key: ZBX_SERVER_HOST
-            - name: ZBX_SERVER_PORT
-              valueFrom:
-                configMapKeyRef:
-                  name: zabbix-server-vars
-                  key: ZBX_SERVER_PORT
+#        - name: zabbix-agent
+#          image: harbor.freedom.org/zabbix/zabbix-agent:centos-4.0.17
+#          env:
+#            - name: TZ
+#              value: Asia/Shanghai
+#            - name: ZBX_SERVER_HOST
+#              valueFrom:
+#                configMapKeyRef:
+#                  name: zabbix-server-vars
+#                  key: ZBX_SERVER_HOST
+#            - name: ZBX_SERVER_PORT
+#              valueFrom:
+#                configMapKeyRef:
+#                  name: zabbix-server-vars
+#                  key: ZBX_SERVER_PORT
         - name: zabbix-server
           image: harbor.freedom.org/zabbix/zabbix-server-mysql:centos-4.0.17
           resources:
