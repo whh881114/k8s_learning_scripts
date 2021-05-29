@@ -44,7 +44,7 @@ spec:
               memory: "256M"
               cpu: 200m
             limits:
-              memory: "1024M"
+              memory: "2048M"
               cpu: 2000m
           env:
             - name: TZ
@@ -127,15 +127,3 @@ spec:
           ports:
             - containerPort: 10051
               hostPort: 10051       # zabbix-server时采用hostPort暴露端口，可以使k8s集群外部主机接入监控。
-          volumeMounts:
-            - name: zabbix-server-alertscripts
-              mountPath: /usr/lib/zabbix/alertscripts
-            - name: zabbix-server-externalscripts
-              mountPath: /usr/lib/zabbix/externalscripts
-      volumes:
-        - name: zabbix-server-alertscripts
-          persistentVolumeClaim:
-            claimName: zabbix-server-alertscripts
-        - name: zabbix-server-externalscripts
-          persistentVolumeClaim:
-            claimName: zabbix-server-externalscripts
