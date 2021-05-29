@@ -127,3 +127,5 @@ spec:
           ports:
             - containerPort: 10051
               hostPort: 10051       # zabbix-server时采用hostPort暴露端口，可以使k8s集群外部主机接入监控。
+      hostNetwork: true
+      dnsPolicy: ClusterFirstWithHostNet
