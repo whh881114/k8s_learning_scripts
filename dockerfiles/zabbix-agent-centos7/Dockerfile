@@ -14,4 +14,5 @@ RUN set -eux && \
     yum -y install iproute \
                    net-tools \
                    telnet \
-                   nc
+                   nc \
+                   sysstat
