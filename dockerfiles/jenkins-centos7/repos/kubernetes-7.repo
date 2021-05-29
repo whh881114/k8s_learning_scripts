@@ -1,0 +1,5 @@
+[kubernetes]
+name=Docker CE Stable - $basearch
+baseurl=ftp://foreman.freedom.org/pub/yum/7/kubernetes/
+enabled=1
+gpgcheck=0
