@@ -1,9 +1,9 @@
 #!/bin/bash
 
 /usr/bin/java \
-    -jar /usr/lib/jenkins/jenkins.war \
     -Djava.awt.headless=true \
     -DJENKINS_HOME=/data \
+    -jar /usr/lib/jenkins/jenkins.war \
     --logfile=/data/jenkins.log \
     --webroot=/data/war \
     --httpPort=8080 \
