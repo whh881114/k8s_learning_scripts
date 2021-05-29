@@ -15,6 +15,8 @@ spec:
       labels:
         name: zabbix-server
     spec:
+      nodeSelector:
+        kubernetes.io/hostname: master01.k8s.freedom.org
       containers:
         - name: zabbix-snmptraps
           image: harbor.freedom.org/zabbix/zabbix-snmptraps:centos-4.0.17
