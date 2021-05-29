@@ -24,11 +24,11 @@ spec:
                 fieldRef:
                   fieldPath: spec.nodeName
             - name: ZBX_SERVER_NAME
-              value: "zabbix-server.zabbix.svc.cluster.local."
+              value: "master01.k8s.freedom.org"
             - name: ZBX_ACTIVESERVERS
-              value: "zabbix-server.zabbix.svc.cluster.local."
+              value: "master01.k8s.freedom.org"
             - name: ZBX_PASSIVESERVERS
-              value: "zabbix-server.zabbix.svc.cluster.local.,192.168.2.0/24"
+              value: "master01.k8s.freedom.org,192.168.2.0/24"
             - name: ZBX_TIMEOUT
               value: "30"
             - name: ZBX_METADATAITEM
