@@ -19,7 +19,6 @@ WORKDIR /root
 VOLUME /data
 
 EXPOSE 8080
-EXPOSE 50000
 
 ADD entrypoint.sh /
 
