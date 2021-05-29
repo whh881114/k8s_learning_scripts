@@ -40,7 +40,7 @@ spec:
                   name: zabbix-server-vars
                   key: ZBX_SERVER_PORT
         - name: zabbix-server
-          image: harbor.freedom.org/roy/zabbix/zabbix-server-mysql:latest
+          image: harbor.freedom.org/zabbix/zabbix-server-mysql:centos-4.0.17
           resources:
             requests:
               memory: "256M"
@@ -129,3 +129,11 @@ spec:
           ports:
             - containerPort: 10051
               hostPort: 10051       # zabbix-server时采用hostPort暴露端口，可以使k8s集群外部主机接入监控。
+          volumeMounts:
+            - name: zabbix-server-alertscripts
+              mountPath: /usr/lib/zabbix/alertscripts
+      volumes:
+        - name: zabbix-server-alertscripts
+          configMap:
+            name: zabbix-server-alertscripts
+            defaultMode: 0755
