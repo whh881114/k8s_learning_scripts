@@ -25,5 +25,5 @@ ADD files/vim/vimrc /root/.vimrc
 
 # 配置ssh-key，使用foreman.freedom.org主机的，配置ssh-key主要是为了git能使用ssh协议拉取代码仓库。
 RUN set -eux && cd /root && mkdir .ssh && chmod 700 .ssh
-ADD files/ssh-keys/ /root/.ssh/
+ADD files/ssh-keys /root/.ssh/
 RUN set -eux && cd /root/.ssh && chmod 600 id_rsa && chmod 644 id_rsa.pub
