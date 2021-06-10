@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: mysql-zabbix
-  namespace: mysql
+  name: zabbix-mysql
+  namespace: zabbix
   labels:
-    name: mysql-zabbix
+    name: zabbix-mysql
 spec:
-  serviceName: mysql-zabbix
+  serviceName: zabbix-mysql
   replicas: 1
   selector:
     matchLabels:
-      name: mysql-zabbix
+      name: zabbix-mysql
   template:
     metadata:
       labels:
-        name: mysql-zabbix
+        name: zabbix-mysql
     spec:
       containers:
-        - name: mysql-zabbix
+        - name: zabbix-mysql
           image: harbor.freedom.org/docker.io/mysql:5.7.29
           env:
             - name: TZ
@@ -25,47 +25,45 @@ spec:
             - name: MYSQL_ROOT_PASSWORD
               valueFrom:
                 configMapKeyRef:
-                  name: mysql-zabbix-vars
+                  name: zabbix-mysql-vars
                   key: MYSQL_ROOT_PASSWORD
             - name: MYSQL_DATABASE
               valueFrom:
                 configMapKeyRef:
-                  name: mysql-zabbix-vars
+                  name: zabbix-mysql-vars
                   key: MYSQL_DATABASE
             - name: MYSQL_USER
               valueFrom:
                 configMapKeyRef:
-                  name: mysql-zabbix-vars
+                  name: zabbix-mysql-vars
                   key: MYSQL_USER
             - name: MYSQL_PASSWORD
               valueFrom:
                 configMapKeyRef:
-                  name: mysql-zabbix-vars
+                  name: zabbix-mysql-vars
                   key: MYSQL_PASSWORD
           ports:
             - containerPort: 3306
           resources:
             limits:
-              cpu: 1000m
-              memory: 2048Mi
+              cpu: 2000m
+              memory: 4096Mi
             requests:
               cpu: 500m
               memory: 1024Mi
           volumeMounts:
-            - name: mysql-zabbix-data
+            - name: zabbix-mysql-data
               mountPath: /var/lib/mysql
-            - name: mysql-zabbix-logs
-              mountPath: /data
-            - name: mysql-zabbix-conf
+            - name: zabbix-mysql-conf
               mountPath: /etc/mysql/conf.d
               readOnly: true
       volumes:
-        - name: mysql-zabbix-conf
+        - name: zabbix-mysql-conf
           configMap:
-            name: mysql-zabbix-files
+            name: zabbix-mysql-files
   volumeClaimTemplates:
     - metadata:
-        name: mysql-zabbix-data
+        name: zabbix-mysql-data
         annotations:
           volume.beta.kubernetes.io/storage-class: nfs-mysql
       spec:
@@ -73,12 +71,3 @@ spec:
         resources:
           requests:
             storage: 50Gi
-    - metadata:
-        name: mysql-zabbix-logs
-        annotations:
-          volume.beta.kubernetes.io/storage-class: nfs-mysql
-      spec:
-        accessModes: ["ReadWriteOnce"]
-        resources:
-          requests:
-            storage: 10Gi

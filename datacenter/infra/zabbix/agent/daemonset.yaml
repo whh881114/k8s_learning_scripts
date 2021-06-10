@@ -24,38 +24,26 @@ spec:
                 fieldRef:
                   fieldPath: spec.nodeName
             - name: ZBX_SERVER_NAME
-              value: "127.0.0.1,zabbix-server.zabbix.svc.cluster.local."
+              value: "master01.k8s.freedom.org"
             - name: ZBX_ACTIVESERVERS
-              value: "127.0.0.1,zabbix-server.zabbix.svc.cluster.local."
+              value: "master01.k8s.freedom.org"
             - name: ZBX_PASSIVESERVERS
-              value: "127.0.0.1,zabbix-server.zabbix.svc.cluster.local.,192.168.2.0/24"
+              value: "master01.k8s.freedom.org,192.168.2.0/24"
             - name: ZBX_TIMEOUT
               value: "30"
             - name: ZBX_METADATAITEM
               value: "system.uname"
-          image: harbor.freedom.org/lab/zabbix/zabbix-agent-centos7:4.0.27
+          image: harbor.freedom.org/roy/zabbix-agent:4.0-centos-latest
           imagePullPolicy: Always
           ports:
             - containerPort: 10050 #使用hostport方式暴露地址
               hostPort: 10050
           resources:
             limits:
-              cpu: 200m
-              memory: 100Mi
+              cpu: 500m
+              memory: 512Mi
             requests:
               cpu: 100m
               memory: 50Mi
-          volumeMounts:
-            - name: zabbix-agent-conf
-              mountPath: /etc/zabbix/zabbix_agentd.d
-            - name: zabbix-agent-scripts
-              mountPath: /etc/zabbix/scripts
-      volumes:
-        - name: zabbix-agent-conf
-          configMap:
-            name: zabbix-agent-conf
-        - name: zabbix-agent-scripts
-          configMap:
-            name: zabbix-agent-scripts
       hostNetwork: true
       dnsPolicy: ClusterFirstWithHostNet

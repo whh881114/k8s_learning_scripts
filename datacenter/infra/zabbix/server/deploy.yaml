@@ -15,6 +15,8 @@ spec:
       labels:
         name: zabbix-server
     spec:
+      nodeSelector:
+        kubernetes.io/hostname: master01.k8s.freedom.org
       containers:
         - name: zabbix-snmptraps
           image: harbor.freedom.org/zabbix/zabbix-snmptraps:centos-4.0.17
@@ -44,7 +46,7 @@ spec:
               memory: "256M"
               cpu: 200m
             limits:
-              memory: "1024M"
+              memory: "2048M"
               cpu: 2000m
           env:
             - name: TZ
@@ -130,12 +132,8 @@ spec:
           volumeMounts:
             - name: zabbix-server-alertscripts
               mountPath: /usr/lib/zabbix/alertscripts
-            - name: zabbix-server-externalscripts
-              mountPath: /usr/lib/zabbix/externalscripts
       volumes:
         - name: zabbix-server-alertscripts
-          persistentVolumeClaim:
-            claimName: zabbix-server-alertscripts
-        - name: zabbix-server-externalscripts
-          persistentVolumeClaim:
-            claimName: zabbix-server-externalscripts
+          configMap:
+            name: zabbix-server-alertscripts
+            defaultMode: 0755
