@@ -3,6 +3,6 @@ FROM mysql:5.7.34
 
 LABEL MAINTAINER="Wanghaohao"
 
-ENV MYSQL_ROOT_PASSWORD "IamMySQL5.7.34"
+ENV MYSQL_ROOT_PASSWORD "7ytssvOpbjk2bxzxnahmpshyfBx=ahse"
 
 COPY my.cnf /etc/mysql/conf.d
